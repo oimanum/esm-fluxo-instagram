@@ -1,0 +1,16 @@
+name: Preparar ambiente
+description: Node, ffmpeg, fonte e edge-tts
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    - shell: bash
+      run: |
+        sudo apt-get update -y
+        sudo apt-get install -y ffmpeg fonts-dejavu-core
+        pip install edge-tts

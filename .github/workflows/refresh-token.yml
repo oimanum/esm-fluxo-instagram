@@ -1,0 +1,28 @@
+name: refresh-token
+on:
+  schedule:
+    - cron: '0 12 1,15 * *' # a cada ~15 dias; o token dura 60
+  workflow_dispatch:
+concurrency: instagram-state
+permissions:
+  contents: write
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - env:
+          TG_TOKEN: ${{ secrets.TG_TOKEN }}
+          TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          GH_ADMIN_TOKEN: ${{ secrets.GH_ADMIN_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: node src/cli.js refresh
+      - run: |
+          git config user.name "esm-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data
+          git diff --cached --quiet || (git commit -m "chore: validade do token" && git push)

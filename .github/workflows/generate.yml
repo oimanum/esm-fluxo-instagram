@@ -1,0 +1,33 @@
+name: generate
+on:
+  schedule:
+    - cron: '0 9 * * *' # 06:00 em Brasília
+  workflow_dispatch:
+    inputs:
+      dry:
+        description: 'Só gerar a prévia, sem publicar'
+        type: boolean
+        default: true
+concurrency: instagram-state
+permissions:
+  contents: write
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - name: Gerar conteúdo e enviar prévia
+        env:
+          GEMINI_KEY: ${{ secrets.GEMINI_KEY }}
+          TG_TOKEN: ${{ secrets.TG_TOKEN }}
+          TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+        run: node src/cli.js generate ${{ inputs.dry && '--dry' || '' }}
+      - name: Salvar estado
+        run: |
+          git config user.name "esm-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data
+          git diff --cached --quiet || (git commit -m "chore: estado do dia" && git push)
