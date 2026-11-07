@@ -74,3 +74,15 @@ test('checklist is one 1080x1350 JPEG, even with 5 long items and a 3-line title
   assert.ok(paths[0].endsWith('.jpg'));
   assert.equal(probe(paths[0], 'stream=width,height'), '1080,1350');
 });
+
+import { renderHighlights } from '../src/producer/highlights.js';
+test('highlight kit: 3 covers always, stories only from real facts', async () => {
+  const empty = await renderHighlights({ cases: [], stats: [], process: [], about: [] }, await mkdtemp(join(tmpdir(), 'hl-')));
+  assert.equal(empty.covers.length, 3);
+  assert.equal(empty.stories.length, 0);
+  assert.equal(probe(empty.covers[0], 'stream=width,height'), '1080,1920');
+  const facts = { cases: [{ text: 'Landing page da Clínica X: **+12 agendamentos** no 1º mês' }], process: ['**Briefing:** entendemos seu negócio', 'Protótipo: você aprova o visual', 'Site no ar'], about: ['Somos a ESM Web.'] };
+  const full = await renderHighlights(facts, await mkdtemp(join(tmpdir(), 'hl-')));
+  assert.equal(full.stories.length, 5);
+  assert.equal(probe(full.stories[0], 'stream=width,height'), '1080,1920');
+});

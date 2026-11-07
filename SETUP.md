@@ -32,6 +32,10 @@ Os nomes dos botões nos painéis da Meta mudam com frequência. Se algum passo 
 1. Edite `src/config.js` → `competitors` com 3 a 5 @ de perfis de referência (contas Profissionais públicas).
 2. O @ (`@esm_web`) e a etiqueta padrão já estão em `brand/brand.json`. O visual (Poppins, degradê, curva de luz) vem de `src/producer/html.js`.
 
+## 6b. Fatos reais e Destaques
+1. Abra `brand/facts.json` e preencha só com o que é verdade e você pode provar: `cases` (resultados de clientes), `stats` (dados com fonte), `process` (etapas do seu processo) e `about` (quem você é). O sistema só cita números e resultados que estiverem ali; sem fatos, os posts falam da dor do cliente.
+2. Rode `npm run destaques`. As capas ficam em `destaques/`. As telas de Story (Resultados, Como funciona, Quem sou) saem do que você preencheu. O Instagram não permite criar Destaques por programa: suba as imagens como Story e salve em Destaques pelo app.
+
 ## 7. Testes, nesta ordem
 1. Localmente, só a prévia de teste: defina `GEMINI_KEY`, `TG_TOKEN`, `TG_CHAT_ID` no terminal e rode `node src/cli.js generate --dry`. A prévia chega ao Telegram marcada **TESTE**, sem botões, e não pode ser publicada.
 2. No GitHub: *Actions → generate → Run workflow* (por padrão roda como teste). Confirme que a prévia TESTE chega.

@@ -76,7 +76,7 @@ async function page({ w, h, body, clear = false }) {
 const arrow = `<svg width="34" height="18" viewBox="0 0 34 18" fill="none" stroke="#C9CCD1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9h28M23 2l8 7-8 7"/></svg>`;
 
 // Slide do carrossel (1080x1350).
-export async function slideHtml({ brand, i, n, label, title, foot, last = false }) {
+export async function slideHtml({ brand, i, n, label, title, foot, h = 1350 }) {
   const pad = (k) => String(k).padStart(2, '0');
   const footHtml = foot === 'swipe' ? `<span>Deslize para ver</span>${arrow}` : foot === 'cta' ? `Link na bio <b>·</b> <b>${esc(brand.handle)}</b>` : '';
   const body = `<div class="bg"></div><div class="glow"></div>${SWOOSH}
@@ -87,8 +87,23 @@ export async function slideHtml({ brand, i, n, label, title, foot, last = false 
   <div class="title" style="font-size:${titleSize(title)}px">${titleHtml(title)}</div>
   ${footHtml ? `<div class="divider"></div><div class="foot">${footHtml}</div>` : ''}
 </div>`;
-  void last;
-  return page({ w: 1080, h: 1350, body });
+  return page({ w: 1080, h, body });
+}
+
+// Ícones das capas de Destaque (traço fino prata, 48x48).
+const ICONS = {
+  resultados: '<path d="M5 40h38"/><path d="M7 33l11-11 7 6 16-17"/><path d="M31 11h10v10"/>',
+  'como-funciona': '<circle cx="9" cy="24" r="5"/><circle cx="24" cy="24" r="5"/><circle cx="39" cy="24" r="5"/><path d="M14 24h5M29 24h5"/><path d="M36.8 24.2l1.6 1.6 3-3.2"/>',
+  'quem-sou': '<circle cx="24" cy="16" r="7"/><path d="M9 41c0-8.5 6.5-14 15-14s15 5.5 15 14"/>',
+};
+export const HIGHLIGHT_COVERS = Object.keys(ICONS);
+
+// Capa de Destaque (1080x1920). O Instagram mostra só um círculo no centro, então só o ícone fica ali.
+export async function highlightCoverHtml({ icon }) {
+  const body = `<div class="bg"></div><div class="glow"></div>
+<div style="position:absolute;left:50%;top:50%;width:560px;height:560px;transform:translate(-50%,-50%);border-radius:50%;border:2px solid rgba(201,204,209,.28);background:radial-gradient(closest-side,rgba(201,204,209,.08),transparent)"></div>
+<svg style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)" width="300" height="300" viewBox="0 0 48 48" fill="none" stroke="#C9CCD1" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${ICONS[icon]}</svg>`;
+  return page({ w: 1080, h: 1920, body });
 }
 
 // Checklist de imagem única (1080x1350): título, cartões com caixinha de marcar e frase de fechamento.

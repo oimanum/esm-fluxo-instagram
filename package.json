@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test tests/*.test.js"
+    "test": "node --test tests/*.test.js",
+    "destaques": "node scripts/highlights.mjs"
   },
   "dependencies": {
     "@fontsource/poppins": "^5.3.0",

@@ -1,6 +1,7 @@
 {
-  "_como_usar": "Só coloque aqui o que é VERDADE e você pode provar. O sistema só cita números e resultados que estiverem neste arquivo.",
+  "_como_usar": "Só coloque aqui o que é VERDADE e você pode provar. O sistema só cita números e resultados que estiverem neste arquivo. cases = resultados reais de clientes; stats = dados com fonte; process = etapas do seu processo; about = frases sobre você/a empresa. Esses itens também viram as telas de Stories dos Destaques (npm run destaques).",
   "cases": [],
   "stats": [],
-  "process": []
+  "process": [],
+  "about": []
 }

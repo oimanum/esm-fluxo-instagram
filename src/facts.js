@@ -25,8 +25,9 @@ export async function loadFacts(file = new URL('../brand/facts.json', import.met
     ...(data.cases || []).map((c) => `- Caso real: ${c.text}`),
     ...(data.stats || []).map((s) => `- Dado: ${s.text}${s.source ? ` (fonte: ${s.source})` : ''}`),
     ...(data.process || []).map((p, i) => `- Etapa ${i + 1} do processo: ${typeof p === 'string' ? p : p.text}`),
+    ...(data.about || []).map((a) => `- Sobre a empresa: ${a}`),
   ];
   const allowedNumbers = new Set(strings(data).flatMap(numbersIn));
   const text = lines.length ? lines.join('\n') : 'nenhum fato cadastrado: NÃO cite resultados, porcentagens, valores em R$ nem clientes reais.';
-  return { text, allowedNumbers };
+  return { text, allowedNumbers, data };
 }
