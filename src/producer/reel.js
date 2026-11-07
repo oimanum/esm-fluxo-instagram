@@ -1,6 +1,6 @@
 import { join } from 'node:path';
 import { synth, ProducerError } from './tts.js';
-import { loadBrand, esc, wrap, ffmpeg, durationOf, textFile } from './ff.js';
+import { loadBrand, esc, wrap, ffmpeg, durationOf, drawLines } from './ff.js';
 
 export function chunkWords(text, size = 5) {
   const w = text.split(/\s+/).filter(Boolean);
@@ -24,12 +24,16 @@ export async function renderReel(post, outDir, { ttsImpl = synth } = {}) {
   const draws = [];
   for (let i = 0; i < chunks.length; i++) {
     const span = dur * (chunks[i].split(' ').length / total);
-    const f = await textFile(outDir, `c${i}.txt`, wrap(chunks[i], 18));
-    draws.push(`drawtext=fontfile='${font}':textfile=${f}:fontsize=84:fontcolor=0x${brand.colors.text}:x=(w-text_w)/2:y=(h-text_h)/2:line_spacing=18:expansion=none:enable='between(t,${t.toFixed(2)},${(t + span).toFixed(2)})'`);
+    const n = wrap(chunks[i], 18).split('\n').length;
+    const { filters } = await drawLines({
+      dir: outDir, id: `c${i}`, text: chunks[i], maxChars: 18, font, size: 84, color: brand.colors.text,
+      x: '(w-text_w)/2', top: `(h-${Math.round(84 * 1.3) * n})/2`, enable: `between(t,${t.toFixed(2)},${(t + span).toFixed(2)})`,
+    });
+    draws.push(...filters);
     t += span;
   }
-  const hook = await textFile(outDir, 'hook.txt', wrap(post.hook, 22));
-  draws.push(`drawtext=fontfile='${font}':textfile=${hook}:fontsize=44:fontcolor=0x${brand.colors.muted}:x=(w-text_w)/2:y=220:expansion=none:enable='lt(t,3)'`);
+  const hook = await drawLines({ dir: outDir, id: 'hook', text: post.hook, maxChars: 22, font, size: 44, color: brand.colors.muted, x: '(w-text_w)/2', top: '220', enable: 'lt(t,3)' });
+  draws.push(...hook.filters);
 
   const out = join(outDir, 'reel.mp4');
   await ffmpeg([

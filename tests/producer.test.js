@@ -46,3 +46,13 @@ test('carousel slides are JPEG', async () => {
   assert.ok(paths.every((p) => p.endsWith('.jpg')));
   assert.equal(probe(paths[0], 'stream=codec_name'), 'mjpeg');
 });
+
+import { readdir, readFile } from 'node:fs/promises';
+test('no text file given to ffmpeg contains a line break (old ffmpeg draws it as a box)', async () => {
+  const dir = await mkdtemp(join(tmpdir(), 'nl-'));
+  await renderReel(post, dir, { ttsImpl: fakeTts(25) });
+  await renderCarousel({ ...post, script: 'a b c d e f g h i j k l m n o p q r s t | d e f | g h i' }, dir);
+  const txt = (await readdir(dir)).filter((f) => f.endsWith('.txt'));
+  assert.ok(txt.length > 0);
+  for (const f of txt) assert.ok(!/[\r\n]/.test(await readFile(join(dir, f), 'utf8')), f);
+});

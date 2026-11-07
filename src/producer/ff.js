@@ -45,3 +45,16 @@ export async function textFile(dir, name, text) {
   await writeFile(`${dir}/${name}`, text);
   return name;
 }
+
+// Uma linha = um drawtext. Nunca grava quebra de linha em arquivo: versões antigas do ffmpeg desenham como um quadrado.
+// `top` é uma expressão do ffmpeg para o y da primeira linha; `x` idem. Devolve os filtros drawtext.
+export async function drawLines({ dir, id, text, maxChars, font, size, color, x, top, enable }) {
+  const lines = wrap(text, maxChars).split('\n').filter(Boolean);
+  const lh = Math.round(size * 1.3);
+  const filters = [];
+  for (let i = 0; i < lines.length; i++) {
+    const f = await textFile(dir, `${id}-${i}.txt`, lines[i]);
+    filters.push(`drawtext=fontfile='${font}':textfile=${f}:fontsize=${size}:fontcolor=0x${color}:x=${x}:y=${top}+${i * lh}:expansion=none${enable ? `:enable='${enable}'` : ''}`);
+  }
+  return { filters, height: lines.length * lh };
+}
