@@ -13,4 +13,4 @@ jobs:
           name: smoke
           path: |
             out/smoke/reel.mp4
-            out/smoke/slide-01.jpg
+            out/smoke/slide-*.jpg

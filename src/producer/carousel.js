@@ -1,29 +1,27 @@
 import { join } from 'node:path';
 import { ProducerError } from './tts.js';
-import { loadBrand, esc, wrap, ffmpeg, drawLines } from './ff.js';
+import { loadBrand } from './ff.js';
+import { withBrowser, shot, slideHtml } from './html.js';
 
+// Carrossel: capa (gancho) + de 3 a 6 slides + último slide com o CTA. Cada slide é um JPEG 1080x1350.
 export async function renderCarousel(post, outDir) {
   const brand = await loadBrand();
-  const font = esc(brand.fontFile);
-  const slides = [post.hook, ...post.script.split('|').map((s) => s.trim()).filter(Boolean).slice(0, 6), post.cta];
+  const parts = post.script.split('|').map((s) => s.trim()).filter(Boolean).slice(0, 6);
+  const slides = [
+    { title: post.hook, foot: 'swipe' },
+    ...parts.map((title) => ({ title })),
+    { title: post.cta, foot: 'cta', label: 'Próximo passo' },
+  ];
   if (slides.length < 5 || slides.length > 8) throw new ProducerError(`Carrossel com ${slides.length} slides (esperado 5–8)`);
+  const label = post.label || brand.label;
   const paths = [];
-  for (let i = 0; i < slides.length; i++) {
-    const size = i === 0 ? 76 : 70;
-    const name = `slide-${String(i + 1).padStart(2, '0')}.jpg`;
-    const n = wrap(slides[i], i === 0 ? 16 : 20).split('\n').length;
-    const { filters } = await drawLines({
-      dir: outDir, id: `s${i}`, text: slides[i], maxChars: i === 0 ? 16 : 20, font, size, color: brand.colors.text,
-      x: '80', top: `(h-${Math.round(size * 1.3) * n})/2`,
-    });
-    const main = filters.join(',');
-    const num = `drawtext=fontfile='${font}':text='${i + 1}/${slides.length}':fontsize=34:fontcolor=0x${brand.colors.muted}:x=80:y=h-110:expansion=none`;
-    await ffmpeg([
-      '-f', 'lavfi', '-i', `color=c=0x${brand.colors.bg}:s=1080x1350`, '-i', brand.logoPath,
-      '-filter_complex', `[1:v]scale=110:-1[lg];[0:v][lg]overlay=W-w-60:60[bg];[bg]${main},${num}[v]`,
-      '-map', '[v]', '-frames:v', '1', '-q:v', '2', name,
-    ], outDir);
-    paths.push(join(outDir, name));
-  }
+  await withBrowser(async (browser) => {
+    for (let i = 0; i < slides.length; i++) {
+      const path = join(outDir, `slide-${String(i + 1).padStart(2, '0')}.jpg`);
+      const html = await slideHtml({ brand, i, n: slides.length, label: slides[i].label || label, title: slides[i].title, foot: slides[i].foot });
+      await shot(browser, html, { w: 1080, h: 1350, path, type: 'jpeg' });
+      paths.push(path);
+    }
+  });
   return { paths };
 }

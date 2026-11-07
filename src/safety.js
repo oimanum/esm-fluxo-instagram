@@ -1,4 +1,6 @@
-const words = (s) => s.trim().split(/\s+/).filter(Boolean).length;
+import { plain } from './text.js';
+
+const words = (s) => plain(s).trim().split(/\s+/).filter(Boolean).length;
 
 const BLOCKED = [
   /garant(e|ido|ida|imos)\b.*\b(resultado|ganho|lucro|cliente|vend)/i,

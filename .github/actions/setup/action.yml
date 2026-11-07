@@ -1,16 +1,19 @@
 name: Preparar ambiente
-description: Node, ffmpeg, fonte e edge-tts
+description: Node, dependências, ffmpeg e edge-tts (o Chrome já vem no runner)
 runs:
   using: composite
   steps:
     - uses: actions/setup-node@v4
       with:
         node-version: 20
+        cache: npm
     - uses: actions/setup-python@v5
       with:
         python-version: '3.12'
     - shell: bash
       run: |
         sudo apt-get update -y
-        sudo apt-get install -y ffmpeg fonts-dejavu-core
+        sudo apt-get install -y ffmpeg
         pip install edge-tts
+        npm ci
+        google-chrome --version

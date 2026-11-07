@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 
 const valid = (o) => !!(o && typeof o.hook === 'string' && o.hook.trim() && typeof o.script === 'string' && o.script.trim()
-  && typeof o.caption === 'string' && Array.isArray(o.hashtags) && typeof o.cta === "string" && o.cta.trim());
+  && typeof o.caption === 'string' && Array.isArray(o.hashtags) && typeof o.cta === 'string' && o.cta.trim());
 
 export async function writePost({ topic, format, llm, angle = '' }) {
   const voice = await readFile(new URL('../brand/voice.md', import.meta.url), 'utf8');

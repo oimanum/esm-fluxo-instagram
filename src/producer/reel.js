@@ -1,46 +1,62 @@
 import { join } from 'node:path';
 import { synth, ProducerError } from './tts.js';
-import { loadBrand, esc, wrap, ffmpeg, durationOf, drawLines } from './ff.js';
+import { loadBrand, ffmpeg, durationOf } from './ff.js';
+import { withBrowser, shot, reelBgHtml, reelTextHtml } from './html.js';
+import { plain, splitSegments } from '../text.js';
 
-export function chunkWords(text, size = 5) {
-  const w = text.split(/\s+/).filter(Boolean);
-  const out = [];
-  for (let i = 0; i < w.length; i += size) out.push(w.slice(i, i + size).join(' '));
-  return out;
+const sentence = (s) => (/[.!?]$/.test(s.trim()) ? s.trim() : `${s.trim()}.`);
+
+// Telas do Reel: gancho, uma tela por frase do roteiro, e o CTA no fim.
+export function reelScreens(post, brandLabel) {
+  return [
+    { title: post.hook, label: post.label || brandLabel },
+    ...splitSegments(plain(post.script)).map((title) => ({ title })),
+    { title: post.cta, cta: true },
+  ];
 }
 
 export async function renderReel(post, outDir, { ttsImpl = synth } = {}) {
   const brand = await loadBrand();
   const audio = join(outDir, 'voz.mp3');
-  const narration = `${post.hook}. ${post.script}. ${post.cta}`;
+  const narration = [sentence(plain(post.hook)), sentence(plain(post.script)), sentence(plain(post.cta))].join(' ');
   await ttsImpl(narration, audio);
   const dur = await durationOf(audio);
   if (dur < 20 || dur > 35) throw new ProducerError(`Locução com ${dur.toFixed(1)} s (esperado 20–35 s)`);
 
-  const font = esc(brand.fontFile);
-  const chunks = chunkWords(narration);
-  const total = chunks.reduce((n, c) => n + c.split(' ').length, 0);
+  // Cada tela dura em proporção ao tamanho do texto que é falado nela.
+  const screens = reelScreens(post, brand.label);
+  const total = screens.reduce((n, s) => n + plain(s.title).length, 0);
   let t = 0;
-  const draws = [];
-  for (let i = 0; i < chunks.length; i++) {
-    const span = dur * (chunks[i].split(' ').length / total);
-    const n = wrap(chunks[i], 18).split('\n').length;
-    const { filters } = await drawLines({
-      dir: outDir, id: `c${i}`, text: chunks[i], maxChars: 18, font, size: 84, color: brand.colors.text,
-      x: '(w-text_w)/2', top: `(h-${Math.round(84 * 1.3) * n})/2`, enable: `between(t,${t.toFixed(2)},${(t + span).toFixed(2)})`,
-    });
-    draws.push(...filters);
-    t += span;
+  for (const s of screens) {
+    s.t0 = t;
+    t += dur * (plain(s.title).length / total);
+    s.t1 = t;
   }
-  const hook = await drawLines({ dir: outDir, id: 'hook', text: post.hook, maxChars: 22, font, size: 44, color: brand.colors.muted, x: '(w-text_w)/2', top: '220', enable: 'lt(t,3)' });
-  draws.push(...hook.filters);
+
+  await withBrowser(async (browser) => {
+    await shot(browser, await reelBgHtml({ brand }), { w: 1080, h: 1920, path: join(outDir, 'bg.png') });
+    for (let i = 0; i < screens.length; i++) {
+      const s = screens[i];
+      await shot(browser, await reelTextHtml({ brand, label: s.label, title: s.title, cta: s.cta }), { w: 1080, h: 1920, path: join(outDir, `ov-${i}.png`), transparent: true });
+    }
+  });
+
+  const f = (x) => x.toFixed(2);
+  const inputs = ['-loop', '1', '-framerate', '30', '-t', f(dur), '-i', 'bg.png', '-i', 'voz.mp3'];
+  let graph = '[0:v]format=yuv420p[b0];';
+  screens.forEach((s, i) => {
+    inputs.push('-loop', '1', '-framerate', '30', '-t', f(Math.min(dur, s.t1 + 0.5)), '-i', `ov-${i}.png`);
+    const fadeOutAt = Math.max(s.t0 + 0.4, s.t1 - 0.12);
+    graph += `[${i + 2}:v]format=rgba,fade=t=in:st=${f(s.t0)}:d=0.3:alpha=1,fade=t=out:st=${f(fadeOutAt)}:d=0.12:alpha=1[o${i}];`;
+    graph += `[b${i}][o${i}]overlay=x=0:y='26*(1-min(1,max(0,(t-${f(s.t0)})/0.3)))':enable='between(t,${f(s.t0)},${f(s.t1 + 0.12)})'[b${i + 1}];`;
+  });
+  graph = graph.slice(0, -1);
 
   const out = join(outDir, 'reel.mp4');
   await ffmpeg([
-    '-f', 'lavfi', '-i', `color=c=0x${brand.colors.bg}:s=1080x1920:d=${dur.toFixed(2)}:r=30`,
-    '-i', 'voz.mp3', '-i', brand.logoPath,
-    '-filter_complex', `[2:v]scale=140:-1[lg];[0:v][lg]overlay=(W-w)/2:1500[bg];[bg]${draws.join(',')}[v]`,
-    '-map', '[v]', '-map', '1:a', '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-movflags', '+faststart', '-shortest', 'reel.mp4',
+    ...inputs, '-filter_complex', graph,
+    '-map', `[b${screens.length}]`, '-map', '1:a',
+    '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-r', '30', '-c:a', 'aac', '-movflags', '+faststart', '-shortest', 'reel.mp4',
   ], outDir);
   return { path: out, durationSec: await durationOf(out) };
 }
