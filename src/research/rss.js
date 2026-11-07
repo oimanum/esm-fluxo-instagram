@@ -1,7 +1,7 @@
 export function parseRss(xml, source) {
   const items = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)].map((m) => m[1]);
   const tag = (s, t) => {
-    const m = s.match(new RegExp(`<${t}>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?</${t}>`));
+    const m = s.match(new RegExp(String.raw`<${t}>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?</${t}>`));
     return m ? m[1].trim() : '';
   };
   return items.map((it, i) => ({
