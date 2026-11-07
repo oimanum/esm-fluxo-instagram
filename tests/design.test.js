@@ -64,3 +64,13 @@ test('splitSegments always terminates: punctuation far from the middle, or no sp
   const b = splitSegments('x'.repeat(300));
   assert.deepEqual(b, ['x'.repeat(300)]);
 });
+
+import { renderChecklist } from '../src/producer/checklist.js';
+test('checklist is one 1080x1350 JPEG, even with 5 long items and a 3-line title', async () => {
+  const dir = await mkdtemp(join(tmpdir(), 'chk-'));
+  const long = 'O botão de WhatsApp aparece logo de cara no celular, sem rolar a página?';
+  const { paths } = await renderChecklist({ ...post, hook: 'Seu site abre bem **no celular** e converte visita em paciente de verdade?', script: [long, long, long, long, long].join(' | '), cta: 'Marcou menos de 4? **Fale com a ESM Web.**' }, dir);
+  assert.equal(paths.length, 1);
+  assert.ok(paths[0].endsWith('.jpg'));
+  assert.equal(probe(paths[0], 'stream=width,height'), '1080,1350');
+});

@@ -37,6 +37,8 @@ export async function publish(item, urls, ig, { sleep = defaultSleep } = {}) {
   let creationId;
   if (item.format === 'reel') {
     ({ id: creationId } = await ig.post(`/${u}/media`, { media_type: 'REELS', video_url: urls[0], caption: fullCaption(item), share_to_feed: true }));
+  } else if (item.format === 'checklist') {
+    ({ id: creationId } = await ig.post(`/${u}/media`, { image_url: urls[0], caption: fullCaption(item) }));
   } else {
     const kids = [];
     for (const url of urls) kids.push((await ig.post(`/${u}/media`, { image_url: url, is_carousel_item: true })).id);

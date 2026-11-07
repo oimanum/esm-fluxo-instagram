@@ -40,6 +40,8 @@ export async function sendPreview(item, tg) {
   const dry = item.status === 'dry';
   if (item.format === 'reel') {
     await tg.upload('sendVideo', { caption: headerOf(item), supports_streaming: 'true' }, { video: item.media[0] });
+  } else if (item.media.length === 1) {
+    await tg.upload('sendPhoto', { caption: headerOf(item) }, { photo: item.media[0] });
   } else {
     const files = {};
     item.media.forEach((p, i) => { files[`f${i}`] = p; });

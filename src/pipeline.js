@@ -52,7 +52,7 @@ export async function generate(d) {
     const id = d.newId();
     const outDir = `out/${id}`;
     await mkdir(outDir, { recursive: true });
-    const media = pick.format === 'reel' ? [(await d.render.reel(post, outDir)).path] : (await d.render.carousel(post, outDir)).paths;
+    const media = pick.format === 'reel' ? [(await d.render.reel(post, outDir)).path] : (await d.render[pick.format](post, outDir)).paths;
     const item = {
       id, topic: pick.topic, angle: pick.angle, format: pick.format, post, media, status: d.dry ? 'dry' : 'pending',
       createdAt: d.now.toISOString(), alternatives: pool.filter((t) => t.topic !== pick.topic), release: null,

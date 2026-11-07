@@ -20,11 +20,17 @@ export function checkPost(post, format) {
   if (format === 'reel') {
     const n = words(`${post.hook || ''} ${post.script || ''} ${post.cta || ''}`);
     if (n < NARRATION_MIN || n > NARRATION_MAX) problems.push(`narração (gancho+roteiro+CTA) com ${n} palavras (esperado ${NARRATION_MIN}–${NARRATION_MAX}, ≈20–35 s)`);
+  } else if (format === 'checklist') {
+    const items = (post.script || '').split('|').map((s) => s.trim()).filter(Boolean);
+    if (items.length < 3 || items.length > 5) problems.push(`checklist com ${items.length} itens separados por | (esperado 3–5)`);
+    if (items.some((i) => plain(i).length > 70)) problems.push('item de checklist com mais de 70 caracteres');
   } else {
     const parts = (post.script || '').split('|').map((s) => s.trim()).filter(Boolean).length;
     if (parts < 3 || parts > 6) problems.push(`carrossel com ${parts} partes separadas por | (esperado 3–6)`);
   }
-  if (!post.cta || (post.cta.match(/[.!?]\s+\S/g) || []).length > 0) problems.push('CTA ausente ou múltiplo');
+  // No checklist o fechamento é "pergunta? chamada." por desenho; nos demais, o CTA é uma frase só.
+  const manySentences = format !== 'checklist' && (post.cta || '').match(/[.!?]\s+\S/g)?.length > 0;
+  if (!post.cta || manySentences) problems.push('CTA ausente ou múltiplo');
   const all = [post.hook, post.script, post.caption, post.cta].join(' \n ');
   for (const re of BLOCKED) if (re.test(all)) problems.push(`alegação bloqueada: ${re}`);
   return { ok: problems.length === 0, problems };

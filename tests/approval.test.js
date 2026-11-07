@@ -66,3 +66,11 @@ test('preview caption keeps the tail and never silently truncates the legend', a
   await sendPreview(mkItem({ post: { hook: 'h', caption: long, hashtags: ['#a'], cta: 'c' } }), tg);
   assert.ok(JSON.stringify(tg.calls).includes('#a'));
 });
+
+test('a single-image post is previewed with sendPhoto, not sendMediaGroup', async () => {
+  const tg = fakeTg([]);
+  await sendPreview(mkItem({ format: 'checklist', media: ['out/check.jpg'] }), tg);
+  const text = JSON.stringify(tg.calls);
+  assert.ok(text.includes('sendPhoto'));
+  assert.ok(!text.includes('sendMediaGroup'));
+});

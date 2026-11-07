@@ -8,6 +8,7 @@ import { askJson } from './llm.js';
 import { collectSignals } from './research/index.js';
 import { renderReel } from './producer/reel.js';
 import { renderCarousel } from './producer/carousel.js';
+import { renderChecklist } from './producer/checklist.js';
 import { createTelegram } from './approval.js';
 import { createInstagram, publish } from './publisher.js';
 import { stageMedia, publishRelease } from './media-host.js';
@@ -47,7 +48,7 @@ async function baseDeps() {
     now: new Date(), plan: await plan(), dry, tg, checkpoint,
     llm: (o) => askJson(o),
     collect: () => collectSignals({ competitors: config.competitors }),
-    render: { reel: renderReel, carousel: renderCarousel },
+    render: { reel: renderReel, carousel: renderCarousel, checklist: renderChecklist },
     newId: () => randomUUID().slice(0, 8),
     alert: (text) => tg.call('sendMessage', { text }),
   };

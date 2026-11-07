@@ -54,3 +54,9 @@ test('collectInsights asks reels for metrics without profile_visits', async () =
   await collectInsights([{ igMediaId: 'r', topic: 't', format: 'reel', postedAt: '2026-11-01T12:00:00Z', status: 'posted' }], ig, new Date('2026-11-04T12:00:00Z'));
   assert.ok(!asked[0].includes('profile_visits'));
 });
+
+test('adjustPlan treats checklist as a carousel (static post)', () => {
+  const metrics = [m('reel', { profileVisits: 1 }), m('reel', { profileVisits: 1 }), m('checklist', { profileVisits: 300 }), m('checklist', { profileVisits: 320 })];
+  const p = adjustPlan({ reel: 4, carousel: 2 }, metrics);
+  assert.equal(p.carousel, 3);
+});

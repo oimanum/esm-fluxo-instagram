@@ -7,7 +7,9 @@ export async function writePost({ topic, format, llm, angle = '' }) {
   const voice = await readFile(new URL('../brand/voice.md', import.meta.url), 'utf8');
   const spec = format === 'reel'
     ? 'Reel de 20 a 35 s. A narração completa (gancho + roteiro + CTA) deve ter entre 60 e 85 palavras no total; o roteiro sozinho cerca de 50 a 75. Gancho nos 3 primeiros segundos, até 12 palavras.'
-    : 'Carrossel: "script" traz de 3 a 6 slides de texto curto, separados por " | " (o gancho vira a capa e o CTA o último slide).';
+    : format === 'checklist'
+      ? 'CHECKLIST de imagem única: "hook" é a pergunta do título (ex.: Seu site abre bem **no celular?**), "script" traz de 3 a 5 itens de autoavaliação em forma de pergunta, cada um com até 60 caracteres, separados por " | ". O "cta" é a frase de fechamento (ex.: Marcou menos de 3? **Fale com a ESM Web.**).'
+      : 'Carrossel: "script" traz de 3 a 6 slides de texto curto, separados por " | " (o gancho vira a capa e o CTA o último slide).';
   const prompt = `Escreva um post de Instagram em pt-BR para a ESM Web.\nTema: ${topic}\nÂngulo: ${angle}\n${spec}\nUm único CTA, curto, sem pontuação final extra. Sem promessa de resultado garantido.\n\n${voice}\n\nResponda JSON: {"hook":string,"script":string,"caption":string,"hashtags":string[],"cta":string}`;
   return llm({ prompt, schema: valid });
 }

@@ -2,6 +2,7 @@
 import { mkdir } from 'node:fs/promises';
 import { renderReel } from '../src/producer/reel.js';
 import { renderCarousel } from '../src/producer/carousel.js';
+import { renderChecklist } from '../src/producer/checklist.js';
 
 const post = {
   label: 'TESTE RÁPIDO · 30 SEGUNDOS',
@@ -14,3 +15,5 @@ const reel = await renderReel(post, 'out/smoke');
 console.log('reel', reel);
 const car = await renderCarousel({ ...post, script: 'Abre em **menos de 3 segundos**? | O texto é **legível** sem dar zoom? | O botão de WhatsApp **aparece logo** de cara? | Dá para entender o que você vende **sem rolar**?' }, 'out/smoke');
 console.log('carrossel', car.paths.length, 'slides');
+const chk = await renderChecklist({ label: post.label, hook: 'Seu site abre **bem no celular?**', script: 'Abre em menos de 3 segundos? | O texto é legível sem dar zoom? | O botão de WhatsApp aparece logo de cara? | Dá para entender o que você vende sem rolar?', cta: 'Marcou menos de 4? **Fale com a ESM Web.**' }, 'out/smoke');
+console.log('checklist', chk.paths);

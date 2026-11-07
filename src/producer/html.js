@@ -48,6 +48,13 @@ body.clear,html:has(body.clear){background:transparent}
 .divider{width:84px;height:2px;background:rgba(255,255,255,.55);margin:46px 0 30px}
 .foot{font-weight:300;font-size:28px;color:#9A9EA5;display:flex;align-items:center;gap:14px}
 .foot b{font-weight:500;color:#C9CCD1}
+.cards{display:flex;flex-direction:column;gap:22px;margin-top:44px}
+.card{display:flex;align-items:center;gap:26px;padding:28px 34px;border-radius:22px;background:rgba(27,29,33,.92);border:1.5px solid rgba(255,255,255,.09);box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.box{flex:none;width:34px;height:34px;border-radius:9px;border:2px solid #9A9EA5}
+.card .t{font-weight:400;font-size:31px;line-height:1.25;color:#E4E6E9}
+.fine{margin-top:42px;font-size:28px;line-height:1.4}
+.fine .s{font-weight:500;color:#fff}
+.fine .l{font-weight:300;color:#9A9EA5}
 .pill{display:inline-block;margin-top:44px;padding:20px 40px;border:1.5px solid rgba(201,204,209,.7);border-radius:999px;font-weight:500;font-size:30px;color:#fff;letter-spacing:.02em}
 `;
 
@@ -84,6 +91,21 @@ export async function slideHtml({ brand, i, n, label, title, foot, last = false 
   return page({ w: 1080, h: 1350, body });
 }
 
+// Checklist de imagem única (1080x1350): título, cartões com caixinha de marcar e frase de fechamento.
+export async function checklistHtml({ brand, label, title, items, footer }) {
+  const cards = items.map((it) => `<div class="card"><div class="box"></div><div class="t">${esc(plain(it))}</div></div>`).join('');
+  const body = `<div class="bg"></div><div class="glow"></div>${SWOOSH}
+<img class="logo" src="${await logoUri(brand.logoPath)}">
+<div class="top-right">CHECKLIST</div>
+<div class="block" style="top:176px"><div class="fit">
+  ${label ? `<div class="label">${esc(label)}</div>` : ''}
+  <div class="title" style="font-size:${titleSize(title, 0.82)}px">${titleHtml(title)}</div>
+  <div class="cards">${cards}</div>
+  ${footer ? `<div class="fine">${titleHtml(footer)}</div>` : ''}
+</div></div>`;
+  return page({ w: 1080, h: 1350, body });
+}
+
 // Fundo fixo do Reel (1080x1920): degradê, curva de luz, logo e @.
 export async function reelBgHtml({ brand }) {
   const body = `<div class="bg"></div><div class="glow"></div>${SWOOSH}
@@ -117,11 +139,12 @@ export async function withBrowser(fn) {
   throw new ProducerError(`Chrome não encontrado (${errors.join(' | ')})`);
 }
 
-export async function shot(browser, html, { w, h, path, type = 'png', transparent = false }) {
+export async function shot(browser, html, { w, h, path, type = 'png', transparent = false, prepare }) {
   const pg = await browser.newPage({ viewport: { width: w, height: h }, deviceScaleFactor: 1 });
   try {
     await pg.setContent(html, { waitUntil: 'load' });
     await pg.evaluate(() => document.fonts.ready);
+    if (prepare) await prepare(pg);
     await pg.screenshot({ path, type, omitBackground: transparent, ...(type === 'jpeg' ? { quality: 93 } : {}) });
   } finally {
     await pg.close();

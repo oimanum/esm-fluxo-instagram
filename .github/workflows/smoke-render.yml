@@ -14,3 +14,4 @@ jobs:
           path: |
             out/smoke/reel.mp4
             out/smoke/slide-*.jpg
+            out/smoke/checklist.jpg

@@ -48,3 +48,15 @@ test('scoreTopics sorts by score desc using llm', async () => {
   const r = await scoreTopics([{ title: 'x', source: 's', strength: 1 }], llm);
   assert.equal(r[0].topic, 'b');
 });
+
+test('static slots alternate carousel and checklist', () => {
+  const afterCarousel = [{ topic: 'a', format: 'carousel', postedAt: day('11-02'), status: 'posted' }];
+  assert.equal(pickToday({ scored, history: afterCarousel, now, plan: { reel: 0, carousel: 2 } }).format, 'checklist');
+  const afterChecklist = [{ topic: 'a', format: 'checklist', postedAt: day('11-02'), status: 'posted' }];
+  assert.equal(pickToday({ scored, history: afterChecklist, now, plan: { reel: 0, carousel: 2 } }).format, 'carousel');
+  assert.equal(pickToday({ scored, history: [], now, plan: { reel: 0, carousel: 2 } }).format, 'carousel');
+});
+test('checklist counts toward the carousel quota', () => {
+  const h = ['11-02', '11-03'].map((d) => ({ topic: d, format: 'checklist', postedAt: day(d), status: 'posted' }));
+  assert.equal(pickToday({ scored, history: h, now, plan: { reel: 0, carousel: 2 } }).skip, 'cota_semanal');
+});

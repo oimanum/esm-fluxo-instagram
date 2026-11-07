@@ -38,3 +38,11 @@ test('carousel needs 3 to 6 slides separated by |', () => {
   assert.equal(c('a b | c d | e f'), true);
   assert.equal(c('a | b | c | d | e | f | g'), false);
 });
+
+test('checklist needs 3 to 5 short items separated by |', () => {
+  const c = (script, hook = 'Seu site abre bem no celular?') => checkPost({ ...good, hook, script }, 'checklist').ok;
+  assert.equal(c('Abre em menos de 3 segundos? | O texto é legível? | O botão aparece logo?'), true);
+  assert.equal(c('Abre rápido? | Texto legível?'), false);
+  assert.equal(c('a | b | c | d | e | f'), false);
+  assert.equal(c(`um | dois | ${'x'.repeat(71)}`), false);
+});

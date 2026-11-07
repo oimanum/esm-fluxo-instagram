@@ -37,10 +37,16 @@ export function pickToday({ scored, history, now, plan }) {
 
   const ws = weekStart(now);
   const used = { reel: 0, carousel: 0 };
-  for (const h of counted) if (ymd(new Date(h.postedAt)) >= ws && ymd(new Date(h.postedAt)) <= ymd(now)) used[h.format]++;
+  // Checklist é post estático: conta na cota do carrossel.
+  for (const h of counted) if (ymd(new Date(h.postedAt)) >= ws && ymd(new Date(h.postedAt)) <= ymd(now)) used[h.format === 'checklist' ? 'carousel' : h.format]++;
   const left = { reel: plan.reel - used.reel, carousel: plan.carousel - used.carousel };
   if (left.reel <= 0 && left.carousel <= 0) return { skip: 'cota_semanal' };
-  const format = left.reel > 0 && left.reel >= left.carousel ? 'reel' : left.carousel > 0 ? 'carousel' : 'reel';
+  let format = left.reel > 0 && left.reel >= left.carousel ? 'reel' : left.carousel > 0 ? 'carousel' : 'reel';
+  // Posts estáticos alternam: carrossel, checklist, carrossel...
+  if (format === 'carousel') {
+    const lastStatic = counted.filter((h) => h.format === 'carousel' || h.format === 'checklist').sort((a, b) => new Date(a.postedAt) - new Date(b.postedAt)).pop();
+    if (lastStatic?.format === 'carousel') format = 'checklist';
+  }
 
   const cutoff = now.getTime() - config.noRepeatDays * DAY;
   const recent = history.filter((h) => new Date(h.postedAt).getTime() >= cutoff);

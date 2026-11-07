@@ -84,3 +84,14 @@ test('publishRelease flips the draft public and returns urls', async () => {
   assert.deepEqual(urls, ['https://github.com/o/r/releases/download/post-i1/reel.mp4']);
   assert.ok(calls.some((a) => a.includes('--draft=false')));
 });
+
+test('checklist publishes one plain image, no carousel container', async () => {
+  const ig = fakeIg();
+  await publish(item({ format: 'checklist' }), ['http://x/c.jpg'], ig, { sleep: noSleep });
+  const media = ig.log.filter((l) => l[0] === 'post' && l[1].endsWith('/media'));
+  assert.equal(media.length, 1);
+  assert.equal(media[0][2].image_url, 'http://x/c.jpg');
+  assert.equal(media[0][2].media_type, undefined);
+  assert.equal(media[0][2].is_carousel_item, undefined);
+  assert.equal(ig.log.filter((l) => l[1].endsWith('/media_publish')).length, 1);
+});
