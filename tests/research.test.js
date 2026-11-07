@@ -2,7 +2,6 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { collectSignals } from '../src/research/index.js';
 import { parseRss } from '../src/research/rss.js';
-import { fromReddit } from '../src/research/reddit.js';
 import { fromCompetitors } from '../src/research/competitors.js';
 
 const RSS = `<rss><channel><title>feed</title>
@@ -16,10 +15,6 @@ test('parseRss maps items to Signal', () => {
   assert.equal(s[0].title, 'IA no atendimento de clínicas');
   assert.ok(s[0].strength > 0 && s[0].strength <= 1);
 });
-test('reddit maps listing to Signal', () => {
-  const s = fromReddit({ data: { children: [{ data: { title: 'T', permalink: '/r/x', ups: 500 } }] } });
-  assert.equal(s[0].source, 'reddit'); assert.equal(s[0].title, 'T');
-});
 test('competitors map to Signal by relative engagement', () => {
   const s = fromCompetitors({ business_discovery: { username: 'c', media: { data: [
     { caption: 'a', like_count: 100, comments_count: 10, permalink: 'p1' },
@@ -28,7 +23,7 @@ test('competitors map to Signal by relative engagement', () => {
 });
 test('one failing source does not fail collectSignals', async () => {
   const fetchImpl = async (url) => {
-    if (String(url).includes('reddit')) throw new Error('boom');
+    if (String(url).includes('trends')) throw new Error('boom');
     return { ok: true, text: async () => RSS, json: async () => ({}) };
   };
   const out = await collectSignals({ fetchImpl, competitors: [] });

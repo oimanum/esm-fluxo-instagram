@@ -1,0 +1,16 @@
+name: smoke-render
+on:
+  workflow_dispatch:
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - run: node scripts/smoke-render.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: smoke
+          path: |
+            out/smoke/reel.mp4
+            out/smoke/slide-01.jpg
