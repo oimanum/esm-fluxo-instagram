@@ -7,8 +7,8 @@ export const config = {
   baseline: { reel: 4, carousel: 2 },
   competitors: [], // @ de 3 a 5 perfis de referência (preencher)
 
-  // Funil do Direct: comentou a palavra-chave, recebe a mensagem. Fica DESLIGADO até você aprovar o texto abaixo
-  // e gerar o token com as permissões de comentários e mensagens. Para ligar: enabled: true.
+  // Funil do Direct: comentou a palavra-chave, recebe a mensagem. Texto e link APROVADOS pelo dono em 07/11/2026.
+  // Fica DESLIGADO até existir um IG_TOKEN com as permissões de comentários e mensagens. Para ligar: enabled: true.
   funnel: {
     enabled: false,
     keyword: 'SITE',
