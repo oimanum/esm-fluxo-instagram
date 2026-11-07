@@ -65,3 +65,17 @@ test('technical-hook rule matches whole words only', () => {
   assert.equal(checkPost({ ...good, hook: 'Sua reação ao ver o site ao vivo' }, 'reel').ok, true);
   assert.equal(checkPost({ ...good, hook: 'Chega de código lento no seu site' }, 'reel').ok, false);
 });
+
+test('with the funnel on, the CTA must invite the keyword', () => {
+  assert.equal(checkPost({ ...good, cta: 'Comente SITE e receba' }, 'reel', { keyword: 'SITE' }).ok, true);
+  assert.equal(checkPost({ ...good, cta: 'Comente **SITE** agora' }, 'reel', { keyword: 'SITE' }).ok, true);
+  assert.equal(checkPost({ ...good, cta: 'Chame no WhatsApp' }, 'reel', { keyword: 'SITE' }).ok, false);
+  assert.equal(checkPost({ ...good, cta: 'Chame no WhatsApp' }, 'reel').ok, true);
+});
+test('no fake track record: social proof is blocked unless there are real cases', () => {
+  for (const caption of ['Nossos clientes aprovam', 'Mais de 50 empresas atendidas', 'Já ajudamos dezenas de clínicas', 'Veja os depoimentos', 'Resultados comprovados', 'Temos 10 anos de experiência']) {
+    assert.equal(checkPost({ ...good, caption }, 'reel').ok, false, caption);
+    assert.equal(checkPost({ ...good, caption }, 'reel', { socialProof: true }).ok, true, caption);
+  }
+  assert.equal(checkPost({ ...good, caption: 'Seu site novo traz mais pacientes' }, 'reel').ok, true);
+});

@@ -6,6 +6,28 @@ export const config = {
   approvalGraceMin: 20, // tolerância: o Telegram não informa a hora do clique e o cron do GitHub atrasa
   baseline: { reel: 4, carousel: 2 },
   competitors: [], // @ de 3 a 5 perfis de referência (preencher)
+
+  // Funil do Direct: comentou a palavra-chave, recebe a mensagem. Fica DESLIGADO até você aprovar o texto abaixo
+  // e gerar o token com as permissões de comentários e mensagens. Para ligar: enabled: true.
+  funnel: {
+    enabled: false,
+    keyword: 'SITE',
+    ownUsername: 'esm_web',
+    link: 'https://esmwebsite.vercel.app',
+    maxPerRun: 20,
+    publicReply: 'Te enviei no Direct! 📩',
+    dm: [
+      'Oi! 👋 Aqui é a ESM Web. Você comentou SITE, então já te mando o caminho.',
+      '',
+      'Hoje, antes de ligar ou ir até um negócio, muita gente pesquisa no Google. Quem não aparece com um site rápido, bonito e fácil de usar no celular perde esse cliente para o concorrente, e nem fica sabendo.',
+      '',
+      'A gente cria sites e landing pages pensados para transformar visita em contato (WhatsApp, agendamento).',
+      '',
+      'Veja o que fazemos: {link}',
+      '',
+      'Quer saber o que um site faria pelo seu negócio? Responda aqui com o nome do seu negócio e o que você faz.',
+    ].join('\n'),
+  },
 };
 
 export function requireEnv(keys) {

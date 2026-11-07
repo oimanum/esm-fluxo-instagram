@@ -18,7 +18,11 @@ async function writeChecked({ topic, angle, format, llm, facts }) {
   let problems = [];
   for (let i = 0; i < 3; i++) {
     const post = await writePost({ topic, angle, format, llm, facts });
-    const check = checkPost(post, format, { allowedNumbers: facts.allowedNumbers });
+    const check = checkPost(post, format, {
+      allowedNumbers: facts.allowedNumbers,
+      keyword: config.funnel.enabled ? config.funnel.keyword : undefined,
+      socialProof: (facts.data?.cases?.length ?? 0) > 0,
+    });
     if (check.ok) return post;
     problems = check.problems;
   }

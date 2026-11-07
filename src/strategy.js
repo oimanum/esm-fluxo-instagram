@@ -2,6 +2,7 @@ import { config } from './config.js';
 
 const RUBRIC = `Você é estrategista de conteúdo da ESM Web (sites e landing pages para clínicas, advogados, estética e energia solar).
 Dos sinais abaixo, proponha até 8 temas para Instagram em pt-BR. Dê nota 0-10 = força da tendência × aderência ao nicho (dor de dono de negócio local: agendamento, anúncios, site lento, Google Meu Negócio, WhatsApp, IA no atendimento) × potencial de gerar cliente.
+Dê preferência a temas que façam o dono do negócio sentir que PRECISA de um site: cliente que pesquisa no Google e não acha a empresa, só Instagram não basta, site lento, parecer menos confiável sem site, concorrente que aparece primeiro. Ligue a tendência a essa dor.
 Responda JSON: {"topics":[{"topic":string,"score":number,"angle":string}]}.`;
 
 export async function scoreTopics(signals, llm) {

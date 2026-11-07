@@ -13,6 +13,7 @@ import { createTelegram } from './approval.js';
 import { createInstagram, publish } from './publisher.js';
 import { stageMedia, publishRelease } from './media-host.js';
 import { generate, poll, processSwaps } from './pipeline.js';
+import { runFunnel } from './funnel.js';
 import { collectInsights, adjustPlan, weeklyReport } from './analytics.js';
 import { refreshToken, tokenDaysLeft, needsAlert } from './token.js';
 
@@ -121,13 +122,24 @@ const commands = {
     }
   },
 
+  // Responde no Direct a quem comentou a palavra-chave. Desligado por padrão (config.funnel.enabled).
+  async funnel() {
+    if (!config.funnel.enabled) { console.log('Funil desligado (config.funnel.enabled = false).'); return; }
+    const { IG_TOKEN, IG_USER_ID } = requireEnv(['IG_TOKEN', 'IG_USER_ID']);
+    const tg = telegram();
+    const r = await runFunnel({ ig: createInstagram(IG_TOKEN, IG_USER_ID), history: await loadState('history'), handled: await loadState('funnel'), now: new Date(), cfg: config.funnel });
+    await saveState('funnel', r.handled);
+    if (r.sent) await tg.call('sendMessage', { text: `Direct enviado para ${r.sent} comentário(s) com ${config.funnel.keyword}.` });
+    if (r.errors.length) await tg.call('sendMessage', { text: sanitize(`Funil do Direct: ${r.errors.length} erro(s). Primeiro: ${r.errors[0]}`).slice(0, 3500) });
+  },
+
   async checkpoint() { await checkpoint(); },
 };
 
 const sanitizeObj = (o) => JSON.parse(sanitize(JSON.stringify(o)));
 
 if (!commands[cmd]) {
-  console.error('Uso: node src/cli.js generate|poll|swap|analytics|refresh|checkpoint [--dry]');
+  console.error('Uso: node src/cli.js generate|poll|swap|analytics|refresh|funnel|checkpoint [--dry]');
   process.exit(2);
 }
 commands[cmd]().catch(async (e) => {

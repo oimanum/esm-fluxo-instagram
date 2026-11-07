@@ -1,7 +1,15 @@
 {
   "_como_usar": "Só coloque aqui o que é VERDADE e você pode provar. O sistema só cita números e resultados que estiverem neste arquivo. cases = resultados reais de clientes; stats = dados com fonte; process = etapas do seu processo; about = frases sobre você/a empresa. Esses itens também viram as telas de Stories dos Destaques (npm run destaques).",
   "cases": [],
-  "stats": [],
+  "stats": [
+    {
+      "text": "53% das visitas em celular são abandonadas quando a página demora mais de 3 segundos para carregar",
+      "source": "Google, estudo \"The Need for Mobile Speed\" (2016)",
+      "numbers": [
+        "53%"
+      ]
+    }
+  ],
   "process": [],
   "about": []
 }

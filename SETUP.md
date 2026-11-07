@@ -36,6 +36,14 @@ Os nomes dos botões nos painéis da Meta mudam com frequência. Se algum passo 
 1. Abra `brand/facts.json` e preencha só com o que é verdade e você pode provar: `cases` (resultados de clientes), `stats` (dados com fonte), `process` (etapas do seu processo) e `about` (quem você é). O sistema só cita números e resultados que estiverem ali; sem fatos, os posts falam da dor do cliente.
 2. Rode `npm run destaques`. As capas ficam em `destaques/`. As telas de Story (Resultados, Como funciona, Quem sou) saem do que você preencheu. O Instagram não permite criar Destaques por programa: suba as imagens como Story e salve em Destaques pelo app.
 
+## 6c. Funil do Direct (palavra SITE) — vem DESLIGADO
+Quem comenta **SITE** num post recebe uma resposta privada no Direct. Para ligar, nesta ordem:
+1. Leia a mensagem em `src/config.js` → `funnel.dm` e ajuste o texto e o link (`funnel.link`, hoje o site da bio). Ela é enviada em seu nome, então só ligue quando estiver do seu jeito.
+2. No painel da Meta (passo 2), gere o token de novo marcando também `instagram_business_manage_comments` e `instagram_business_manage_messages`, e atualize o Secret `IG_TOKEN`.
+3. Troque `enabled: false` por `enabled: true` em `funnel`. Só depois disso os posts passam a terminar com "Comente SITE" (antes, o CTA é "chame no WhatsApp").
+4. Regras da Meta: uma resposta privada por comentário, em até 7 dias, só para quem comentou. O sistema confere a cada 10 minutos, então a mensagem chega em 10 a 30 minutos. Não foi testado com uma conta real.
+5. Quem responder à mensagem cai no seu Direct: o atendimento dali em diante é seu.
+
 ## 7. Testes, nesta ordem
 1. Localmente, só a prévia de teste: defina `GEMINI_KEY`, `TG_TOKEN`, `TG_CHAT_ID` no terminal e rode `node src/cli.js generate --dry`. A prévia chega ao Telegram marcada **TESTE**, sem botões, e não pode ser publicada.
 2. No GitHub: *Actions → generate → Run workflow* (por padrão roda como teste). Confirme que a prévia TESTE chega.

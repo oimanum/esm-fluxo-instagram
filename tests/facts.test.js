@@ -36,3 +36,14 @@ test('writer prompt asks for label and **emphasis** markup (the design depends o
   assert.ok(prompt.includes('"label"'));
   assert.ok(prompt.includes('**'));
 });
+
+test('writer prompt carries the persuasion framework and the honest-proof rule', async () => {
+  let prompt = '';
+  await writePost({ topic: 't', format: 'reel', llm: async (o) => { prompt = o.prompt; return {}; }, facts: { text: 'x', allowedNumbers: new Set(), data: {} }, funnel: { enabled: true, keyword: 'SITE' } });
+  assert.ok(/dor/i.test(prompt) && /perde/i.test(prompt));
+  assert.ok(/teste voc/i.test(prompt));
+  assert.ok(/nunca.*(clientes|depoimentos|experi)/i.test(prompt));
+  assert.ok(prompt.includes('Comente **SITE**'));
+  await writePost({ topic: 't', format: 'reel', llm: async (o) => { prompt = o.prompt; return {}; }, facts: { text: 'x', allowedNumbers: new Set(), data: {} }, funnel: { enabled: false, keyword: 'SITE' } });
+  assert.ok(!prompt.includes('Comente **SITE**'));
+});

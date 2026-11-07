@@ -18,7 +18,20 @@ const NARRATION_MAX = 88;
 // Gancho técnico vende a ferramenta, não o resultado.
 const TECH = new RegExp('(?<![\p{L}])(react|html|css|javascript|typescript|next\.?js|php|wordpress|framework|back-?end|front-?end|c[óo]digo|programa[çc][ãa]o|stack)(?![\p{L}])', 'iu');
 
-export function checkPost(post, format, { allowedNumbers = new Set() } = {}) {
+// Prova social só com fatos reais: sem casos cadastrados, o post não pode sugerir carteira de clientes nem experiência.
+const PROOF = [
+  /nossos clientes/i,
+  /clientes? (satisfeit|que atendemos)/i,
+  /cases? de sucesso/i,
+  /j[áa] (ajudamos|atendemos|entregamos)/i,
+  /mais de \d+\s+(clientes|empresas|sites|projetos|neg[óo]cios)/i,
+  /depoimentos?/i,
+  /resultados? comprovad/i,
+  /\d+\s+anos de (experi[êe]ncia|mercado)/i,
+  /experi[êe]ncia (comprovada|de mercado)/i,
+];
+
+export function checkPost(post, format, { allowedNumbers = new Set(), keyword, socialProof = false } = {}) {
   const problems = [];
   if (!post.hook || words(post.hook) > 12) problems.push('gancho ausente ou com mais de 12 palavras');
   if (format === 'reel') {
@@ -37,6 +50,8 @@ export function checkPost(post, format, { allowedNumbers = new Set() } = {}) {
   if (!post.cta || manySentences) problems.push('CTA ausente ou múltiplo');
   const all = [post.hook, post.script, post.caption, post.cta].join(' \n ');
   for (const re of BLOCKED) if (re.test(all)) problems.push(`alegação bloqueada: ${re}`);
+  if (keyword && !plain(post.cta || '').toLowerCase().includes(keyword.toLowerCase())) problems.push(`o CTA deve convidar a comentar a palavra ${keyword}`);
+  if (!socialProof) for (const re of PROOF) if (re.test(plain(all))) problems.push(`prova social sem fato real cadastrado: ${re}`);
   const unsourced = [...new Set(numbersIn(all))].filter((n) => !allowedNumbers.has(n));
   if (unsourced.length) problems.push(`número de resultado sem fonte em brand/facts.json: ${unsourced.join(', ')}`);
   if (TECH.test(plain(post.hook || ''))) problems.push('gancho técnico: fale do benefício para o cliente, não da ferramenta');
