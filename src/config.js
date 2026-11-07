@@ -13,7 +13,7 @@ export const config = {
     enabled: false,
     keyword: 'SITE',
     ownUsername: 'esm_web',
-    link: 'https://esmwebsite.vercel.app',
+    link: 'https://esmweb.vercel.app',
     maxPerRun: 20,
     publicReply: 'Te enviei no Direct! 📩',
     dm: [
