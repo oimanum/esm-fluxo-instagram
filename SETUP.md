@@ -30,7 +30,7 @@ Os nomes dos botões nos painéis da Meta mudam com frequência. Se algum passo 
 
 ## 6. Seu perfil e referências
 1. Edite `src/config.js` → `competitors` com 3 a 5 @ de perfis de referência (contas Profissionais públicas).
-2. Edite `brand/brand.json` → `handle` com o seu @.
+2. O @ (`@esm_web`) e a etiqueta padrão já estão em `brand/brand.json`. O visual (Poppins, degradê, curva de luz) vem de `src/producer/html.js`.
 
 ## 7. Testes, nesta ordem
 1. Localmente, só a prévia de teste: defina `GEMINI_KEY`, `TG_TOKEN`, `TG_CHAT_ID` no terminal e rode `node src/cli.js generate --dry`. A prévia chega ao Telegram marcada **TESTE**, sem botões, e não pode ser publicada.
