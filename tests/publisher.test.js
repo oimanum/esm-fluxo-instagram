@@ -2,7 +2,6 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { publish } from '../src/publisher.js';
 import { refreshToken, tokenDaysLeft } from '../src/token.js';
-import { uploadMedia } from '../src/media-host.js';
 
 const item = (over = {}) => ({ id: 'i1', format: 'reel', status: 'approved', post: { caption: 'cap', hashtags: ['#a'] }, ...over });
 const noSleep = async () => {};
@@ -72,10 +71,16 @@ test('refreshToken returns new token and expiry', async () => {
   assert.equal(r.token, 'NEW');
   assert.equal(r.expiresAt, '2027-01-03T00:00:00.000Z');
 });
-test('uploadMedia returns public release urls', async () => {
+import { stageMedia, publishRelease } from '../src/media-host.js';
+test('stageMedia uploads to a DRAFT release and returns tag and file names', async () => {
   const calls = [];
-  const gh = async (args) => { calls.push(args); return ''; };
-  const urls = await uploadMedia(['out/reel.mp4'], { repo: 'o/r', tag: 'post-i1', gh });
+  const r = await stageMedia(['out/i1/reel.mp4'], { repo: 'o/r', tag: 'post-i1', gh: async (a) => { calls.push(a); return ''; } });
+  assert.deepEqual(r, { tag: 'post-i1', files: ['reel.mp4'] });
+  assert.ok(calls.some((a) => a.includes('--draft')));
+});
+test('publishRelease flips the draft public and returns urls', async () => {
+  const calls = [];
+  const urls = await publishRelease({ tag: 'post-i1', files: ['reel.mp4'] }, { repo: 'o/r', gh: async (a) => { calls.push(a); return ''; } });
   assert.deepEqual(urls, ['https://github.com/o/r/releases/download/post-i1/reel.mp4']);
-  assert.ok(calls.length >= 1);
+  assert.ok(calls.some((a) => a.includes('--draft=false')));
 });

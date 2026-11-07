@@ -26,17 +26,21 @@ Os nomes dos botões nos painéis da Meta mudam com frequência. Se algum passo 
 ## 5. Renovação automática do token
 1. No GitHub: *Settings → Developer settings → Fine-grained tokens*. Crie um token só para este repositório com a permissão **Secrets: Read and write**.
 2. Secret `GH_ADMIN_TOKEN`. O workflow `refresh-token` usa esse token para gravar o novo `IG_TOKEN` a cada ~15 dias.
+3. **Escolha a validade máxima (1 ano) e anote a data para renovar.** Se esse token expirar, a renovação do Instagram falha e o Telegram avisa.
 
 ## 6. Seu perfil e referências
 1. Edite `src/config.js` → `competitors` com 3 a 5 @ de perfis de referência (contas Profissionais públicas).
 2. Edite `brand/brand.json` → `handle` com o seu @.
 
 ## 7. Testes, nesta ordem
-1. Localmente, só a prévia: defina `GEMINI_KEY`, `TG_TOKEN`, `TG_CHAT_ID` no terminal e rode `node src/cli.js generate`. A prévia chega ao Telegram. Toque **Pular**.
-2. No GitHub: *Actions → generate → Run workflow*. Confirme que a prévia chega.
-3. **Primeiro post real:** na prévia, toque **Aprovar**. O workflow `approval-poll` roda a cada 10 minutos (ou rode na mão) e publica. Confira no perfil. Se a Meta não aceitar a URL do GitHub Releases como mídia, o Telegram avisa o erro e nada é postado; me mande a mensagem.
+1. Localmente, só a prévia de teste: defina `GEMINI_KEY`, `TG_TOKEN`, `TG_CHAT_ID` no terminal e rode `node src/cli.js generate --dry`. A prévia chega ao Telegram marcada **TESTE**, sem botões, e não pode ser publicada.
+2. No GitHub: *Actions → generate → Run workflow* (por padrão roda como teste). Confirme que a prévia TESTE chega.
+3. **Primeiro post real:** rode *Actions → generate* de novo desmarcando a opção "Prévia de TESTE". A prévia chega com os botões; toque **Aprovar**. O `approval-poll` roda a cada 10 minutos (ou rode na mão) e publica. Confira no perfil.
+   - Se a Meta não aceitar a URL do GitHub Releases como mídia, o Telegram avisa o erro e nada é postado; me mande a mensagem.
+   - Se o aviso for de métrica ou de concorrentes (Business Discovery), o resto continua funcionando.
 4. Só depois do passo 3 funcionar, deixe os agendamentos rodando. Eles já vêm ativos no repositório.
 
 ## Rotina diária
-- 06:00 o sistema gera a prévia. Você aprova, troca o tema ou pula, até as 11:00. Sem resposta, nada é postado.
+- ~06:00 o sistema gera a prévia. Você aprova, troca o tema ou pula até as 11:00 (há 20 minutos de tolerância por causa de atrasos do GitHub; aprove até 10:45 para ter certeza). Sem resposta, nada é postado.
+- Se algum passo falhar, você recebe o motivo no Telegram e nada é publicado.
 - Domingo à noite chega o relatório semanal e o plano da semana é ajustado.

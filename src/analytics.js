@@ -1,22 +1,27 @@
 import { config } from './config.js';
 
-const score = (m) => (m.profileVisits || 0) + 5 * (m.linkClicks || 0);
+// saves e shares existem em todos os formatos; visitas ao perfil só quando a API devolve.
+const score = (m) => (m.profileVisits || 0) + 5 * (m.linkClicks || 0) + 3 * (m.saves || 0) + 5 * (m.shares || 0);
 const avg = (xs) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : 0);
 const hourBR = (iso) => Number(new Intl.DateTimeFormat('en-GB', { timeZone: config.tz, hour: '2-digit', hour12: false }).format(new Date(iso)));
-const METRICS = 'reach,saved,shares,profile_visits';
+const METRICS = { reel: 'reach,saved,shares', carousel: 'reach,saved,shares,profile_visits' };
 
 // Lê métricas de posts com mais de 24 h. Cliques no link não existem por mídia na API; ficam 0 aqui.
-export async function collectInsights(history, ig, now = new Date()) {
+export async function collectInsights(history, ig, now = new Date(), errors = []) {
   const out = [];
   for (const h of history) {
     if (h.status !== 'posted' || !h.igMediaId) continue;
     if (now.getTime() - new Date(h.postedAt).getTime() < 86400000) continue;
-    const { data } = await ig.get(`/${h.igMediaId}/insights`, { metric: METRICS });
-    const v = (name) => data.find((d) => d.name === name)?.values?.[0]?.value ?? 0;
-    out.push({
-      igMediaId: h.igMediaId, topic: h.topic, format: h.format, postedAt: h.postedAt, hour: hourBR(h.postedAt),
-      reach: v('reach'), saves: v('saved'), shares: v('shares'), profileVisits: v('profile_visits'), linkClicks: 0,
-    });
+    try {
+      const { data } = await ig.get(`/${h.igMediaId}/insights`, { metric: METRICS[h.format] || METRICS.carousel });
+      const v = (name) => data.find((d) => d.name === name)?.values?.[0]?.value ?? 0;
+      out.push({
+        igMediaId: h.igMediaId, topic: h.topic, format: h.format, postedAt: h.postedAt, hour: hourBR(h.postedAt),
+        reach: v('reach'), saves: v('saved'), shares: v('shares'), profileVisits: v('profile_visits'), linkClicks: 0,
+      });
+    } catch (e) {
+      errors.push(`${h.igMediaId}: ${e.message}`);
+    }
   }
   return out;
 }

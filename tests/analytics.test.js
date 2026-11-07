@@ -36,3 +36,21 @@ test('collectInsights reads only posts older than 24h', async () => {
   assert.equal(out[0].reach, 50);
   assert.equal(out[0].profileVisits, 9);
 });
+
+test('collectInsights skips a media whose insights call fails and reports it', async () => {
+  const ig = { get: async (p) => { if (p.includes('bad')) throw new Error('#100 metric'); return { data: [{ name: 'reach', values: [{ value: 7 }] }] }; } };
+  const history = [
+    { igMediaId: 'bad', topic: 't', format: 'reel', postedAt: '2026-11-01T12:00:00Z', status: 'posted' },
+    { igMediaId: 'ok', topic: 't2', format: 'reel', postedAt: '2026-11-01T12:00:00Z', status: 'posted' },
+  ];
+  const errors = [];
+  const out = await collectInsights(history, ig, new Date('2026-11-04T12:00:00Z'), errors);
+  assert.equal(out.length, 1);
+  assert.equal(errors.length, 1);
+});
+test('collectInsights asks reels for metrics without profile_visits', async () => {
+  const asked = [];
+  const ig = { get: async (p, params) => { asked.push(params.metric); return { data: [] }; } };
+  await collectInsights([{ igMediaId: 'r', topic: 't', format: 'reel', postedAt: '2026-11-01T12:00:00Z', status: 'posted' }], ig, new Date('2026-11-04T12:00:00Z'));
+  assert.ok(!asked[0].includes('profile_visits'));
+});

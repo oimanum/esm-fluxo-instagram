@@ -25,3 +25,9 @@ test('requireEnv throws naming missing keys but not values', () => {
     (e) => e.message.includes('BBB_MISSING') && !e.message.includes('supersecretvalue') && !e.message.includes('AAA_SECRET'),
   );
 });
+
+import { sanitize } from '../src/config.js';
+test('sanitize masks secret values found in env', () => {
+  process.env.TG_TOKEN = 'abc123SECRETtoken';
+  assert.equal(sanitize('falhou com abc123SECRETtoken aqui'), 'falhou com *** aqui');
+});

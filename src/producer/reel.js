@@ -25,18 +25,18 @@ export async function renderReel(post, outDir, { ttsImpl = synth } = {}) {
   for (let i = 0; i < chunks.length; i++) {
     const span = dur * (chunks[i].split(' ').length / total);
     const f = await textFile(outDir, `c${i}.txt`, wrap(chunks[i], 18));
-    draws.push(`drawtext=fontfile='${font}':textfile=${f}:fontsize=84:fontcolor=0x${brand.colors.text}:x=(w-text_w)/2:y=(h-text_h)/2:line_spacing=18:enable='between(t,${t.toFixed(2)},${(t + span).toFixed(2)})'`);
+    draws.push(`drawtext=fontfile='${font}':textfile=${f}:fontsize=84:fontcolor=0x${brand.colors.text}:x=(w-text_w)/2:y=(h-text_h)/2:line_spacing=18:expansion=none:enable='between(t,${t.toFixed(2)},${(t + span).toFixed(2)})'`);
     t += span;
   }
   const hook = await textFile(outDir, 'hook.txt', wrap(post.hook, 22));
-  draws.push(`drawtext=fontfile='${font}':textfile=${hook}:fontsize=44:fontcolor=0x${brand.colors.muted}:x=(w-text_w)/2:y=220:enable='lt(t,3)'`);
+  draws.push(`drawtext=fontfile='${font}':textfile=${hook}:fontsize=44:fontcolor=0x${brand.colors.muted}:x=(w-text_w)/2:y=220:expansion=none:enable='lt(t,3)'`);
 
   const out = join(outDir, 'reel.mp4');
   await ffmpeg([
     '-f', 'lavfi', '-i', `color=c=0x${brand.colors.bg}:s=1080x1920:d=${dur.toFixed(2)}:r=30`,
     '-i', 'voz.mp3', '-i', brand.logoPath,
     '-filter_complex', `[2:v]scale=140:-1[lg];[0:v][lg]overlay=(W-w)/2:1500[bg];[bg]${draws.join(',')}[v]`,
-    '-map', '[v]', '-map', '1:a', '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-shortest', 'reel.mp4',
+    '-map', '[v]', '-map', '1:a', '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-movflags', '+faststart', '-shortest', 'reel.mp4',
   ], outDir);
   return { path: out, durationSec: await durationOf(out) };
 }

@@ -33,3 +33,16 @@ test('carousel has 5–8 pngs at 1080x1350', async () => {
 test('tts failure throws ProducerError', async () => {
   await assert.rejects(synth('oi', join(tmpdir(), 'x.mp3'), { cmd: 'comando-que-nao-existe' }), ProducerError);
 });
+
+test('reel survives % and backslash in the text', async () => {
+  const dir = await mkdtemp(join(tmpdir(), 'reel-'));
+  const p = { ...post, script: `Aumente 30% das vendas ${post.script} C:\pasta` };
+  const { path } = await renderReel(p, dir, { ttsImpl: fakeTts(25) });
+  assert.equal(probe(path, 'stream=width,height'), '1080,1920');
+});
+test('carousel slides are JPEG', async () => {
+  const dir = await mkdtemp(join(tmpdir(), 'car-'));
+  const { paths } = await renderCarousel({ ...post, script: 'a b c | d e f | g h i | j k l | m n o' }, dir);
+  assert.ok(paths.every((p) => p.endsWith('.jpg')));
+  assert.equal(probe(paths[0], 'stream=codec_name'), 'mjpeg');
+});

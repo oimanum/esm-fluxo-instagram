@@ -5,11 +5,18 @@ import { basename } from 'node:path';
 const run = promisify(execFile);
 const defaultGh = async (args) => (await run('gh', args)).stdout;
 
-// Publica os arquivos como assets de um GitHub Release e devolve as URLs públicas (a Meta exige URL pública).
-export async function uploadMedia(paths, { repo, tag, gh = defaultGh }) {
+// Na geração: sobe a mídia para um release em RASCUNHO (não público). Assim ela sobrevive entre workflows
+// e nada fica visível antes da aprovação.
+export async function stageMedia(paths, { repo, tag, gh = defaultGh }) {
   try {
-    await gh(['release', 'create', tag, '--repo', repo, '--title', tag, '--notes', 'mídia do post']);
+    await gh(['release', 'create', tag, '--repo', repo, '--draft', '--title', tag, '--notes', 'mídia do post']);
   } catch { /* release já existe */ }
   await gh(['release', 'upload', tag, ...paths, '--repo', repo, '--clobber']);
-  return paths.map((p) => `https://github.com/${repo}/releases/download/${tag}/${basename(p)}`);
+  return { tag, files: paths.map((p) => basename(p)) };
+}
+
+// Na aprovação: torna o release público e devolve as URLs que a Meta vai buscar.
+export async function publishRelease({ tag, files }, { repo, gh = defaultGh }) {
+  await gh(['release', 'edit', tag, '--repo', repo, '--draft=false']);
+  return files.map((f) => `https://github.com/${repo}/releases/download/${tag}/${f}`);
 }

@@ -48,3 +48,21 @@ test('expireOverdue marks pending items past 11:00 as sem_resposta', () => {
   assert.equal(expireOverdue([mkItem()], after)[0].status, 'sem_resposta');
   assert.equal(expireOverdue([mkItem()], before)[0].status, 'pending');
 });
+
+test('approve at 11:05 is inside the 20 min grace', async () => {
+  const r = await pollDecisions({ tg: fakeTg([cb(1, 'i1:approve')]), queue: [mkItem()], now: new Date('2026-11-04T14:05:00.000Z'), offset: 0 });
+  assert.equal(r.queue[0].status, 'approved');
+});
+test('dry preview has no buttons and says TESTE', async () => {
+  const tg = fakeTg([]);
+  await sendPreview(mkItem({ status: 'dry' }), tg);
+  const text = JSON.stringify(tg.calls);
+  assert.ok(!text.includes('approve'));
+  assert.ok(text.includes('TESTE'));
+});
+test('preview caption keeps the tail and never silently truncates the legend', async () => {
+  const tg = fakeTg([]);
+  const long = 'x'.repeat(1500);
+  await sendPreview(mkItem({ post: { hook: 'h', caption: long, hashtags: ['#a'], cta: 'c' } }), tg);
+  assert.ok(JSON.stringify(tg.calls).includes('#a'));
+});

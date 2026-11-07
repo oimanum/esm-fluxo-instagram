@@ -33,17 +33,33 @@ const buttons = (id) => ({
   ]],
 });
 
-const captionOf = (item) => `${item.post.caption}\n\n${item.post.hashtags.join(' ')}\n\n[${item.format}] Tema: ${item.topic}`.slice(0, 1000);
+const headerOf = (item) => `[${item.format}] Tema: ${item.topic}${item.status === 'dry' ? ' — TESTE' : ''}`;
 
+// Mídia primeiro (legenda curta), depois uma mensagem com a legenda COMPLETA e os botões.
 export async function sendPreview(item, tg) {
+  const dry = item.status === 'dry';
   if (item.format === 'reel') {
-    const m = await tg.upload('sendVideo', { caption: captionOf(item), reply_markup: buttons(item.id), supports_streaming: 'true' }, { video: item.media[0] });
-    return { messageId: m.message_id };
+    await tg.upload('sendVideo', { caption: headerOf(item), supports_streaming: 'true' }, { video: item.media[0] });
+  } else {
+    const files = {};
+    item.media.forEach((p, i) => { files[`f${i}`] = p; });
+    await tg.upload('sendMediaGroup', { media: item.media.map((_, i) => ({ type: 'photo', media: `attach://f${i}` })) }, files);
   }
-  const files = {};
-  item.media.forEach((p, i) => { files[`f${i}`] = p; });
-  await tg.upload('sendMediaGroup', { media: item.media.map((_, i) => ({ type: 'photo', media: `attach://f${i}` })) }, files);
-  const m = await tg.call('sendMessage', { text: `${captionOf(item)}\n\nAprovar a publicação?`, reply_markup: buttons(item.id) });
+  const body = `${item.post.caption}
+
+${item.post.hashtags.join(' ')}`.slice(0, 3800);
+  const text = dry
+    ? `TESTE — não será publicado.
+
+${headerOf(item)}
+
+${body}`
+    : `${headerOf(item)}
+
+${body}
+
+Aprovar a publicação?`;
+  const m = await tg.call('sendMessage', dry ? { text } : { text, reply_markup: buttons(item.id) });
   return { messageId: m.message_id };
 }
 
@@ -53,8 +69,11 @@ export function deadlineOf(item) {
   return new Date(`${day}T${config.approvalDeadline}:00-03:00`);
 }
 
+// Prazo efetivo = 11:00 + tolerância (config.approvalGraceMin).
+const cutoffOf = (item) => new Date(deadlineOf(item).getTime() + config.approvalGraceMin * 60000);
+
 export function expireOverdue(queue, now) {
-  return queue.map((i) => (i.status === 'pending' && now > deadlineOf(i) ? { ...i, status: 'sem_resposta' } : i));
+  return queue.map((i) => (i.status === 'pending' && now > cutoffOf(i) ? { ...i, status: 'sem_resposta' } : i));
 }
 
 const NEXT = { approve: 'approved', swap: 'swap', skip: 'skipped' };
@@ -71,7 +90,7 @@ export async function pollDecisions({ tg, queue, now, offset }) {
     const [id, action] = data.split(':');
     const item = out.find((i) => i.id === id);
     if (!item || !NEXT[action] || item.status !== 'pending') continue; // idempotente: só age sobre pendente
-    if (now > deadlineOf(item)) { item.status = 'expired'; decisions.push({ id, action: 'expired' }); continue; }
+    if (now > cutoffOf(item)) { item.status = 'expired'; decisions.push({ id, action: 'expired' }); continue; }
     item.status = NEXT[action];
     decisions.push({ id, action });
   }
