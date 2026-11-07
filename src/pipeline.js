@@ -4,6 +4,7 @@ import { config, sanitize } from './config.js';
 import { scoreTopics, pickToday } from './strategy.js';
 import { writePost } from './writer.js';
 import { checkPost } from './safety.js';
+import { loadFacts } from './facts.js';
 import { sendPreview, pollDecisions, expireOverdue } from './approval.js';
 
 const ymd = (d) => new Intl.DateTimeFormat('en-CA', { timeZone: config.tz }).format(new Date(d));
@@ -13,11 +14,11 @@ const ACTIVE = ['pending', 'approved', 'publishing', 'posted'];
 const safeAlert = (d) => async (text) => { try { await d.alert(sanitize(text)); } catch { /* sem canal de aviso */ } };
 const checkpoint = (d) => (d.checkpoint ? d.checkpoint() : Promise.resolve());
 
-async function writeChecked({ topic, angle, format, llm }) {
+async function writeChecked({ topic, angle, format, llm, facts }) {
   let problems = [];
   for (let i = 0; i < 3; i++) {
-    const post = await writePost({ topic, angle, format, llm });
-    const check = checkPost(post, format);
+    const post = await writePost({ topic, angle, format, llm, facts });
+    const check = checkPost(post, format, { allowedNumbers: facts.allowedNumbers });
     if (check.ok) return post;
     problems = check.problems;
   }
@@ -48,7 +49,8 @@ export async function generate(d) {
       await alert(`Hoje não vou postar (${pick.skip}).`);
       return { status: 'skipped', reason: pick.skip };
     }
-    const post = await writeChecked({ topic: pick.topic, angle: pick.angle, format: pick.format, llm: d.llm });
+    const facts = d.facts ?? await loadFacts();
+    const post = await writeChecked({ topic: pick.topic, angle: pick.angle, format: pick.format, llm: d.llm, facts });
     const id = d.newId();
     const outDir = `out/${id}`;
     await mkdir(outDir, { recursive: true });

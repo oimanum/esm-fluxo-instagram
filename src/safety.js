@@ -1,4 +1,5 @@
 import { plain } from './text.js';
+import { numbersIn } from './facts.js';
 
 const words = (s) => plain(s).trim().split(/\s+/).filter(Boolean).length;
 
@@ -14,7 +15,10 @@ const BLOCKED = [
 const NARRATION_MIN = 55;
 const NARRATION_MAX = 88;
 
-export function checkPost(post, format) {
+// Gancho técnico vende a ferramenta, não o resultado.
+const TECH = new RegExp('(?<![\p{L}])(react|html|css|javascript|typescript|next\.?js|php|wordpress|framework|back-?end|front-?end|c[óo]digo|programa[çc][ãa]o|stack)(?![\p{L}])', 'iu');
+
+export function checkPost(post, format, { allowedNumbers = new Set() } = {}) {
   const problems = [];
   if (!post.hook || words(post.hook) > 12) problems.push('gancho ausente ou com mais de 12 palavras');
   if (format === 'reel') {
@@ -33,5 +37,8 @@ export function checkPost(post, format) {
   if (!post.cta || manySentences) problems.push('CTA ausente ou múltiplo');
   const all = [post.hook, post.script, post.caption, post.cta].join(' \n ');
   for (const re of BLOCKED) if (re.test(all)) problems.push(`alegação bloqueada: ${re}`);
+  const unsourced = [...new Set(numbersIn(all))].filter((n) => !allowedNumbers.has(n));
+  if (unsourced.length) problems.push(`número de resultado sem fonte em brand/facts.json: ${unsourced.join(', ')}`);
+  if (TECH.test(plain(post.hook || ''))) problems.push('gancho técnico: fale do benefício para o cliente, não da ferramenta');
   return { ok: problems.length === 0, problems };
 }

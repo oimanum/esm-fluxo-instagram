@@ -46,3 +46,22 @@ test('checklist needs 3 to 5 short items separated by |', () => {
   assert.equal(c('a | b | c | d | e | f'), false);
   assert.equal(c(`um | dois | ${'x'.repeat(71)}`), false);
 });
+
+test('rejects result numbers (percent, R$) that are not in the facts', () => {
+  const p = { ...good, hook: 'Landing page que converteu 35% mais vendas' };
+  assert.equal(checkPost(p, 'reel').ok, false);
+  assert.equal(checkPost(p, 'reel', { allowedNumbers: new Set(['35%']) }).ok, true);
+  assert.equal(checkPost({ ...good, caption: 'Faturou R$ 5.000 por mês' }, 'reel').ok, false);
+});
+test('plain numbers without percent or money are fine', () => {
+  assert.equal(checkPost({ ...good, hook: 'Seu site abre em 3 segundos?' }, 'reel').ok, true);
+});
+test('rejects technical hooks that sell the tool instead of the result', () => {
+  assert.equal(checkPost({ ...good, hook: 'Crio sites em React e HTML' }, 'reel').ok, false);
+  assert.equal(checkPost({ ...good, hook: 'Seu site novo traz mais pacientes' }, 'reel').ok, true);
+});
+
+test('technical-hook rule matches whole words only', () => {
+  assert.equal(checkPost({ ...good, hook: 'Sua reação ao ver o site ao vivo' }, 'reel').ok, true);
+  assert.equal(checkPost({ ...good, hook: 'Chega de código lento no seu site' }, 'reel').ok, false);
+});
