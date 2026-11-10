@@ -1,1 +1,66 @@
-[]
+[
+  {
+    "id": "eb333835",
+    "topic": "Por que seu concorrente aparece em 1º lugar no Google (e você nem está na primeira página)?",
+    "angle": "Conecta as tendências de busca no Google com a dor de perder clientes locais. Explica que o Google prioriza perfis com site próprio e otimizado. Ficar dependente apenas do Instagram é entregar os clientes com intenção de compra imediata para o concorrente.",
+    "format": "reel",
+    "post": {
+      "label": "PERDENDO CLIENTES",
+      "hook": "Quer receber **mais agendamentos** direto no seu WhatsApp?",
+      "script": "Quando alguém precisa do seu serviço hoje, essa pessoa pesquisa no Google, não no Instagram. O Google dá prioridade para empresas com site próprio. Ficar só no Instagram faz você perder os clientes que querem comprar agora. Teste você mesmo: pesquise seu negócio no Google pelo celular. Você aparece em primeiro?",
+      "caption": "Seu concorrente não vende mais por ter um serviço melhor, mas por aparecer onde o cliente busca.\n\nQuem pesquisa no Google quer contratar hoje. Se você só tem Instagram, o Google entrega esse cliente direto para o seu concorrente que tem um site próprio.\n\nTeste você mesmo: pesquise seu serviço no Google, pelo celular. Se você não está na primeira página, está perdendo vendas diariamente.\n\nUm site otimizado faz sua empresa transmitir confiança e receber contatos no WhatsApp a qualquer hora.",
+      "hashtags": [
+        "#negocioslocais",
+        "#siteprofissional",
+        "#maispacientes",
+        "#posicionamentodigital",
+        "#esmweb"
+      ],
+      "cta": "Clique no **link da bio** e fale com a gente"
+    },
+    "media": [
+      "out/eb333835/reel.mp4"
+    ],
+    "status": "dry",
+    "createdAt": "2026-11-10T23:10:00.356Z",
+    "alternatives": [
+      {
+        "topic": "80% das PMEs estão usando IA em 2026: Por que sua estratégia vai falhar se você não tiver um site?",
+        "score": 9.4,
+        "angle": "Usa a notícia da Agência Sebrae sobre adoção de IA por pequenos negócios. Mostra que automatizar o atendimento via WhatsApp ou IA não funciona se você não tem uma Landing Page de alta conversão para atrair e qualificar esses leads primeiro."
+      },
+      {
+        "topic": "Sua clínica de estética parece confiável ou 'apenas mais uma' no Instagram?",
+        "score": 9.2,
+        "angle": "Baseado nas discussões sobre pressão estética e confiança na saúde/estética. Destaca que tratamentos de alto valor exigem autoridade: o Instagram gera interesse, mas é o site profissional com agendamento claro que passa a credibilidade necessária para fechar o procedimento."
+      },
+      {
+        "topic": "O perigo do site lento: Quantos clientes você está perdendo antes mesmo do WhatsApp tocar?",
+        "score": 9.1,
+        "angle": "Endereça diretamente a dor do site demorado. Explica que se a Landing Page carrega em mais de 3 segundos, até 50% do tráfego pago é jogado fora, queimando orçamento de anúncios em clínicas, escritórios e empresas de energia solar."
+      },
+      {
+        "topic": "O novo marketing jurídico: Por que depender apenas do Instagram é um risco para advogados",
+        "score": 8.9,
+        "angle": "Liga as notícias sobre eventos de marketing da OAB ao nicho da advocacia. Redes sociais captam curiosos, mas clientes com casos urgentes buscam advogados no Google. Sem site, o escritório perde os contratos mais lucrativos."
+      },
+      {
+        "topic": "Quando a dor é urgente, o cliente vai ao Google, não ao Instagram: O que aprender com as buscas de hoje?",
+        "score": 8.7,
+        "angle": "Usa o comportamento de busca por soluções diretas (como no caso do 'free flow') para ensinar que compras de alta necessidade (advogado, clínica de urgência, energia solar) começam no buscador. Sem site, a empresa nem entra na disputa."
+      },
+      {
+        "topic": "Projetos de Energia Solar e Tarifa da ANEEL: Como fechar orçamentos altos sem perder no preço?",
+        "score": 8.5,
+        "angle": "Conecta as novidades do setor solar (ANEEL/baterias) à dor dos integradores. Para vender soluções complexas e de alto ticket, um perfil no Instagram não basta: é indispensável ter uma Landing Page com simulador, casos de sucesso e agendamento de consultoria."
+      }
+    ],
+    "release": {
+      "tag": "post-eb333835",
+      "files": [
+        "reel.mp4"
+      ]
+    },
+    "messageId": 6
+  }
+]
