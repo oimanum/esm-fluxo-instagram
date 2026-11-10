@@ -2,6 +2,7 @@ name: generate
 on:
   schedule:
     - cron: '7 9 * * *' # ~06:00 em Brasília (minuto 7 evita o pico de atrasos do GitHub)
+    - cron: '47 9 * * *' # segunda tentativa (~06:47): só age se o post do dia ainda não foi gerado
   workflow_dispatch:
     inputs:
       dry:

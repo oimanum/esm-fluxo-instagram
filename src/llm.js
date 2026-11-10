@@ -10,6 +10,7 @@ export const FREE_MODELS = ['gemini-3.6-flash', 'gemini-3.8-flash', 'gemini-3.5-
 export const modelOrder = () => [...new Set([process.env.GEMINI_MODEL, ...FREE_MODELS].filter(Boolean))];
 
 const defaultSleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const BACKOFF_MS = [2000, 6000, 12000];
 
 // Devolve { obj } com a resposta válida, ou { notFound: true } se o modelo não existe (404).
 async function tryModel(model, { prompt, schema, fetchImpl, retries, key, sleep }) {
@@ -26,8 +27,10 @@ async function tryModel(model, { prompt, schema, fetchImpl, retries, key, sleep 
     if (res.status === 404) return { notFound: true };
     if (res.status === 429) throw new LlmError('Limite do Gemini atingido', 'rate_limit');
     if (!res.ok) {
-      if (attempt === retries) throw new LlmError(`Gemini HTTP ${res.status} (modelo ${model})`, 'http');
-      await sleep(1000 * (attempt + 1)); // erro temporário do servidor: espera um pouco e tenta de novo
+      // 5xx = servidor sobrecarregado ou instável: espera mais a cada tentativa; esgotadas, passa para o próximo modelo.
+      if (res.status < 500) throw new LlmError(`Gemini HTTP ${res.status} (modelo ${model})`, 'http');
+      if (attempt === retries) return { overloaded: res.status };
+      await sleep(BACKOFF_MS[attempt] ?? BACKOFF_MS.at(-1));
       continue;
     }
     try {
@@ -42,10 +45,15 @@ async function tryModel(model, { prompt, schema, fetchImpl, retries, key, sleep 
 export async function askJson({ prompt, schema, fetchImpl = fetch, retries = 2, sleep = defaultSleep }) {
   const { GEMINI_KEY } = requireEnv(['GEMINI_KEY']);
   const tried = [];
+  const overloaded = [];
   for (const model of modelOrder()) {
     const r = await tryModel(model, { prompt, schema, fetchImpl, retries, key: GEMINI_KEY, sleep });
     if (r.notFound) { tried.push(model); continue; }
+    if (r.overloaded) { overloaded.push(`${model} (HTTP ${r.overloaded})`); continue; }
     return r.obj;
+  }
+  if (overloaded.length) {
+    throw new LlmError(`Gemini sobrecarregado no momento (${overloaded.join(', ')}). É temporário: rode de novo em alguns minutos.`, 'overloaded');
   }
   throw new LlmError(`Nenhum modelo do Gemini respondeu (404 em: ${tried.join(', ')}). Defina a variável GEMINI_MODEL com um modelo atual.`, 'model_not_found');
 }

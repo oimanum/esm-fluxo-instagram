@@ -61,9 +61,23 @@ test('every model 404 -> model_not_found listing what was tried', async () => {
   delete process.env.GEMINI_MODEL;
   await assert.rejects(askJson({ prompt: 'x', schema: ok, fetchImpl: byModel({}) }), (e) => e instanceof LlmError && e.code === 'model_not_found' && e.message.includes('gemini-3.6-flash'));
 });
-test('a 500 does not skip to another model (only 404 does)', async () => {
+test('a persistent 503 (overloaded) moves on to the next model', async () => {
   delete process.env.GEMINI_MODEL;
-  const f = byModel({ 'gemini-3.6-flash': { status: 500 } });
-  await assert.rejects(askJson({ prompt: 'x', schema: ok, fetchImpl: f, retries: 0 }), (e) => e.code === 'http');
+  const f = byModel({ 'gemini-3.6-flash': { status: 503 }, 'gemini-3.8-flash': { status: 200, text: '{"a":9}' } });
+  const sleeps = [];
+  assert.deepEqual(await askJson({ prompt: 'x', schema: ok, fetchImpl: f, sleep: async (ms) => { sleeps.push(ms); } }), { a: 9 });
+  assert.deepEqual([...new Set(f.seen)], ['gemini-3.6-flash', 'gemini-3.8-flash']);
+  assert.ok(sleeps.length >= 2 && sleeps[1] > sleeps[0], 'espera cresce entre as tentativas');
+  assert.ok(sleeps[0] >= 2000, 'primeira espera de pelo menos 2 s');
+});
+test('every model overloaded -> clear LlmError (code overloaded) naming the models', async () => {
+  delete process.env.GEMINI_MODEL;
+  const f = byModel({ 'gemini-3.6-flash': { status: 503 }, 'gemini-3.8-flash': { status: 503 }, 'gemini-3.5-flash-lite': { status: 500 }, 'gemini-3.1-flash-lite': { status: 503 } });
+  await assert.rejects(askJson({ prompt: 'x', schema: ok, fetchImpl: f, sleep: async () => {} }), (e) => e instanceof LlmError && e.code === 'overloaded' && e.message.includes('503') && e.message.includes('gemini-3.8-flash'));
+});
+test('a 429 still stops right away without trying other models', async () => {
+  delete process.env.GEMINI_MODEL;
+  const f = byModel({ 'gemini-3.6-flash': { status: 429 } });
+  await assert.rejects(askJson({ prompt: 'x', schema: ok, fetchImpl: f, sleep: async () => {} }), (e) => e.code === 'rate_limit');
   assert.deepEqual([...new Set(f.seen)], ['gemini-3.6-flash']);
 });
