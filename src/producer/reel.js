@@ -20,8 +20,17 @@ export async function renderReel(post, outDir, { ttsImpl = synth } = {}) {
   const audio = join(outDir, 'voz.mp3');
   const narration = [sentence(plain(post.hook)), sentence(plain(post.script)), sentence(plain(post.cta))].join(' ');
   await ttsImpl(narration, audio);
-  const dur = await durationOf(audio);
-  if (dur < 20 || dur > 35) throw new ProducerError(`Locução com ${dur.toFixed(1)} s (esperado 20–35 s)`);
+  let dur = await durationOf(audio);
+  let audioName = 'voz.mp3';
+  if (dur < 20 || dur > 35) {
+    // Cada voz tem um ritmo. Até 25% de ajuste de velocidade (sem mudar o tom) cabe; além disso, o texto é que está errado.
+    const factor = dur > 35 ? dur / 33 : dur / 22;
+    if (factor > 1.25 || factor < 0.8) throw new ProducerError(`Locução com ${dur.toFixed(1)} s (esperado 20–35 s)`);
+    await ffmpeg(['-i', 'voz.mp3', '-filter:a', `atempo=${factor.toFixed(3)}`, 'voz-ajustada.mp3'], outDir);
+    audioName = 'voz-ajustada.mp3';
+    dur = await durationOf(join(outDir, audioName));
+    if (dur < 20 || dur > 35) throw new ProducerError(`Locução com ${dur.toFixed(1)} s depois do ajuste (esperado 20–35 s)`);
+  }
 
   // Cada tela dura em proporção ao tamanho do texto que é falado nela.
   const screens = reelScreens(post, brand.label);
@@ -42,7 +51,7 @@ export async function renderReel(post, outDir, { ttsImpl = synth } = {}) {
   });
 
   const f = (x) => x.toFixed(2);
-  const inputs = ['-loop', '1', '-framerate', '30', '-t', f(dur), '-i', 'bg.png', '-i', 'voz.mp3'];
+  const inputs = ['-loop', '1', '-framerate', '30', '-t', f(dur), '-i', 'bg.png', '-i', audioName];
   let graph = '[0:v]format=yuv420p[b0];';
   screens.forEach((s, i) => {
     inputs.push('-loop', '1', '-framerate', '30', '-t', f(Math.min(dur, s.t1 + 0.5)), '-i', `ov-${i}.png`);

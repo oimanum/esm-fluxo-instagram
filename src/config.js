@@ -7,6 +7,16 @@ export const config = {
   baseline: { reel: 4, carousel: 2 },
   competitors: [], // @ de 3 a 5 perfis de referência (preencher)
 
+  // Locução dos Reels. Tenta a voz do Gemini (mesma chave GEMINI_KEY); se falhar, cai para a voz Edge.
+  // Variáveis do GitHub (Settings > Variables): GEMINI_VOICE, GEMINI_TTS_MODEL e TTS_ENGINE=edge para forçar a reserva.
+  voice: {
+    engine: process.env.TTS_ENGINE || 'gemini',
+    model: process.env.GEMINI_TTS_MODEL || 'gemini-3.8-flash-tts',
+    name: process.env.GEMINI_VOICE || 'Sulafat',
+    edge: 'pt-BR-AntonioNeural',
+    style: 'Speak in natural, conversational Brazilian Portuguese, like a confident and friendly consultant talking face to face with a small business owner. Calm, steady pace, warm tone, a slight smile, real human pauses and emphasis. Never robotic, never like a news announcer.',
+  },
+
   // Funil do Direct: comentou a palavra-chave, recebe a mensagem. Texto e link APROVADOS pelo dono em 07/11/2026.
   // Fica DESLIGADO até existir um IG_TOKEN com as permissões de comentários e mensagens. Para ligar: enabled: true.
   funnel: {

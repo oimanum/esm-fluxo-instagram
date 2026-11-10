@@ -86,3 +86,20 @@ test('highlight kit: 3 covers always, stories only from real facts', async () =>
   assert.equal(full.stories.length, 5);
   assert.equal(probe(full.stories[0], 'stream=width,height'), '1080,1920');
 });
+
+// --- ajuste de duração: uma voz mais lenta ou mais rápida não pode derrubar o dia ---
+test('audio a little over 35 s is sped up to fit instead of failing', async () => {
+  const dir = await mkdtemp(join(tmpdir(), 'fit-'));
+  const { durationSec } = await renderReel(post, dir, { ttsImpl: fakeTts(38) });
+  assert.ok(durationSec >= 20 && durationSec <= 35, `duração ${durationSec}`);
+});
+test('audio a little under 20 s is slowed down to fit', async () => {
+  const dir = await mkdtemp(join(tmpdir(), 'fit-'));
+  const { durationSec } = await renderReel(post, dir, { ttsImpl: fakeTts(18) });
+  assert.ok(durationSec >= 20 && durationSec <= 35, `duração ${durationSec}`);
+});
+test('audio too far off (50 s or 8 s) still fails clearly', async () => {
+  for (const s of [50, 8]) {
+    await assert.rejects(renderReel(post, await mkdtemp(join(tmpdir(), 'fit-')), { ttsImpl: fakeTts(s) }), /Locução/);
+  }
+});
