@@ -22,6 +22,7 @@ Os nomes dos botões nos painéis da Meta mudam com frequência. Se algum passo 
 
 ## 4. Gemini (roteiros)
 1. Em aistudio.google.com/apikey, crie uma chave (grátis, sem cartão) → Secret `GEMINI_KEY`.
+2. O Google aposenta modelos de tempos em tempos (o gemini-2.0-flash saiu em 01/06/2026). O sistema tenta, em ordem, gemini-3.6-flash, 3.8-flash, 3.5-flash-lite e 3.1-flash-lite. Se todos derem 404, crie a variável (não Secret) `GEMINI_MODEL` em *Settings → Secrets and variables → Actions → Variables* com um modelo gratuito atual.
 
 ## 5. Renovação automática do token
 1. No GitHub: *Settings → Developer settings → Fine-grained tokens*. Crie um token só para este repositório com a permissão **Secrets: Read and write**.

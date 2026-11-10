@@ -22,6 +22,7 @@ jobs:
       - name: Gerar conteúdo e enviar prévia
         env:
           GEMINI_KEY: ${{ secrets.GEMINI_KEY }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
           TG_TOKEN: ${{ secrets.TG_TOKEN }}
           TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
           GITHUB_REPOSITORY: ${{ github.repository }}
