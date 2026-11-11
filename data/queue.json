@@ -126,5 +126,63 @@
       ]
     },
     "messageId": 8
+  },
+  {
+    "id": "f6fe8b02",
+    "topic": "80% das empresas usam IA no marketing, mas perdem vendas por não terem uma Landing Page de alta conversão",
+    "angle": "Conectando as pesquisas do Sebrae e Omie sobre a adesão em massa da IA: não adianta automatizar conteúdos e respostas no Instagram/WhatsApp se você não tem uma Landing Page estruturada para onde enviar esse tráfego. O cliente chega interessado, mas abandona a compra por falta de um site rápido e profissional.",
+    "format": "reel",
+    "post": {
+      "label": "ERRO COMUM",
+      "hook": "Você atraiu o cliente com IA, mas **perdeu o agendamento** na página.",
+      "script": "A maioria das empresas já usa inteligência artificial para postar e responder. Mas do que adianta automatizar tudo se o cliente cai num site lento? O Google mostra que 53% das visitas no celular são abandonadas se a página demora mais de 3 segundos. Você atrai o público, mas perde vendas por não ter uma página profissional.",
+      "caption": "Sua empresa pode até usar inteligência artificial para criar posts e responder mensagens no WhatsApp, mas para onde você envia esse tráfego?\n\nNão adianta automatizar a atração se a sua página de destino faz o cliente desistir da compra. O cliente chega interessado, encontra um site lento ou amador e fecha a aba.\n\nSegundo um estudo do Google, 53% das visitas em dispositivos móveis são abandonadas quando a página demora mais de 3 segundos para carregar. Sem uma Landing Page de alta conversão, seus agendamentos vão direto para o concorrente.\n\nUm site profissional posiciona seu negócio no Google, passa credibilidade imediata e direciona contatos prontos para fechar no seu WhatsApp.\n\nTeste você mesmo: pesquise seu negócio no Google, pelo celular. Quanto tempo sua página demora para abrir?\n\nToque no link da bio e receba mais clientes no WhatsApp.",
+      "hashtags": [
+        "#marketingdigital",
+        "#landingpage",
+        "#vendasnowhatsapp",
+        "#negocioslocais"
+      ],
+      "cta": "Toque no link da bio e **receba mais clientes**"
+    },
+    "media": [
+      "out/f6fe8b02/reel.mp4"
+    ],
+    "status": "pending",
+    "createdAt": "2026-11-11T17:05:57.192Z",
+    "alternatives": [
+      {
+        "topic": "A crise da confiança digital: Por que ter apenas Instagram faz seu negócio parecer amador",
+        "score": 9.4,
+        "angle": "Inspirado nas notícias sobre IA e confiança no marketing: em um cenário saturado de perfis genéricos e automação, ter apenas redes sociais gera insegurança no cliente de alto ticket. Um site próprio com domínio oficial, depoimentos e certificado de segurança é a maior prova de credibilidade para clínicas e escritórios."
+      },
+      {
+        "topic": "Marketing Jurídico pós-Summit OAB: Por que o advogado que só usa redes sociais perde os melhores casos",
+        "score": 9.3,
+        "angle": "Com base no avanço dos congressos de inovação da OAB: o Instagram educa, mas quem está com um problema jurídico urgente pesquisa no Google. Se o escritório não tem um site otimizado para aparecer em buscas locais, fica dependente de indicação e perde clientes prontos para fechar."
+      },
+      {
+        "topic": "Clínica de Estética: O Instagram gera o desejo, mas é a falta de um site que faz você perder a consulta",
+        "score": 9.1,
+        "angle": "Ligando o boom do mercado de beleza e estética à jornada do paciente: a pessoa vê o procedimento na rede social, mas vai ao Google procurar 'clínica de estética perto de mim'. Sem um site com agendamento fácil e localização clara, ela agenda no concorrente que aparece primeiro."
+      },
+      {
+        "topic": "Integrador Solar: Como parar de disputar preço no WhatsApp usando uma Landing Page de orçamento rápido",
+        "score": 8.9,
+        "angle": "Baseado nos novos desafios regulatórios da ANEEL e concorrência no setor solar: o cliente de energia solar quer simular a economia rapidamente. Landing pages com calculadoras e formulários diretos filtram curiosos e entregam leads qualificados para o comercial antes que o cliente chame outro integrador."
+      },
+      {
+        "topic": "O 'Efeito 3 Segundos': O quanto um site lento custa para o seu negócio local",
+        "score": 8.7,
+        "angle": "Aproveitando o gancho do consumo mobile rápido e lançamentos de smartphones (Samsung S25): se o cliente clica no link do seu anúncio ou bio e o site demora a carregar, ele volta para a busca instantaneamente. Mostra a importância de sites otimizados e leves criados especificamente para conversão."
+      }
+    ],
+    "release": {
+      "tag": "post-f6fe8b02",
+      "files": [
+        "reel.mp4"
+      ]
+    },
+    "messageId": 10
   }
 ]
