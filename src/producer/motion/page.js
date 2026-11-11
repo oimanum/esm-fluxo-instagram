@@ -62,41 +62,87 @@
   };
   const wordSpans = (box, S, fn) => S.words.map((w) => { const n = el('w', box, esc(w.w), 'span'); n.style.margin = '0 .12em'; fn(n, w); return n; });
 
-  // ----- mockup de site (ilustração): negócio fictício com botão de contato que pulsa e aviso de novo contato -----
-  const NICHES = [
-    { name: 'Clínica Exemplo', dom: 'clinicaexemplo.com.br', head: 'Cuide do seu sorriso', cta: 'Agendar consulta', feat: ['Avaliação', 'Equipe', 'Contato'] },
-    { name: 'Advocacia Exemplo', dom: 'advocaciaexemplo.com.br', head: 'Defenda seus direitos', cta: 'Falar com advogado', feat: ['Áreas', 'Equipe', 'Contato'] },
-    { name: 'Estética Exemplo', dom: 'esteticaexemplo.com.br', head: 'Realce a sua beleza', cta: 'Agendar avaliação', feat: ['Serviços', 'Antes', 'Contato'] },
-    { name: 'Solar Exemplo', dom: 'solarexemplo.com.br', head: 'Reduza sua conta de luz', cta: 'Pedir orçamento', feat: ['Como é', 'Projetos', 'Contato'] },
+  // ----- mockup de site (ilustração): página inicial completa de um negócio fictício, com botão de contato que pulsa -----
+  // O site é desenhado em 960x940 e reduzido à metade (480x470), como um print de tela de um site de verdade.
+  const IC = {
+    heart: '<path d="M12 21s-7-4.6-9.3-9A5.2 5.2 0 0 1 12 6.5 5.2 5.2 0 0 1 21.3 12C19 16.4 12 21 12 21z"/>',
+    star: '<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>',
+    shield: '<path d="M12 3l8 3v6c0 5-3.4 8.4-8 9-4.6-.6-8-4-8-9V6z"/>',
+    users: '<circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9" r="2.6"/><path d="M3 20c0-3.4 2.7-5.5 6-5.5s6 2.1 6 5.5M15.5 14.8c3 0 5.5 1.7 5.5 5"/>',
+    building: '<path d="M5 21V4l7-2 7 2v17M9 8h2M13 8h2M9 12h2M13 12h2M10 21v-4h4v4"/>',
+    drop: '<path d="M12 2.5s6 6.6 6 11.5a6 6 0 0 1-12 0c0-4.900 6-11.500 6-11.500z"/>',
+    leaf: '<path d="M5 19C5 9.500 11 4.500 20 4.500 20 13 15 19 5 19zM5 19l8-8"/>',
+    home: '<path d="M3 11l9-8 9 8M5 9.500V21h14V9.500M10 21v-6h4v6"/>',
+    sun: '<circle cx="12" cy="12" r="4.200"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/>',
+  };
+  const icon = (n, color) => `<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${IC[n]}</svg>`;
+  const SITES = [
+    { // clínica
+      name: 'Clínica Vitta', mark: 'V', dom: 'clinicavitta.com.br', nav: ['Tratamentos', 'Equipe', 'Convênios', 'Contato'], navCta: 'Agendar',
+      kick: 'Odontologia e saúde', h1: 'Seu sorriso merece <span style="color:#0E9F8E">cuidado de verdade</span>', p: 'Atendimento humano, tecnologia moderna e horários que cabem na sua rotina.',
+      cta: 'Agendar consulta', sec: 'Ver tratamentos', trust: ['Agenda online', 'Equipe especializada', 'Fácil de chegar'], badge: 'Agenda online aberta',
+      cards: [['heart', 'Limpeza e prevenção', 'Cuidado de rotina para a saúde bucal'], ['star', 'Clareamento', 'Mais brilho com segurança'], ['shield', 'Ortodontia', 'Alinhamento para todas as idades']],
+      P: { bg: '#F4FBFA', ink: '#0B2B33', mute: '#4E6B70', prim: '#0E9F8E', primInk: '#FFFFFF', tint: '#DDF3EF', line: '#D2E8E4', head: "'Inter Tight'", hw: 800, hs: 54, card: '#FFFFFF' },
+      art: '<defs><linearGradient id="a" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#D9F4EF"/><stop offset="1" stop-color="#7FD1C7"/></linearGradient></defs><rect width="340" height="520" fill="url(#a)"/><circle cx="260" cy="90" r="120" fill="#fff" opacity=".35"/><circle cx="50" cy="450" r="140" fill="#fff" opacity=".25"/><path d="M30 520C30 400 105 358 170 358S310 400 310 520z" fill="#fff"/><path d="M170 360l-38 160h76z" fill="#E4F6F3"/><rect x="150" y="312" width="40" height="60" rx="18" fill="#E8B796"/><ellipse cx="170" cy="246" rx="62" ry="76" fill="#F1C7A8"/><path d="M104 250C98 150 160 138 192 148c50 12 54 74 44 114-10-52-36-72-66-72s-58 20-66 60z" fill="#3B2A24"/><circle cx="148" cy="248" r="5" fill="#3B2A24"/><circle cx="192" cy="248" r="5" fill="#3B2A24"/><path d="M146 284q24 22 48 0" stroke="#B5655A" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M118 388c-8 56 30 76 52 44" stroke="#0B2B33" stroke-width="6" fill="none" stroke-linecap="round"/><circle cx="170" cy="432" r="13" fill="#0E9F8E"/>',
+    },
+    { // advocacia
+      name: 'Mendes & Rocha', mark: 'M', dom: 'mendesrocha.adv.br', nav: ['Atuação', 'Equipe', 'Artigos', 'Contato'], navCta: 'Contato',
+      kick: 'Advocacia empresarial e de família', h1: 'Defendemos seus direitos com <span style="color:#C8A45C">estratégia e clareza</span>', p: 'Atendimento direto com o advogado responsável, do primeiro contato à decisão final.',
+      cta: 'Falar com advogado', sec: 'Áreas de atuação', trust: ['Atendimento sigiloso', 'Resposta no WhatsApp', 'Análise do caso'], badge: 'Atendimento sigiloso',
+      cards: [['users', 'Direito de família', 'Divórcio, guarda e inventário'], ['shield', 'Direito trabalhista', 'Defesa de empresas e trabalhadores'], ['building', 'Direito empresarial', 'Contratos e consultoria jurídica']],
+      P: { bg: '#0E1730', ink: '#FFFFFF', mute: '#AEB8D4', prim: '#C8A45C', primInk: '#0E1730', tint: 'rgba(200,164,92,.16)', line: 'rgba(255,255,255,.14)', head: "'Instrument Serif'", hw: 400, hs: 62, card: 'rgba(255,255,255,.06)' },
+      art: '<defs><linearGradient id="a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22345F"/><stop offset="1" stop-color="#0A1126"/></linearGradient></defs><rect width="340" height="520" fill="url(#a)"/><rect x="26" y="70" width="34" height="380" fill="#fff" opacity=".06"/><rect x="280" y="70" width="34" height="380" fill="#fff" opacity=".06"/><circle cx="170" cy="150" r="11" fill="#C8A45C"/><path d="M170 160v250" stroke="#C8A45C" stroke-width="7"/><rect x="112" y="408" width="116" height="16" rx="6" fill="#C8A45C"/><path d="M78 180l92-24 92 24" stroke="#C8A45C" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M78 180L46 296M78 180l32 116M262 180l-32 116M262 180l32 116" stroke="#C8A45C" stroke-width="3" fill="none"/><path d="M36 296q42 46 84 0z" fill="#C8A45C"/><path d="M220 296q42 46 84 0z" fill="#C8A45C"/>',
+    },
+    { // estética
+      name: 'Studio Bella Pele', mark: 'B', dom: 'studiobellapele.com.br', nav: ['Procedimentos', 'Sobre', 'Espaço', 'Contato'], navCta: 'Agendar',
+      kick: 'Estética avançada', h1: 'Realce a sua <span style="color:#B5655A">beleza natural</span>', p: 'Protocolos personalizados para cada pele, em um ambiente acolhedor e tranquilo.',
+      cta: 'Agendar avaliação', sec: 'Procedimentos', trust: ['Avaliação da pele', 'Protocolo sob medida', 'Ambiente reservado'], badge: 'Horários esta semana',
+      cards: [['sun', 'Limpeza de pele', 'Renovação e viço para o rosto'], ['drop', 'Hidratação facial', 'Pele macia e luminosa'], ['leaf', 'Harmonização', 'Resultado natural e sutil']],
+      P: { bg: '#FBF3F0', ink: '#3A2626', mute: '#7A5F5B', prim: '#B5655A', primInk: '#FFFFFF', tint: '#F4DDD7', line: '#EBD3CD', head: "'Instrument Serif'", hw: 400, hs: 66, card: '#FFFFFF' },
+      art: '<defs><linearGradient id="a" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F6DAD3"/><stop offset="1" stop-color="#E5AFA5"/></linearGradient></defs><rect width="340" height="520" fill="url(#a)"/><path d="M60 500V230a110 110 0 0 1 220 0v270z" fill="#FBF3F0"/><ellipse cx="170" cy="278" rx="58" ry="76" fill="none" stroke="#B5655A" stroke-width="4"/><path d="M146 262q10-8 20 0M178 262q10-8 20 0" stroke="#B5655A" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M152 312q18 14 36 0q-18 6-36 0z" fill="#B5655A"/><path d="M170 238v30" stroke="#B5655A" stroke-width="3" opacity=".5"/><path d="M28 430c40-30 52-90 30-140 40 20 52 90-30 140zM312 420c-40-30-52-90-30-140-40 20-52 90 30 140z" fill="#B5655A" opacity=".55"/>',
+    },
+    { // solar
+      name: 'Solara Energia', mark: 'S', dom: 'solaraenergia.com.br', nav: ['Como funciona', 'Projetos', 'Financiamento', 'Contato'], navCta: 'Orçamento',
+      kick: 'Energia solar para casa e empresa', h1: 'Reduza sua conta de luz com <span style="color:#E8920C">energia solar</span>', p: 'Projeto sob medida, instalação completa e acompanhamento de ponta a ponta.',
+      cta: 'Pedir orçamento', sec: 'Como funciona', trust: ['Projeto personalizado', 'Instalação completa', 'Suporte pós-venda'], badge: 'Orçamento por WhatsApp',
+      cards: [['home', 'Residencial', 'Sistema para a sua casa'], ['building', 'Comercial', 'Redução de custos na empresa'], ['leaf', 'Rural', 'Energia para o campo']],
+      P: { bg: '#FFFDF5', ink: '#10352A', mute: '#4F6B60', prim: '#F5A524', primInk: '#10352A', tint: '#FDEFCB', line: '#F0E3BE', head: "'Inter Tight'", hw: 800, hs: 54, card: '#FFFFFF' },
+      art: '<defs><linearGradient id="a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A9D8FF"/><stop offset="1" stop-color="#FFF3D1"/></linearGradient><clipPath id="r"><path d="M20 340L72 238H268L320 340z"/></clipPath></defs><rect width="340" height="520" fill="url(#a)"/><circle cx="246" cy="96" r="46" fill="#F5A524"/><path d="M246 30v18M246 144v18M180 96h18M294 96h18M200 50l12 12M280 130l12 12M292 50l-12 12M212 130l-12 12" stroke="#F5A524" stroke-width="5" stroke-linecap="round"/><rect x="50" y="338" width="240" height="170" fill="#fff"/><path d="M20 340L72 238H268L320 340z" fill="#2B3A55"/><g clip-path="url(#r)"><g stroke="#8FB8FF" stroke-width="3" fill="#1F3A6B"><rect x="60" y="246" width="60" height="44"/><rect x="124" y="246" width="60" height="44"/><rect x="188" y="246" width="60" height="44"/><rect x="40" y="294" width="64" height="44"/><rect x="108" y="294" width="64" height="44"/><rect x="176" y="294" width="64" height="44"/><rect x="244" y="294" width="64" height="44"/></g></g><rect x="136" y="410" width="68" height="98" rx="6" fill="#10352A"/><rect x="66" y="372" width="48" height="48" rx="4" fill="#BFE0FF"/><rect x="226" y="372" width="48" height="48" rx="4" fill="#BFE0FF"/>',
+    },
   ];
-  function siteMock(parent, k, theme) {
-    const v = NICHES[k % NICHES.length]; const dark = theme === 'dark';
-    const T = dark
-      ? { bg: '#14161A', bar: '#1B1D21', line: '#2C2E34', ink: '#FFFFFF', mute: '#9A9EA5', blk: '#2C2E34', btn: '#FFFFFF', btnInk: '#0A0B0D', img: 'linear-gradient(135deg,#3A3D44,#1B1D21)', dot: '#4A4D55' }
-      : { bg: '#FFFFFF', bar: '#F1F2F4', line: '#E1E3E6', ink: '#0A0B0D', mute: '#6B6F76', blk: '#E1E3E6', btn: '#0A0B0D', btnInk: '#FFFFFF', img: 'linear-gradient(135deg,#D6D9DE,#AEB2B9)', dot: '#C4C7CC' };
-    const root = css(el('', parent), `position:absolute;width:480px;height:470px;border-radius:24px;overflow:hidden;background:${T.bg};border:1px solid ${T.line};box-shadow:0 36px 90px rgba(0,0,0,${dark ? 0.55 : 0.3});transform-origin:0 0`);
-    const a = (html, s) => css(el('', root, html), `position:absolute;${s}`);
-    a('', `left:0;top:0;right:0;height:44px;background:${T.bar};border-bottom:1px solid ${T.line}`);
-    [0, 1, 2].forEach((i) => a('', `left:${18 + i * 18}px;top:17px;width:10px;height:10px;border-radius:50%;background:${T.dot}`));
-    a(v.dom, `left:112px;right:52px;top:9px;height:26px;border-radius:13px;background:${T.bg};font:500 14px/26px 'JetBrains Mono';color:${T.mute};text-align:center`);
-    a('', `left:24px;top:62px;width:24px;height:24px;border-radius:7px;background:${T.ink}`);
-    a(v.name, `left:58px;top:61px;font:800 17px/26px 'Inter Tight';letter-spacing:-.02em;color:${T.ink}`);
-    [0, 1, 2].forEach((i) => a('', `right:${24 + i * 34}px;top:70px;width:22px;height:8px;border-radius:4px;background:${T.blk}`));
-    a(v.head, `left:24px;top:106px;width:272px;font:800 38px/1.04 'Inter Tight';letter-spacing:-.04em;color:${T.ink}`);
-    a('', `left:24px;top:238px;width:230px;height:10px;border-radius:5px;background:${T.blk}`);
-    a('', `left:24px;top:258px;width:170px;height:10px;border-radius:5px;background:${T.blk}`);
-    const ring = a('', `left:24px;top:288px;width:214px;height:54px;border-radius:27px;border:3px solid ${T.btn}`);
-    const btn = a(v.cta, `left:24px;top:288px;width:214px;height:54px;border-radius:27px;background:${T.btn};color:${T.btnInk};font:800 18px/54px 'Inter Tight';text-align:center;letter-spacing:-.01em`);
-    const img = a('', `left:308px;top:106px;width:150px;height:200px;border-radius:20px;background:${T.img};overflow:hidden`);
-    css(el('', img), `position:absolute;left:50px;top:44px;width:50px;height:50px;border-radius:50%;background:${dark ? 'rgba(255,255,255,.22)' : 'rgba(255,255,255,.7)'}`);
-    css(el('', img), `position:absolute;left:22px;top:104px;width:106px;height:120px;border-radius:53px;background:${dark ? 'rgba(255,255,255,.16)' : 'rgba(255,255,255,.55)'}`);
-    v.feat.forEach((f, i) => {
-      const c = a('', `left:${24 + i * 148}px;top:366px;width:136px;height:84px;border-radius:16px;border:1px solid ${T.line}`);
-      css(el('', c), `position:absolute;left:14px;top:14px;width:26px;height:26px;border-radius:50%;background:${T.blk}`);
-      css(el('', c, f), `position:absolute;left:14px;top:50px;font:600 15px/20px 'Inter Tight';color:${T.ink}`);
-    });
-    const toast = a('<b style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#7BE3A0;margin-right:10px"></b>Novo contato', `right:14px;top:296px;padding:0 18px;height:40px;border-radius:20px;background:${dark ? '#FFFFFF' : '#0A0B0D'};color:${dark ? '#0A0B0D' : '#FFFFFF'};font:800 16px/40px 'Inter Tight';white-space:nowrap;box-shadow:0 14px 30px rgba(0,0,0,.35);opacity:0`);
-    return { root, ring, toast, btn };
+  function siteMock(parent, k) {
+    const v = SITES[k % SITES.length]; const P = v.P;
+    const root = css(el('', parent), 'position:absolute;width:480px;height:470px;border-radius:24px;overflow:hidden;background:#fff;box-shadow:0 36px 90px rgba(0,0,0,.45);transform-origin:0 0');
+    const dark = P.bg.startsWith('#0') || P.bg.startsWith('#1');
+    const lock = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7a7e86" stroke-width="2.400" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:8px"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
+    const nav = v.nav.map((n) => `<span style="margin-left:26px;font-size:19px;font-weight:500;white-space:nowrap;color:${P.mute}">${n}</span>`).join('');
+    const trust = v.trust.map((n) => `<span style="display:inline-flex;align-items:center;margin-right:18px;font-size:17px;font-weight:600;color:${P.ink}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="${P.prim}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="margin-right:7px"><path d="M4 12l5 5 11-11"/></svg>${n}</span>`).join('');
+    const cards = v.cards.map((c, i) => `<div style="position:absolute;left:${64 + i * 288}px;top:786px;width:270px;height:170px;border-radius:28px;background:${P.card};border:1px solid ${P.line}"><div style="position:absolute;left:24px;top:24px;width:58px;height:58px;border-radius:50%;background:${P.tint};display:flex;align-items:center;justify-content:center">${icon(c[0], P.prim)}</div><div style="position:absolute;left:24px;top:98px;font-size:23px;font-weight:800;letter-spacing:-.02em;color:${P.ink}">${c[1]}</div><div style="position:absolute;left:24px;top:132px;font-size:16px;color:${P.mute}">${c[2]}</div></div>`).join('');
+    const inner = el('', root, `
+<div style="position:absolute;left:0;top:0;width:960px;height:940px;background:${P.bg};font-family:'Inter Tight',sans-serif;overflow:hidden">
+ <div style="position:absolute;left:0;top:0;width:960px;height:70px;background:#ECEDEF;border-bottom:1px solid #D9DBDF">
+  <i style="position:absolute;left:28px;top:24px;width:14px;height:14px;border-radius:50%;background:#FF5F57"></i><i style="position:absolute;left:54px;top:24px;width:14px;height:14px;border-radius:50%;background:#FEBC2E"></i><i style="position:absolute;left:80px;top:24px;width:14px;height:14px;border-radius:50%;background:#28C840"></i>
+  <div style="position:absolute;left:170px;right:120px;top:13px;height:44px;border-radius:22px;background:#fff;text-align:center;font-size:21px;line-height:44px;color:#5b5f67;font-weight:500">${lock}${v.dom}</div>
+ </div>
+ <div style="position:absolute;left:64px;right:64px;top:92px;height:56px;display:flex;align-items:center;justify-content:space-between">
+  <div style="display:flex;align-items:center"><div style="width:46px;height:46px;border-radius:13px;background:${P.prim};color:${P.primInk};font-weight:800;font-size:26px;line-height:46px;text-align:center">${v.mark}</div><div style="margin-left:12px;white-space:nowrap;font-size:25px;font-weight:800;letter-spacing:-.03em;color:${P.ink};font-family:${P.head === "'Instrument Serif'" ? "'Instrument Serif'" : "'Inter Tight'"};${P.head === "'Instrument Serif'" ? 'font-weight:400;font-size:30px' : ''}">${v.name}</div></div>
+  <div style="display:flex;align-items:center">${nav}<span style="margin-left:26px;padding:13px 22px;white-space:nowrap;border-radius:999px;background:${P.prim};color:${P.primInk};font-size:18px;font-weight:800">${v.navCta}</span></div>
+ </div>
+ <div style="position:absolute;left:64px;top:196px;padding:9px 18px;border-radius:999px;background:${P.tint};color:${P.prim === '#F5A524' ? '#9a5f00' : P.prim};font-size:16px;font-weight:700;letter-spacing:.05em;text-transform:uppercase">${v.kick}</div>
+ <div style="position:absolute;left:64px;top:252px;width:490px;font-family:${P.head};font-weight:${P.hw};font-size:${P.hs}px;line-height:1.04;letter-spacing:-.03em;color:${P.ink}">${v.h1}</div>
+ <div style="position:absolute;left:64px;top:452px;width:460px;font-size:22px;line-height:1.38;color:${P.mute}">${v.p}</div>
+ <div class="rg" style="position:absolute;left:64px;top:572px;width:300px;height:84px;border-radius:42px;border:4px solid ${P.prim}"></div>
+ <div style="position:absolute;left:64px;top:572px;width:300px;height:84px;border-radius:42px;background:${P.prim};color:${P.primInk};font-size:26px;font-weight:800;line-height:84px;text-align:center;letter-spacing:-.01em">${v.cta}</div>
+ <div style="position:absolute;left:384px;top:572px;width:176px;height:84px;border-radius:42px;border:2px solid ${P.line};color:${P.ink};white-space:nowrap;font-size:20px;font-weight:700;line-height:80px;text-align:center">${v.sec}</div>
+ <div style="position:absolute;left:64px;top:692px;width:520px;white-space:nowrap">${trust}</div>
+ <div style="position:absolute;left:584px;top:196px;width:312px;height:500px;border-radius:40px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,${dark ? 0.5 : 0.18})"><svg viewBox="0 0 340 520" width="312" height="500" preserveAspectRatio="xMidYMid slice">${v.art}</svg></div>
+ <div style="position:absolute;left:600px;top:216px;padding:10px 18px;border-radius:16px;background:#fff;color:#10261f;font-size:17px;font-weight:800;box-shadow:0 12px 30px rgba(0,0,0,.2)"><b style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#25D366;margin-right:9px"></b>${v.badge}</div>
+ <div class="ts" style="position:absolute;left:590px;top:590px;width:330px;padding:16px 22px;border-radius:24px;background:#fff;box-shadow:0 20px 50px rgba(0,0,0,.3);opacity:0;display:flex;align-items:center"><div style="width:48px;height:48px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;flex:none"><svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.600 15L2 22l5.100-1.300A10 10 0 1 0 12 2z"/></svg></div><div style="margin-left:16px"><div style="font-size:23px;font-weight:800;color:#10261f;letter-spacing:-.02em">Novo contato</div><div style="font-size:16px;color:#6b6f76;font-weight:500">via WhatsApp · agora</div></div></div>
+ ${cards}
+ <div style="position:absolute;left:858px;top:840px;width:76px;height:76px;border-radius:50%;background:#25D366;box-shadow:0 12px 28px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center"><svg width="42" height="42" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.600 15L2 22l5.100-1.300A10 10 0 1 0 12 2zm5.200 14.200c-.2.600-1.300 1.200-1.800 1.200-.5.100-1 .2-3.300-.7-2.800-1.100-4.600-4-4.700-4.200-.1-.2-1.100-1.500-1.100-2.800 0-1.300.7-2 .9-2.300.3-.3.600-.3.800-.3h.600c.2 0 .4 0 .6.500.2.600.8 2 .8 2.100.1.100.1.300 0 .500-.1.200-.1.300-.3.500l-.4.500c-.1.200-.3.300-.1.600.2.300.8 1.300 1.700 2.100 1.100 1 2.100 1.300 2.400 1.400.3.100.5.100.6-.1.200-.2.700-.8.900-1.100.2-.3.400-.2.700-.1l2 .9c.3.200.5.200.5.400.100.200.100.700-.100 1.300z"/></svg></div>
+</div>`);
+    inner.style.cssText = 'position:absolute;left:0;top:0;width:960px;height:940px;transform:scale(.5);transform-origin:0 0';
+    return { root, ring: inner.querySelector('.rg'), toast: inner.querySelector('.ts') };
   }
   // pulso no botão e aviso "novo contato" que entra com mola (t0 = início da animação)
   function animMock(m, t, t0) {
@@ -105,7 +151,7 @@
     m.ring.style.opacity = String(t < t0 ? 0 : (1 - q) * 0.75);
     const k = p(t, t0 + 0.8, 0.45, E.back);
     m.toast.style.opacity = String(clamp(k * 2));
-    m.toast.style.transform = `translateY(${(1 - k) * 18}px) scale(${0.7 + 0.3 * k})`;
+    m.toast.style.transform = `translateY(${(1 - k) * 22}px) scale(${0.7 + 0.3 * k})`;
   }
   const FOOT = css(el('', chrome, 'ILUSTRAÇÃO · EMPRESAS FICTÍCIAS'), 'position:absolute;left:0;right:0;bottom:56px;text-align:center;font-family:JetBrains Mono;font-size:17px;letter-spacing:.18em;color:#6b6f76;opacity:0');
 

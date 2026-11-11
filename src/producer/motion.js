@@ -31,7 +31,7 @@ async function fontCss() {
   };
   fonts = (await Promise.all([
     face('Inter Tight', 'inter-tight', 400), face('Inter Tight', 'inter-tight', 500), face('Inter Tight', 'inter-tight', 800),
-    face('Instrument Serif', 'instrument-serif', 400, 'italic'), face('JetBrains Mono', 'jetbrains-mono', 500),
+    face('Instrument Serif', 'instrument-serif', 400, 'italic'), face('Instrument Serif', 'instrument-serif', 400), face('JetBrains Mono', 'jetbrains-mono', 500),
   ])).join(String.fromCharCode(10));
   return fonts;
 }
