@@ -28,7 +28,7 @@ test('the style rotates day by day and MOTION_STYLE forces one', () => {
   assert.notEqual(day(100), day(101));
   assert.equal(day(100), day(100));
   assert.equal(new Set(Array.from({ length: 5 }, (_, i) => day(200 + i))).size, 5);
-  assert.equal(pickStyle(new Date(), { MOTION_STYLE: 'terminal' }), 'terminal');
+  assert.equal(pickStyle(new Date(), { MOTION_STYLE: 'selection' }), 'selection');
   assert.ok(MOTION_STYLES.includes(pickStyle(new Date(), { MOTION_STYLE: 'xx' })));
 });
 test('scenes cover the whole narration and sound effects stay lean', () => {

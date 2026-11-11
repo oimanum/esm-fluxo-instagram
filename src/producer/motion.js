@@ -13,7 +13,7 @@ const here = (f) => fileURLToPath(new URL(`./motion/${f}`, import.meta.url));
 const SFX = (f) => fileURLToPath(new URL(`../../brand/sfx/${f}`, import.meta.url));
 
 // Cada estilo tem uma linguagem visual própria: assim os vídeos não ficam todos iguais.
-export const MOTION_STYLES = ['kinetic', 'ui', 'shapes', 'terminal', 'steps'];
+export const MOTION_STYLES = ['ember', 'editorial', 'gradient', 'selection', 'perspective'];
 
 // Um estilo por dia, em rodízio (e o mesmo dia sempre dá o mesmo estilo). MOTION_STYLE força um.
 export function pickStyle(now = new Date(), env = process.env) {
@@ -24,12 +24,15 @@ export function pickStyle(now = new Date(), env = process.env) {
 let fonts;
 async function fontCss() {
   if (fonts) return fonts;
-  const face = async (family, pkg, weight) => {
-    const file = require.resolve(`@fontsource/${pkg}/files/${pkg}-latin-${weight}-normal.woff2`);
+  const face = async (family, pkg, weight, style = 'normal') => {
+    const file = require.resolve(`@fontsource/${pkg}/files/${pkg}-latin-${weight}-${style}.woff2`);
     const b64 = (await readFile(file)).toString('base64');
-    return `@font-face{font-family:'${family}';font-weight:${weight};font-style:normal;src:url(data:font/woff2;base64,${b64}) format('woff2');}`;
+    return `@font-face{font-family:'${family}';font-weight:${weight};font-style:${style};src:url(data:font/woff2;base64,${b64}) format('woff2');}`;
   };
-  fonts = (await Promise.all([face('Poppins', 'poppins', 500), face('Poppins', 'poppins', 600), face('Poppins', 'poppins', 800), face('JetBrains Mono', 'jetbrains-mono', 500)])).join('\n');
+  fonts = (await Promise.all([
+    face('Inter Tight', 'inter-tight', 400), face('Inter Tight', 'inter-tight', 500), face('Inter Tight', 'inter-tight', 800),
+    face('Instrument Serif', 'instrument-serif', 400, 'italic'), face('JetBrains Mono', 'jetbrains-mono', 500),
+  ])).join(String.fromCharCode(10));
   return fonts;
 }
 
@@ -38,7 +41,7 @@ export async function motionHtml(data) {
   const js = await readFile(here('page.js'), 'utf8');
   const json = JSON.stringify(data).replace(/</g, '\\u003c');
   return `<!doctype html><html><head><meta charset="utf-8"><style>${await fontCss()}\n${css}</style></head><body>
-<div id="root"><div id="bg"></div><div id="tint"></div><div id="grid"></div><div id="stage"></div>
+<div id="root"><div id="bg"></div><div id="stage"></div><canvas id="fx" width="1080" height="1920"></canvas>
 <div id="chrome"><img src="${data.brand.logo}"><div class="h">${data.brand.handle}</div></div><div id="top"></div></div>
 <script>window.__DATA=${json};</script><script>${js}</script></body></html>`;
 }
@@ -61,9 +64,10 @@ export function motionSfx(scenes, style) {
     const d = S.t1 - S.t0;
     if (S.i > 0) ev.push({ file: 'whoosh.wav', t: Math.max(0, S.t0 - 0.08), vol: 0.2, len: 0.6 });
     if (S.kind === 'cta') ev.push({ file: 'hit.wav', t: S.t0 + 0.05, vol: 0.24, len: 0.6 });
-    if (style === 'ui' || style === 'terminal') ev.push({ file: 'type.wav', t: S.t0 + 0.3, vol: 0.14, len: Math.min(1.4, d * 0.55) });
-    if (style === 'ui' && S.parts.some((p) => p.strong)) ev.push({ file: 'click.wav', t: S.t0 + d * 0.84, vol: 0.3, len: 0.1 });
-    if (style === 'kinetic' && S.kind !== 'cta') ev.push({ file: 'pop.wav', t: S.t0 + 0.12, vol: 0.18, len: 0.1 });
+    else if (style === 'ember' && (S.i === 0 || S.i % 3 === 2)) ev.push({ file: 'hit.wav', t: S.t0 + 0.12, vol: 0.18, len: 0.5 });
+    if (style === 'selection') ev.push({ file: 'click.wav', t: S.t0 + 0.55, vol: 0.28, len: 0.1 });
+    if (style === 'gradient' || style === 'editorial') ev.push({ file: 'pop.wav', t: S.t0 + 0.2, vol: 0.16, len: 0.1 });
+    if (style === 'selection' && S.kind === 'cta') ev.push({ file: 'type.wav', t: S.t0 + 0.6, vol: 0.14, len: Math.min(1.4, d * 0.5) });
   });
   return ev;
 }
