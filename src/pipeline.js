@@ -34,7 +34,7 @@ export async function generate(d) {
   const alert = safeAlert(d);
   try {
     const queue = await loadState('queue');
-    if (!d.scored && queue.some((i) => ymd(i.createdAt) === ymd(d.now) && ACTIVE.includes(i.status))) {
+    if (!d.scored && !d.dry && queue.some((i) => ymd(i.createdAt) === ymd(d.now) && ACTIVE.includes(i.status))) {
       return { status: 'skipped', reason: 'ja_gerado_hoje' };
     }
     const history = await loadState('history');

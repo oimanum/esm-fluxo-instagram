@@ -164,3 +164,12 @@ test('checklist day renders with render.checklist and is staged as one image', a
   assert.equal(used, true);
   assert.deepEqual(r.media, ['out/check.jpg']);
 });
+
+test('a TEST preview (dry) is not blocked by a post already queued today, a real run is', async () => {
+  const d = deps();
+  await saveState('queue', [{ id: 'old', status: 'pending', createdAt: d.now.toISOString(), format: 'reel', topic: 'x' }]);
+  const real = await generate(d);
+  assert.equal(real.reason, 'ja_gerado_hoje');
+  const test = await generate({ ...d, dry: true });
+  assert.equal(test.status, 'dry');
+});
