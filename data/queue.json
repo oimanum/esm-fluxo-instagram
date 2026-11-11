@@ -184,5 +184,70 @@
       ]
     },
     "messageId": 10
+  },
+  {
+    "id": "6bcb7702",
+    "topic": "Quando todo mundo usa IA no Instagram, o que realmente faz o cliente fechar?",
+    "angle": "Com 80% das empresas usando IA para postar nas redes sociais, o Instagram virou uma 'vitrine igual'. O diferencial do seu negócio local é ter um site profissional onde o cliente pesquisa no Google, encontra autoridade e agenda sozinho via WhatsApp ou sistema próprio.",
+    "format": "reel",
+    "post": {
+      "label": "DIFERENCIAL REAL",
+      "hook": "Se todo mundo usa IA, seu Instagram **ficou igual aos outros**",
+      "script": "Com todo mundo usando IA, seu Instagram ficou igual aos outros. O cliente quer certeza antes de fechar. Quando ele procura seu serviço no Google e encontra um site rápido, a confiança é imediata. Ele não fica comparando preço nas redes sociais. Ele entra, entende sua autoridade e chama no WhatsApp para agendar. Quer receber mais agendamentos? Clique no link da bio",
+      "caption": "Quando todo mundo usa Inteligência Artificial para criar posts, as redes sociais viram uma vitrine idêntica. O cliente olha, compara preço e vai embora.\n\nO que realmente faz ele fechar com o seu negócio local?\n\nFaça o teste: pesquise seu serviço no Google, pelo celular. Sua empresa aparece em destaque?\n\nÉ na busca do Google que o cliente decide quem contratar. Quando ele encontra um site rápido e profissional, a confiança é imediata. Um estudo do Google mostra que 53% das visitas em celular são abandonadas se a página demora mais de 3 segundos para carregar. Sem uma estrutura própria, você perde agendamentos todos os dias para o concorrente.\n\nUm site transmite autoridade imediata e direciona o cliente direto para o seu WhatsApp, a qualquer hora do dia.\n\nToque no link da bio e chame nossa equipe no WhatsApp para ter o seu site profissional.",
+      "hashtags": [
+        "#negociolocal",
+        "#marketingmedico",
+        "#esteticaderesultados",
+        "#advocacia",
+        "#siteprofissional",
+        "#esmweb"
+      ],
+      "cta": "Chame no WhatsApp e **conquiste mais clientes**"
+    },
+    "media": [
+      "out/6bcb7702/reel.mp4"
+    ],
+    "status": "dry",
+    "createdAt": "2026-11-11T21:59:01.338Z",
+    "alternatives": [
+      {
+        "topic": "Seu marketing gera curtidas ou clientes? O perigo de depender só do Instagram",
+        "score": 9.4,
+        "angle": "Posts não pagam contas se não gerarem agendamentos. Mostre como clínicas e advogados perdem vendas ao mandar o tráfego direto para um perfil no Insta em vez de uma Landing Page ultra-rápida e focada em conversão."
+      },
+      {
+        "topic": "Por que o cliente de advocacia ou clínica prefere o seu concorrente no Google?",
+        "score": 9.2,
+        "angle": "Quando alguém busca 'advogado' ou 'clínica estética' na sua cidade, quem não tem site simplesmente não existe. Conecte com a dor de perder contratos de alto valor para concorrentes que aparecem em primeiro no Google Meu Negócio."
+      },
+      {
+        "topic": "Seu cliente te procurou no Google e não te achou? O impacto da falta de um site na sua autoridade",
+        "score": 9.1,
+        "angle": "O consumidor moderno pesquisa no Google antes de fechar qualquer serviço local. Se sua clínica ou escritório não aparece com um site próprio, o cliente sente desconfiança e fecha com quem transmite mais estrutura."
+      },
+      {
+        "topic": "O erro de quem está começando na Estética: achar que ter um perfil no Instagram é suficiente",
+        "score": 8.9,
+        "angle": "Quem busca procedimentos estéticos quer segurança e credibilidade. Sem um site com fotos antes/depois, depoimentos e botão de agendamento rápido, a clínica passa a imagem de amadora e perde para a concorrência."
+      },
+      {
+        "topic": "Teste dos 3 segundos: seu site está jogando dinheiro de anúncios no lixo?",
+        "score": 8.8,
+        "angle": "Se o empresário investe em anúncios mas o site é lento ou quebrado no celular, mais da metade dos clientes desiste antes do carregamento. Mostre como uma Landing Page otimizada dobra o retorno sobre o investimento em tráfego."
+      },
+      {
+        "topic": "Empresas de Energia Solar: por que propostas de alto ticket exigem um site impecável?",
+        "score": 8.7,
+        "angle": "Ninguém compra um projeto solar de R$ 30 mil apenas vendo um feed no Instagram. Sem um site rápido e institucional que passe confiança imediata, o cliente duvida da capacidade técnica da integradora."
+      }
+    ],
+    "release": {
+      "tag": "post-6bcb7702",
+      "files": [
+        "reel.mp4"
+      ]
+    },
+    "messageId": 13
   }
 ]
