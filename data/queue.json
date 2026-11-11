@@ -62,5 +62,69 @@
       ]
     },
     "messageId": 6
+  },
+  {
+    "id": "e237e14b",
+    "topic": "O cliente tem urgência: ele busca no Google ou no Instagram?",
+    "angle": "Diferencie a intenção de busca. O Instagram gera desejo, mas o Google captura quem tem a dor imediata (dor de dente, processo judicial, conta de luz alta). Se a empresa não tem site ou não aparece bem no Google Meu Negócio com link profissional, ela é invisível no momento da compra.",
+    "format": "reel",
+    "post": {
+      "label": "ONDE O CLIENTE BUSCA",
+      "hook": "Quem tem urgência **pesquisa no Google**",
+      "script": "Quem tem urgência de um profissional pesquisa no Google. Se você só tem Instagram, perde o cliente que precisa comprar agora. No Google, as pessoas buscam soluções imediatas. Sem um site profissional, sua empresa fica invisível. Teste você mesmo: pesquise seu negócio no Google pelo celular. Se você não aparece, seu concorrente recebe esse agendamento. Clique no link da bio.",
+      "caption": "O Instagram gera desejo, mas o Google captura quem tem uma dor urgente.\n\nSeja uma urgência jurídica, uma dor de dente ou uma conta de luz alta: quando a necessidade surge, o cliente pesquisa no Google para resolver na hora.\n\nSe a sua empresa não tem um site profissional conectado ao Google, você fica invisível no exato momento da decisão. O resultado? O agendamento vai direto para o seu concorrente.\n\nTeste você mesmo: pesquise seu negócio no Google, pelo celular. Você aparece com um link direto para o seu contato?\n\nUm site posiciona sua empresa nas buscas, passa credibilidade e traz contatos no WhatsApp todos os dias.\n\nFale com a gente pelo WhatsApp no link da bio e apareça para quem quer contratar agora.",
+      "hashtags": [
+        "#marketingmedico",
+        "#advocacia",
+        "#siteprofissional",
+        "#googlemeunegocio",
+        "#esmweb"
+      ],
+      "cta": "Clique no link da bio e **fale no WhatsApp**"
+    },
+    "media": [
+      "out/e237e14b/reel.mp4"
+    ],
+    "status": "dry",
+    "createdAt": "2026-11-11T02:41:46.030Z",
+    "alternatives": [
+      {
+        "topic": "80% dos pequenos negócios usam IA: por que automatizar o WhatsApp não salva um site lento?",
+        "score": 9.5,
+        "angle": "Aproveite a notícia do Sebrae sobre a adesão em massa da IA em PMEs para alertar donos de clínicas e escritórios: usar IA no atendimento não gera agendamento se o link de destino (site/landing page) demora mais de 3 segundos para carregar e faz o cliente desistir."
+      },
+      {
+        "topic": "Advogado: por que apostar tudo no Instagram faz você perder os clientes de maior ticket no Google?",
+        "score": 9.3,
+        "angle": "Com base no avanço dos summits de marketing jurídico da OAB, mostre que quem realmente precisa de um advogado com urgência pesquisa no Google, não no Instagram. Sem uma Landing Page própria, o escritório parece menos consolidado e perde contratos de alto valor para o concorrente."
+      },
+      {
+        "topic": "Aparecer no Google Meu Negócio sem um site profissional é dar presente pro seu concorrente",
+        "score": 9.2,
+        "angle": "Mostre como a jornada do cliente local funciona: ele acha a empresa no Google Maps, clica no link do site para ver mais sobre os serviços/agendamento, e se o site não existe ou é ruim, ele clica no segundo colocado da lista que tem um site rápido."
+      },
+      {
+        "topic": "O fator 'Confiança' na Era da IA: ter apenas perfil em rede social faz sua empresa parecer instável",
+        "score": 9,
+        "angle": "Conecte a notícia sobre 'IA e Confiança no Marketing' para abordar a percepção de marca do consumidor local. Sem um site oficial para validar o negócio, o cliente desconfia da veracidade e prefere o concorrente que possui um domínio próprio e estrutura profissional."
+      },
+      {
+        "topic": "Clínicas de Estética: só foto no feed não basta para fechar procedimentos de alto valor",
+        "score": 8.8,
+        "angle": "Usando as discussões sobre estética e pressão por autoridade visual nas redes, mostre que pacientes dispostos a pagar caro pesquisam a reputação da clínica no Google. Um site elegante com agendamento direto pelo WhatsApp passa a credibilidade necessária para a conversão."
+      },
+      {
+        "topic": "Energia Solar: como captar orçamentos no Google antes que o concorrente pegue seu lead",
+        "score": 8.6,
+        "angle": "Diante das novidades e mudanças tarifárias no setor solar, o consumidor busca respostas no Google. Mostre que integradores solares sem Landing Page focada em conversão estão queimando dinheiro de anúncios e entregando clientes de bandeja para a concorrência."
+      }
+    ],
+    "release": {
+      "tag": "post-e237e14b",
+      "files": [
+        "reel.mp4"
+      ]
+    },
+    "messageId": 8
   }
 ]
