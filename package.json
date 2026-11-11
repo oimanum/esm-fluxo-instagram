@@ -8,6 +8,7 @@
     "destaques": "node scripts/highlights.mjs"
   },
   "dependencies": {
+    "@fontsource/jetbrains-mono": "^5.3.0",
     "@fontsource/poppins": "^5.3.0",
     "playwright-core": "^1.65.0"
   }

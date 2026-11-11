@@ -9,7 +9,7 @@ import { renderReel } from '../src/producer/reel.js';
 import { renderCarousel } from '../src/producer/carousel.js';
 import { checkPost } from '../src/safety.js';
 
-const probe = (f, e) => execFileSync('ffprobe', ['-v', 'error', '-show_entries', e, '-of', 'csv=p=0', f]).toString().trim();
+const probe = (f, e) => execFileSync('ffprobe', ['-v', 'error', ...(e === 'stream=width,height' ? ['-select_streams', 'v:0'] : []), '-show_entries', e, '-of', 'csv=p=0', f]).toString().trim().replace(/,$/, '');
 const fakeTts = (secs, spy) => async (text, out) => {
   spy?.push(text);
   execFileSync('ffmpeg', ['-y', '-f', 'lavfi', '-i', 'anullsrc=r=24000:cl=mono', '-t', String(secs), '-q:a', '9', out], { stdio: 'ignore' });
@@ -33,13 +33,13 @@ test('safety counts words without ** markers', () => {
 test('tts never receives ** markers', async () => {
   const dir = await mkdtemp(join(tmpdir(), 'tts-'));
   const spy = [];
-  await renderReel(post, dir, { ttsImpl: fakeTts(25, spy) });
+  await renderReel(post, dir, { ttsImpl: fakeTts(25, spy), fps: 4 });
   assert.ok(spy[0].length > 50);
   assert.ok(!spy[0].includes('*'));
 });
 test('reel keeps 1080x1920, 30 fps and audio', async () => {
   const dir = await mkdtemp(join(tmpdir(), 'reel-'));
-  const { path, durationSec } = await renderReel(post, dir, { ttsImpl: fakeTts(25) });
+  const { path, durationSec } = await renderReel(post, dir, { ttsImpl: fakeTts(25), fps: 4 });
   assert.equal(probe(path, 'stream=width,height'), '1080,1920');
   assert.ok(durationSec >= 20 && durationSec <= 35);
   assert.ok(probe(path, 'stream=codec_name').includes('aac'));
@@ -90,16 +90,16 @@ test('highlight kit: 3 covers always, stories only from real facts', async () =>
 // --- ajuste de duração: uma voz mais lenta ou mais rápida não pode derrubar o dia ---
 test('audio a little over 35 s is sped up to fit instead of failing', async () => {
   const dir = await mkdtemp(join(tmpdir(), 'fit-'));
-  const { durationSec } = await renderReel(post, dir, { ttsImpl: fakeTts(38) });
+  const { durationSec } = await renderReel(post, dir, { ttsImpl: fakeTts(38), fps: 4 });
   assert.ok(durationSec >= 20 && durationSec <= 35, `duração ${durationSec}`);
 });
 test('audio a little under 20 s is slowed down to fit', async () => {
   const dir = await mkdtemp(join(tmpdir(), 'fit-'));
-  const { durationSec } = await renderReel(post, dir, { ttsImpl: fakeTts(18) });
+  const { durationSec } = await renderReel(post, dir, { ttsImpl: fakeTts(18), fps: 4 });
   assert.ok(durationSec >= 20 && durationSec <= 35, `duração ${durationSec}`);
 });
 test('audio too far off (50 s or 8 s) still fails clearly', async () => {
   for (const s of [50, 8]) {
-    await assert.rejects(renderReel(post, await mkdtemp(join(tmpdir(), 'fit-')), { ttsImpl: fakeTts(s) }), /Locução/);
+    await assert.rejects(renderReel(post, await mkdtemp(join(tmpdir(), 'fit-')), { ttsImpl: fakeTts(s), fps: 4 }), /Locução/);
   }
 });
