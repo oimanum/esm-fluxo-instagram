@@ -12,7 +12,7 @@ export const config = {
   voice: {
     engine: process.env.TTS_ENGINE || 'gemini',
     model: process.env.GEMINI_TTS_MODEL || 'gemini-3.8-flash-tts',
-    name: process.env.GEMINI_VOICE || 'Sulafat',
+    name: process.env.GEMINI_VOICE || 'Achird', // escolhida pelo dono em 10/11/2026 (amigável)
     edge: 'pt-BR-AntonioNeural',
     style: 'Speak in natural, conversational Brazilian Portuguese, like a confident and friendly consultant talking face to face with a small business owner. Calm, steady pace, warm tone, a slight smile, real human pauses and emphasis. Never robotic, never like a news announcer.',
   },
