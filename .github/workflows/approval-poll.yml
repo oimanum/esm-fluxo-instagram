@@ -38,6 +38,7 @@ jobs:
           GEMINI_VOICE: ${{ vars.GEMINI_VOICE }}
           GEMINI_TTS_MODEL: ${{ vars.GEMINI_TTS_MODEL }}
           TTS_ENGINE: ${{ vars.TTS_ENGINE }}
+          MOTION_STYLE: ${{ vars.MOTION_STYLE }}
           TG_TOKEN: ${{ secrets.TG_TOKEN }}
           TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
           GITHUB_REPOSITORY: ${{ github.repository }}
