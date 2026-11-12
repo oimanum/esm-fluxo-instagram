@@ -249,5 +249,74 @@
       ]
     },
     "messageId": 13
+  },
+  {
+    "id": "eedb7172",
+    "topic": "IA no atendimento para clínicas e advogados",
+    "angle": "Com 8 em cada 10 pequenos negócios usando IA, o seu concorrente já está respondendo clientes mais rápido que você. Mostre como uma landing page com inteligência artificial integrada no WhatsApp captura pacientes e clientes 24h por dia.",
+    "format": "reel",
+    "post": {
+      "label": "ATENDIMENTO 24H",
+      "hook": "Sua clínica **perde agendamentos** enquanto você dorme",
+      "script": "Enquanto seu cliente espera até amanhã por uma resposta, o concorrente atende na hora. Hoje, a maioria dos pequenos negócios usa inteligência artificial para responder rápido. Uma landing page com IA integrada ao WhatsApp tira dúvidas e agenda consultas vinte e quatro horas por dia, de domingo a domingo. Não deixe seu paciente ir para outra clínica.",
+      "caption": "Seu cliente procura um atendimento à noite ou no fim de semana e não recebe resposta. O que ele faz? Vai direto para o concorrente.\n\nCom inteligência artificial integrada à sua landing page, seu WhatsApp responde dúvidas e encaminha agendamentos 24 horas por dia. Você para de perder contatos por demora no atendimento.\n\nTeste você mesmo: pesquise seu negócio no Google, pelo celular. Seu cliente encontra um caminho fácil para agendar agora?\n\nTenha uma página que passa confiança e atrai pacientes mesmo quando sua recepção está fechada.\n\nClique no link da bio e fale conosco pelo WhatsApp.",
+      "hashtags": [
+        "#marketingmedico",
+        "#advocacia",
+        "#landingpage",
+        "#atendimento24h",
+        "#esmweb"
+      ],
+      "cta": "Clique no link da bio e **fale conosco**"
+    },
+    "media": [
+      "out/eedb7172/reel.mp4"
+    ],
+    "status": "pending",
+    "createdAt": "2026-11-12T17:32:03.633Z",
+    "alternatives": [
+      {
+        "topic": "Por que só o Instagram não basta para fechar contratos",
+        "score": 9,
+        "angle": "Notícias sobre novos espaços de estética e escritórios destacam a concorrência. Conecte isso à dor do dono de negócio local: o Instagram cai ou perde alcance, mas o site próprio é seu endereço definitivo onde o cliente confia e compra."
+      },
+      {
+        "topic": "O cliente pesquisa no Google e não acha sua clínica ou escritório",
+        "score": 9,
+        "angle": "Se o seu potencial cliente busca por serviços jurídicos ou de estética no Google e só acha o concorrente, você está perdendo dinheiro. Mostre a urgência de ter um site otimizado para aparecer nas buscas locais."
+      },
+      {
+        "topic": "O perigo do site lento para o faturamento da clínica",
+        "score": 8.5,
+        "angle": "Inspirado na necessidade de alta performance tecnológica (como a alta tecnologia da Nvidia e transição energética): se o site da sua clínica demora 5 segundos para carregar no celular, o paciente desiste e vai para o concorrente."
+      },
+      {
+        "topic": "Credibilidade digital para profissionais de estética e saúde",
+        "score": 8.5,
+        "angle": "Com o boom da medicina regenerativa e novos espaços de estética inaugurando, o mercado exige profissionalismo. Demonstre como um site moderno transmite autoridade e faz o cliente pagar mais caro pelo seu serviço."
+      },
+      {
+        "topic": "Como integradores de energia solar podem gerar mais leads",
+        "score": 8,
+        "angle": "Com o mercado de energia solar e veículos eletrificados em alta no Brasil, o integrador não pode depender apenas de indicações. Mostre como uma landing page focada em conversão transforma cliques de anúncios em orçamentos fechados."
+      },
+      {
+        "topic": "Gestão financeira e o ROI de ter um site profissional",
+        "score": 7.5,
+        "angle": "Unindo eventos de gestão para empreendedores: verifique se seus anúncios estão indo para o ralo. Explicar por que mandar tráfego pago para o Instagram em vez de uma landing page profissional reduz o lucro do seu negócio."
+      },
+      {
+        "topic": "O concorrente aparece primeiro no Google Meu Negócio",
+        "score": 7.5,
+        "angle": "Quando um cliente precisa de um advogado ou estética com urgência, ele vai ao Google. Se o seu perfil não está ligado a um site profissional estruturado, você perde espaço para quem investiu na presença digital completa."
+      }
+    ],
+    "release": {
+      "tag": "post-eedb7172",
+      "files": [
+        "reel.mp4"
+      ]
+    },
+    "messageId": 16
   }
 ]
