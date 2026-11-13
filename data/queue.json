@@ -318,5 +318,69 @@
       ]
     },
     "messageId": 16
+  },
+  {
+    "id": "425181fc",
+    "topic": "Por que depender só do Instagram faz sua clínica ou escritório perder pacientes e clientes para o concorrente no Google",
+    "angle": "Conectando à notícia sobre gestão de saúde e visibilidade no Google: quando o cliente precisa de um advogado, clínica ou instalação de energia solar, a primeira busca é no Google, não no Instagram. Se você não tem um site otimizado, o concorrente que aparece no topo leva o contrato.",
+    "format": "reel",
+    "post": {
+      "label": "ERRO COMUM",
+      "hook": "Você está **perdendo pacientes no Google** todos os dias.",
+      "script": "Quando uma pessoa precisa urgente de médico ou advogado, ela busca no Google, não no Instagram. Se você não aparece no topo, seu concorrente fica com o agendamento. Faça o teste: pesquise seu serviço no Google pelo celular. Seu negócio aparece? Sem um site rápido, você perde clientes decididos a contratar a qualquer hora do dia.",
+      "caption": "Quando alguém decide marcar uma consulta, contratar um advogado ou fechar um projeto de energia solar, a primeira atitude é pesquisar no Google.\n\nSe o seu negócio depende só do Instagram, você fica invisível no momento em que o cliente está pronto para pagar. O concorrente que tem um site leva o contrato.\n\nE atenção: a velocidade importa. 53% das visitas em celular são abandonadas quando a página demora mais de 3 segundos para carregar (fonte: Google).\n\nQuer parar de perder contatos para quem está no topo das buscas?\n\nChame no WhatsApp pelo link da bio e receba mais agendamentos.",
+      "hashtags": [
+        "marketingmedico",
+        "advocaciadigital",
+        "negocioslocais",
+        "posicionamentodigital",
+        "esmweb"
+      ],
+      "cta": "Toque no link da bio e **receba mais agendamentos**"
+    },
+    "media": [
+      "out/425181fc/reel.mp4"
+    ],
+    "status": "pending",
+    "createdAt": "2026-11-13T17:09:20.131Z",
+    "alternatives": [
+      {
+        "topic": "Como escritórios de advocacia convertem clientes de alto ticket usando autoridade digital e sites institucionais",
+        "score": 9.6,
+        "angle": "Inspirado no reconhecimento de advogados em rankings de destaque. O cliente corporativo ou de causas valiosas pesquisa a reputação do advogado no Google. Sem um site rápido, elegante e seguro, o escritório transmite amadorismo e perde a reunião de fechamento."
+      },
+      {
+        "topic": "Mercado de estética em profissionalização: por que o Direct do Instagram não vende procedimentos de alto valor",
+        "score": 9.5,
+        "angle": "Baseado no avanço e profissionalização do setor de estética. Clínicas que cobram mais caro precisam transmitir autoridade imediata. Uma Landing Page exclusiva com depoimentos, fotos antes/depois e botão direto de agendamento passa o valor e a credibilidade que o feed não consegue passar."
+      },
+      {
+        "topic": "O risco de construir seu negócio em 'terra alugada': o que acontece se o Instagram cair ou mudar as regras amanhã?",
+        "score": 9.4,
+        "angle": "Aproveitando as notícias sobre tendências de marketing e estabilidade digital. Seu Instagram é alugado; o seu site é sua sede própria na internet. Donos de negócios locais precisam de uma estrutura própria para centralizar agendamentos, dados e vendas sem depender de algoritmo."
+      },
+      {
+        "topic": "Energia Solar: como captar leads qualificados no Google enquanto os concorrentes brigam por atenção no Instagram",
+        "score": 9.3,
+        "angle": "Ligado aos eventos e rodadas de negócios de energia solar. Quem quer investir em painéis solares busca no Google por estimativa de economia. Ter uma Landing Page com simulador/formulário de orçamento captura o cliente no momento exato da intenção de compra."
+      },
+      {
+        "topic": "IA no atendimento de negócios locais: como transformar visitantes do site em agendamentos no WhatsApp 24/7",
+        "score": 9.2,
+        "angle": "Conectado ao crescimento da IA em PMEs e agentes de atendimento. Ter um site não basta se o cliente não conseguir agendar rápido. Integrar o site a um atendimento automatizado garante que o lead da clínica ou escritório seja atendido mesmo fora do horário comercial."
+      },
+      {
+        "topic": "Seu site demora mais de 3 segundos para carregar? Você está rasgando dinheiro em anúncios",
+        "score": 9.1,
+        "angle": "Lincado ao desafio de PMEs na conversão de tráfego. Donos de clínica e escritórios investem em anúncios, mas mandam o tráfego para sites lentos ou perfis genéricos. Mostrar como a velocidade de um site ESM Web aumenta os agendamentos via WhatsApp sem gastar mais em tráfego."
+      }
+    ],
+    "release": {
+      "tag": "post-425181fc",
+      "files": [
+        "reel.mp4"
+      ]
+    },
+    "messageId": 19
   }
 ]
