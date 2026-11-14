@@ -382,5 +382,75 @@
       ]
     },
     "messageId": 19
+  },
+  {
+    "id": "cdc3194d",
+    "topic": "Seu concorrente está no topo do Google: o custo invisível de não ter um site para sua clínica ou escritório",
+    "angle": "Baseado na tendência de busca e posicionamento no Google (SEO/GEO). O post mostra que o cliente pronto para comprar pesquisa no Google, não no Instagram. Se o dono da clínica ou escritório de advocacia não tem um site bem ranqueado, ele está literalmente dando clientes de alto ticket de bandeja para o concorrente.",
+    "format": "reel",
+    "post": {
+      "label": "CUSTO INVISÍVEL",
+      "hook": "Seu concorrente **está recebendo os pacientes** que deveriam ser seus.",
+      "script": "Quem busca um serviço de alto valor pesquisa no Google, não no Instagram. Quando o cliente ideal procura uma clínica ou escritório e não te encontra, ele agenda com o concorrente. Faça o teste: pesquise seu negócio no Google pelo celular. Se você não aparece no topo, perde contatos diariamente. Um site posicionado passa confiança e envia agendamentos direto para seu WhatsApp.",
+      "caption": "O cliente pronto para fechar um contrato ou agendar uma consulta de alto valor vai direto ao Google.\n\nSe a sua clínica ou escritório não aparece nos primeiros resultados, você está entregando clientes valiosos direto para a concorrência.\n\nFaça o teste agora: pesquise o seu serviço no Google pelo celular. Sua empresa aparece na primeira página?\n\nUm site bem posicionado transmite autoridade e transforma pesquisas em contatos no seu WhatsApp a qualquer hora.\n\nQuer parar de perder agendamentos? Toque no link da bio e fale conosco.",
+      "hashtags": [
+        "#MarketingMedico",
+        "#MarketingJuridico",
+        "#SEO",
+        "#ESMWeb",
+        "#SitesProfissionais",
+        "#NegociosLocais"
+      ],
+      "cta": "Toque no link da bio e **fale no WhatsApp**"
+    },
+    "media": [
+      "out/cdc3194d/reel.mp4"
+    ],
+    "status": "pending",
+    "createdAt": "2026-11-14T15:45:56.193Z",
+    "alternatives": [
+      {
+        "topic": "O ChatGPT e as IAs já recomendam negócios locais: a sua empresa vai ser encontrada ou ignorada?",
+        "score": 9.4,
+        "angle": "Inspirado no debate se a IA é o novo Google Meu Negócio. Explica que ferramentas como ChatGPT e Gemini buscam dados estruturados em sites para indicar especialistas locais (médicos, advogados, estética). Quem tem só Instagram fica invisível para essa nova onda de buscas."
+      },
+      {
+        "topic": "Advocacia e Saúde no Google: por que o cliente de urgência não espera você responder no Direct",
+        "score": 9.3,
+        "angle": "Conecta com o sinal de gestão na saúde e eventos de advocacia. Quem precisa de um advogado criminal/trabalhista ou de uma consulta médica rápida busca no Google. Um site com botão direto de agendamento/WhatsApp converte na hora, enquanto quem depende só de perfil do Insta perde a venda."
+      },
+      {
+        "topic": "Depender 100% do Instagram é construir seu negócio em terreno alugado",
+        "score": 9.1,
+        "angle": "Explora a dor da oscilação de alcance e bloqueios no Instagram. Mostra que um site próprio da clínica ou empresa de energia solar é o único ativo digital 100% controlado pelo dono, garantindo vendas previsíveis vindas do Google."
+      },
+      {
+        "topic": "Anúncio rodando, dinheiro queimando: por que mandar tráfego direto pro WhatsApp faz você perder clientes",
+        "score": 8.9,
+        "angle": "Ligado a tendências de marketing digital e otimização comercial. Mostra que jogar o lead direto no WhatsApp gera muitos curiosos e sobrecarrega a recepção. Uma Landing Page de alta conversão pré-qualifica o lead e passa credibilidade antes do contato."
+      },
+      {
+        "topic": "Mercado de Estética em US$ 7,5 trilhões: como clínicas premium usam sites para vender procedimentos de alto ticket",
+        "score": 8.8,
+        "angle": "Usa a notícia do mercado global do bem-estar. Pacientes que pagam caro por estética querem segurança. Um site rápido, elegante e com depoimentos gera a confiança necessária que um feed de Instagram sozinho não consegue passar."
+      },
+      {
+        "topic": "Energia Solar: como captar projetos comerciais no Google sem brigar por preço no WhatsApp",
+        "score": 8.7,
+        "angle": "Baseado nas transformações e notícias do setor solar. Mostra que integradores que têm Landing Pages focadas em cálculo de economia e autoridade captam clientes corporativos mais qualificados, saindo do leilão de preços."
+      },
+      {
+        "topic": "O teste dos 3 segundos: por que um site lento faz sua clínica perder até 50% dos agendamentos",
+        "score": 8.6,
+        "angle": "Aborda a dor da experiência do usuário e otimização. Mostra que não basta ter site: se ele demora a carregar no celular do paciente/cliente, a pessoa volta pro Google e clica no próximo link."
+      }
+    ],
+    "release": {
+      "tag": "post-cdc3194d",
+      "files": [
+        "reel.mp4"
+      ]
+    },
+    "messageId": 22
   }
 ]
