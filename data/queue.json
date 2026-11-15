@@ -671,7 +671,7 @@
       "out/d4f79e5c/slide-05.jpg",
       "out/d4f79e5c/slide-06.jpg"
     ],
-    "status": "publishing",
+    "status": "posted",
     "createdAt": "2026-11-15T16:01:36.355Z",
     "alternatives": [
       {
@@ -733,6 +733,8 @@
         "out/d4f79e5c/story-04.jpg"
       ]
     },
-    "messageId": 49
+    "messageId": 49,
+    "igMediaId": "18115839629616768",
+    "postedAt": "2026-11-15T16:06:51.542Z"
   }
 ]
