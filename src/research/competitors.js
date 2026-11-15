@@ -7,7 +7,7 @@ export function fromCompetitors(json) {
 
 export async function fetchCompetitor(username, { token, userId, fetchImpl }) {
   const fields = `business_discovery.username(${username}){media.limit(25){caption,like_count,comments_count,permalink,timestamp}}`;
-  const base = process.env.IG_GRAPH_BASE || 'https://graph.instagram.com/v21.0';
+  const base = process.env.IG_GRAPH_BASE || 'https://graph.instagram.com/v27.0';
   const res = await fetchImpl(`${base}/${userId}?fields=${encodeURIComponent(fields)}`, { headers: { authorization: `Bearer ${token}` } });
   if (!res.ok) throw new Error(`Business Discovery HTTP ${res.status} para @${username}`);
   return res.json();
