@@ -69,10 +69,10 @@ test('approved item is published once and recorded in history', async () => {
   assert.equal(d.published.length, 1);
   assert.equal((await loadState('history'))[0].igMediaId, 'm1');
 });
-test('approve inside the 20 min grace after 11:00 is still published', async () => {
+test('approve inside the 20 min grace after the deadline is still published', async () => {
   const d = deps();
   await generate(d);
-  await poll({ ...withUpdates(d, [cbq('i1', 'approve')]), now: new Date('2026-11-04T14:05:00Z') }); // 11:05 BRT
+  await poll({ ...withUpdates(d, [cbq('i1', 'approve')]), now: new Date('2026-11-05T00:05:00Z') }); // 21:05 BRT
   assert.equal(d.published.length, 1);
 });
 test('checkpoint runs before publish and item is marked publishing first', async () => {
@@ -130,10 +130,10 @@ test('unsafe post is rejected after retries and nothing is sent', async () => {
   assert.equal(r.status, 'error');
   assert.equal(d.sent.length, 0);
 });
-test('unapproved by 11:20 ends as sem_resposta', async () => {
+test('unapproved by 21:20 ends as sem_resposta', async () => {
   const d = deps();
   await generate(d);
-  await poll({ ...d, now: new Date('2026-11-04T15:00:00Z') });
+  await poll({ ...d, now: new Date('2026-11-05T00:30:00Z') });
   assert.equal((await loadState('queue'))[0].status, 'sem_resposta');
   assert.equal(d.published.length, 0);
   assert.ok(d.alerts.some((a) => /sem resposta/i.test(a)));

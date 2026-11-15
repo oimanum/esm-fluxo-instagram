@@ -10,7 +10,7 @@ const mkItem = (over = {}) => ({
 const cb = (id, data, uid = 1) => ({ update_id: id, callback_query: { id: `q${id}`, data, from: { id: uid } } });
 const fakeTg = (updates) => ({ calls: [], async call(m, p) { this.calls.push([m, p]); return m === 'getUpdates' ? updates : { message_id: 77 }; }, async upload(m, p) { this.calls.push([m, p]); return { message_id: 77 }; } });
 const before = new Date('2026-11-04T12:00:00.000Z'); // 09:00 BRT
-const after = new Date('2026-11-04T15:00:00.000Z');  // 12:00 BRT
+const after = new Date('2026-11-05T00:30:00.000Z');  // 21:30 BRT (prazo 21:00 + 20 min)
 
 test('sendPreview sends media with approve/swap/skip buttons', async () => {
   const tg = fakeTg([]);
@@ -26,7 +26,7 @@ test('duplicate approve is applied once', async () => {
   assert.equal(r.queue[0].status, 'approved');
   assert.equal(r.nextOffset, 3);
 });
-test('approve after 11:00 is expired', async () => {
+test('approve after the deadline is expired', async () => {
   const tg = fakeTg([cb(1, 'i1:approve')]);
   const r = await pollDecisions({ tg, queue: [mkItem()], now: after, offset: 0 });
   assert.equal(r.queue[0].status, 'expired');
@@ -44,13 +44,13 @@ test('approve on already-published item is ignored', async () => {
   const r = await pollDecisions({ tg: fakeTg([cb(1, 'i1:approve')]), queue: [mkItem({ status: 'posted' })], now: before, offset: 0 });
   assert.equal(r.queue[0].status, 'posted');
 });
-test('expireOverdue marks pending items past 11:00 as sem_resposta', () => {
+test('expireOverdue marks pending items past the deadline as sem_resposta', () => {
   assert.equal(expireOverdue([mkItem()], after)[0].status, 'sem_resposta');
   assert.equal(expireOverdue([mkItem()], before)[0].status, 'pending');
 });
 
-test('approve at 11:05 is inside the 20 min grace', async () => {
-  const r = await pollDecisions({ tg: fakeTg([cb(1, 'i1:approve')]), queue: [mkItem()], now: new Date('2026-11-04T14:05:00.000Z'), offset: 0 });
+test('approve at 21:05 is inside the 20 min grace', async () => {
+  const r = await pollDecisions({ tg: fakeTg([cb(1, 'i1:approve')]), queue: [mkItem()], now: new Date('2026-11-05T00:05:00.000Z'), offset: 0 });
   assert.equal(r.queue[0].status, 'approved');
 });
 test('dry preview has no buttons and says TESTE', async () => {

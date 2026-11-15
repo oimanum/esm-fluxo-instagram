@@ -3,6 +3,7 @@ on:
   schedule:
     - cron: '7 9 * * *' # ~06:00 em Brasília (minuto 7 evita o pico de atrasos do GitHub)
     - cron: '47 9 * * *' # segunda tentativa (~06:47): só age se o post do dia ainda não foi gerado
+    - cron: '17 12 * * *' # reforço (~09:17): o GitHub às vezes atrasa ou perde agendamentos; só age se o post do dia ainda não foi gerado
   workflow_dispatch:
     inputs:
       dry:

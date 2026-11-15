@@ -1,7 +1,7 @@
 name: approval-poll
 on:
   schedule:
-    - cron: '3-53/10 10-14 * * *' # 07:03 a 11:53 em Brasília; o prazo de aprovação é 11:00 (+20 min)
+    - cron: '3-53/10 10-23 * * *' # 07:03 a 20:53 em Brasília; o prazo de aprovação é 21:00 (+20 min). O GitHub atrasa agendamentos em horas, por isso a janela é larga
   workflow_dispatch:
 concurrency:
   group: instagram-state

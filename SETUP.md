@@ -73,7 +73,7 @@ Apps novos da Meta usam o **Unified login** (o "Instagram login" não está mais
 4. No GitHub (*Settings → Secrets and variables → Actions*): `IG_TOKEN` = o token, `IG_USER_ID` = o ID. Não cole o token em nenhum chat.
 5. Rode **Actions → check**. O Telegram mostra ✅ ou ❌ para cada chave, sem publicar nada.
 6. **Primeiro post de verdade:** *Actions → generate*, **desmarcando** "Prévia de TESTE". Aprove no Telegram e confira o perfil (post e stories).
-7. Pronto: a partir do dia seguinte o sistema gera tudo às ~06:00 e você só aprova até 10:45.
+7. Pronto: a partir do dia seguinte o sistema gera tudo às ~06:00 e você só aprova até 20:45.
 
 **O repositório precisa ficar PÚBLICO.** O Instagram baixa as imagens e o vídeo de endereços do GitHub; em repositório privado esse endereço pede login e a Meta recusa a mídia ("Only photo or video can be accepted"). Nada sensível fica no código (as chaves ficam só em Secrets).
 

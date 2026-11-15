@@ -2,7 +2,7 @@ export const config = {
   tz: 'America/Sao_Paulo',
   minScore: 6,
   noRepeatDays: 30,
-  approvalDeadline: '11:00',
+  approvalDeadline: '21:00', // o cron do GitHub chega a atrasar horas: o prazo precisa caber o atraso (21:00 em Brasília)
   approvalGraceMin: 20, // tolerância: o Telegram não informa a hora do clique e o cron do GitHub atrasa
   baseline: { reel: 2, carousel: 4, post: 1 }, // por semana; stories saem todo dia junto com o post
   competitors: [], // @ de 3 a 5 perfis de referência (preencher)

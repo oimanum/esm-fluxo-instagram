@@ -74,13 +74,13 @@ Aprovar a publicação?`;
   return { messageId: m.message_id };
 }
 
-// Prazo = 11:00 (America/Sao_Paulo, UTC-3 fixo desde 2019) do dia em que o item foi criado.
+// Prazo = config.approvalDeadline (21:00, America/Sao_Paulo, UTC-3 fixo desde 2019) do dia em que o item foi criado.
 export function deadlineOf(item) {
   const day = new Intl.DateTimeFormat('en-CA', { timeZone: config.tz }).format(new Date(item.createdAt));
   return new Date(`${day}T${config.approvalDeadline}:00-03:00`);
 }
 
-// Prazo efetivo = 11:00 + tolerância (config.approvalGraceMin).
+// Prazo efetivo = prazo + tolerância (config.approvalGraceMin).
 const cutoffOf = (item) => new Date(deadlineOf(item).getTime() + config.approvalGraceMin * 60000);
 
 export function expireOverdue(queue, now) {
