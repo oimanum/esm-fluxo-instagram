@@ -1,5 +1,5 @@
-// Instagram API com Instagram Login (graph.instagram.com): publica sem exigir Página do Facebook.
-export const GRAPH_BASE = process.env.IG_GRAPH_BASE || 'https://graph.instagram.com/v27.0';
+// Instagram API: por padrão o Unified login (graph.facebook.com, token de usuário do sistema que não expira). Para um token do Instagram Login, defina IG_GRAPH_BASE=https://graph.instagram.com/v27.0.
+export const GRAPH_BASE = process.env.IG_GRAPH_BASE || 'https://graph.facebook.com/v27.0';
 
 export function createInstagram(token, userId, fetchImpl = fetch) {
   const unwrap = async (res) => {

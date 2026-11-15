@@ -7,7 +7,7 @@ const env = { GEMINI_KEY: 'GEMINIKEY12345', TG_TOKEN: 'TGTOKEN12345', TG_CHAT_ID
 const routes = (over = {}) => async (url) => {
   if (url.includes('generativelanguage')) return over.gemini ?? ok({});
   if (url.includes('api.telegram.org')) return over.tg ?? ok({ ok: true, result: { username: 'esm_bot' } });
-  if (url.includes('graph.instagram.com')) return over.ig ?? ok({ user_id: '178', username: 'esm_web', account_type: 'BUSINESS' });
+  if (url.includes('graph.')) return over.ig ?? ok({ id: '178', username: 'esm_web' });
   if (url.includes('api.github.com')) return over.gh ?? ok({});
   throw new Error('url inesperada');
 };
@@ -25,13 +25,18 @@ test('check: missing Instagram keys are reported, not thrown', async () => {
   assert.ok(ig.detail.includes('não cadastrados'));
   assert.ok(formatChecks(r).includes('Corrija'));
 });
-test('check: wrong account id, personal account and rejected tokens are explained', async () => {
-  let r = await runChecks({ env, fetchImpl: routes({ ig: ok({ user_id: '999', username: 'x', account_type: 'BUSINESS' }) }) });
+test('check: an account the token cannot read and a rejected GitHub token are explained', async () => {
+  let r = await runChecks({ env, fetchImpl: routes({ ig: { ok: false, status: 400, json: async () => ({ error: { message: 'Unsupported get request' } }) } }) });
   assert.ok(r.find((x) => x.name.startsWith('Instagram')).detail.includes('IG_USER_ID'));
-  r = await runChecks({ env, fetchImpl: routes({ ig: ok({ user_id: '178', username: 'x', account_type: 'PERSONAL' }) }) });
-  assert.ok(r.find((x) => x.name.startsWith('Instagram')).detail.includes('Profissional'));
-  r = await runChecks({ env, fetchImpl: routes({ gh: { ok: false, status: 403, json: async () => ({}) } }) });
+  r = await runChecks({ env, base: 'https://graph.instagram.com/v27.0', fetchImpl: routes({ gh: { ok: false, status: 403, json: async () => ({}) } }) });
   assert.ok(r.find((x) => x.name.startsWith('Renovação')).detail.includes('Secrets'));
+});
+test('check: the never-expiring Unified login token does not need GH_ADMIN_TOKEN', async () => {
+  const r = await runChecks({ env: { ...env, GH_ADMIN_TOKEN: '' }, base: 'https://graph.facebook.com/v27.0', fetchImpl: routes() });
+  assert.ok(r.every((x) => x.ok));
+  assert.ok(r.find((x) => x.name.startsWith('Renovação')).detail.includes('não expira'));
+  const old = await runChecks({ env: { ...env, GH_ADMIN_TOKEN: '' }, base: 'https://graph.instagram.com/v27.0', fetchImpl: routes() });
+  assert.equal(old.find((x) => x.name.startsWith('Renovação')).ok, false);
 });
 test('check: no secret ever appears in the report', async () => {
   const boom = async () => { throw new Error('falha com IGTOKEN12345 e GHTOKEN12345 e GEMINIKEY12345'); };

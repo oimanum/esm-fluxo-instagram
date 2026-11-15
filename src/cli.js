@@ -8,7 +8,7 @@ import { askJson } from './llm.js';
 import { collectSignals } from './research/index.js';
 import { renderReel } from './producer/reel.js';
 import { renderPost } from './producer/post.js';
-import { runChecks, formatChecks } from './check.js';
+import { runChecks, formatChecks, tokenExpires } from './check.js';
 import { renderStory } from './producer/story.js';
 import { renderCarousel } from './producer/carousel.js';
 import { renderChecklist } from './producer/checklist.js';
@@ -118,6 +118,8 @@ const commands = {
 
   // Renova o token longo, grava o novo valor no Secret IG_TOKEN (via stdin) e alerta se faltar pouco para expirar.
   async refresh() {
+    // O token do Unified login (usuário do sistema) não expira: não há o que renovar.
+    if (!tokenExpires()) { console.log('Token que não expira (Unified login): nada a renovar.'); return; }
     const { IG_TOKEN, GITHUB_REPOSITORY, GH_ADMIN_TOKEN } = requireEnv(['IG_TOKEN', 'GITHUB_REPOSITORY', 'GH_ADMIN_TOKEN']);
     const tg = telegram();
     try {
