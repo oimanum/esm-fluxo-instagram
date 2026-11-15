@@ -148,7 +148,7 @@
     "media": [
       "out/f6fe8b02/reel.mp4"
     ],
-    "status": "pending",
+    "status": "sem_resposta",
     "createdAt": "2026-11-11T17:05:57.192Z",
     "alternatives": [
       {
@@ -272,7 +272,7 @@
     "media": [
       "out/eedb7172/reel.mp4"
     ],
-    "status": "pending",
+    "status": "sem_resposta",
     "createdAt": "2026-11-12T17:32:03.633Z",
     "alternatives": [
       {
@@ -341,7 +341,7 @@
     "media": [
       "out/425181fc/reel.mp4"
     ],
-    "status": "pending",
+    "status": "sem_resposta",
     "createdAt": "2026-11-13T17:09:20.131Z",
     "alternatives": [
       {
@@ -406,7 +406,7 @@
     "media": [
       "out/cdc3194d/reel.mp4"
     ],
-    "status": "pending",
+    "status": "sem_resposta",
     "createdAt": "2026-11-14T15:45:56.193Z",
     "alternatives": [
       {
