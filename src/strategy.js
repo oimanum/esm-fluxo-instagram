@@ -37,15 +37,27 @@ export function pickToday({ scored, history, now, plan }) {
   if (counted.some((h) => ymd(new Date(h.postedAt)) === ymd(now))) return { skip: 'ja_postou_hoje' };
 
   const ws = weekStart(now);
-  const used = { reel: 0, carousel: 0 };
-  // Checklist é post estático: conta na cota do carrossel.
-  for (const h of counted) if (ymd(new Date(h.postedAt)) >= ws && ymd(new Date(h.postedAt)) <= ymd(now)) used[h.format === 'checklist' ? 'carousel' : h.format]++;
-  const left = { reel: plan.reel - used.reel, carousel: plan.carousel - used.carousel };
-  if (left.reel <= 0 && left.carousel <= 0) return { skip: 'cota_semanal' };
-  let format = left.reel > 0 && left.reel >= left.carousel ? 'reel' : left.carousel > 0 ? 'carousel' : 'reel';
-  // Posts estáticos alternam: carrossel, checklist, carrossel...
+  const used = { reel: 0, carousel: 0, post: 0 };
+  // Checklist é post estático em imagem(ns): conta na cota do carrossel.
+  for (const h of counted) {
+    const day = ymd(new Date(h.postedAt));
+    if (day >= ws && day <= ymd(now)) used[h.format === 'checklist' ? 'carousel' : h.format] = (used[h.format === 'checklist' ? 'carousel' : h.format] || 0) + 1;
+  }
+  const left = { reel: (plan.reel ?? 0) - used.reel, carousel: (plan.carousel ?? 0) - used.carousel, post: (plan.post ?? 0) - used.post };
+  const open = Object.keys(left).filter((k) => left[k] > 0);
+  if (!open.length) return { skip: 'cota_semanal' };
+  // Mais cota sobrando primeiro; nunca o mesmo formato duas vezes seguidas se houver outro; empate: o que saiu há mais tempo.
+  const ordered = [...counted].sort((a, b) => new Date(a.postedAt) - new Date(b.postedAt));
+  const kind = (f) => (f === 'checklist' ? 'carousel' : f);
+  const lastKind = ordered.length ? kind(ordered[ordered.length - 1].format) : null;
+  const lastIdx = (k) => ordered.map((h) => kind(h.format)).lastIndexOf(k);
+  let pool = open.filter((k) => k !== lastKind);
+  if (!pool.length) pool = open;
+  pool.sort((x, y) => left[y] - left[x] || lastIdx(x) - lastIdx(y));
+  let format = pool[0];
+  // Posts em várias imagens alternam: carrossel, checklist, carrossel...
   if (format === 'carousel') {
-    const lastStatic = counted.filter((h) => h.format === 'carousel' || h.format === 'checklist').sort((a, b) => new Date(a.postedAt) - new Date(b.postedAt)).pop();
+    const lastStatic = ordered.filter((h) => h.format === 'carousel' || h.format === 'checklist').pop();
     if (lastStatic?.format === 'carousel') format = 'checklist';
   }
 

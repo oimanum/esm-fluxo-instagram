@@ -47,6 +47,15 @@ export async function sendPreview(item, tg) {
     item.media.forEach((p, i) => { files[`f${i}`] = p; });
     await tg.upload('sendMediaGroup', { media: item.media.map((_, i) => ({ type: 'photo', media: `attach://f${i}` })) }, files);
   }
+  if (item.story?.media?.length) {
+    const m = item.story.media;
+    if (m.length === 1) await tg.upload('sendPhoto', { caption: 'Stories que saem junto' }, { photo: m[0] });
+    else {
+      const files = {};
+      m.forEach((p, i) => { files[`s${i}`] = p; });
+      await tg.upload('sendMediaGroup', { media: m.map((_, i) => ({ type: 'photo', media: `attach://s${i}`, ...(i === 0 ? { caption: 'Stories que saem junto' } : {}) })) }, files);
+    }
+  }
   const body = `${item.post.caption}
 
 ${item.post.hashtags.join(' ')}`.slice(0, 3800);

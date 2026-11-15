@@ -74,3 +74,11 @@ test('a single-image post is previewed with sendPhoto, not sendMediaGroup', asyn
   assert.ok(text.includes('sendPhoto'));
   assert.ok(!text.includes('sendMediaGroup'));
 });
+
+test('the preview also shows the stories that go with the post', async () => {
+  const tg = fakeTg([]);
+  await sendPreview(mkItem({ format: 'carousel', media: ['a.jpg', 'b.jpg'], story: { media: ['s1.jpg', 's2.jpg', 's3.jpg'] } }), tg);
+  const text = JSON.stringify(tg.calls);
+  assert.ok(text.includes('Stories que saem junto'));
+  assert.equal(tg.calls.filter((c) => c[0] === 'sendMediaGroup').length, 2);
+});

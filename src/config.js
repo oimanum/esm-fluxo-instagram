@@ -4,7 +4,7 @@ export const config = {
   noRepeatDays: 30,
   approvalDeadline: '11:00',
   approvalGraceMin: 20, // tolerância: o Telegram não informa a hora do clique e o cron do GitHub atrasa
-  baseline: { reel: 4, carousel: 2 },
+  baseline: { reel: 2, carousel: 4, post: 1 }, // por semana; stories saem todo dia junto com o post
   competitors: [], // @ de 3 a 5 perfis de referência (preencher)
 
   // Locução dos Reels. Tenta a voz do Gemini (mesma chave GEMINI_KEY); se falhar, cai para a voz Edge.

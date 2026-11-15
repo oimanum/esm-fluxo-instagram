@@ -173,3 +173,37 @@ test('a TEST preview (dry) is not blocked by a post already queued today, a real
   const test = await generate({ ...d, dry: true });
   assert.equal(test.status, 'dry');
 });
+
+test('stories are rendered with the post, previewed, staged together and published after it', async () => {
+  const d = deps({
+    render: { reel: async () => ({ path: 'out/reel.mp4' }), carousel: async () => ({ paths: ['c1'] }), story: async () => ({ paths: ['out/s1.jpg', 'out/s2.jpg'] }) },
+  });
+  let staged;
+  d.stage = async (item) => { staged = item; return { tag: 't', files: ['reel.mp4', 's1.jpg', 's2.jpg'] }; };
+  const r = await generate(d);
+  assert.deepEqual(r.story.media, ['out/s1.jpg', 'out/s2.jpg']);
+  assert.deepEqual(staged.story.media, r.story.media);
+  const storyCalls = [];
+  const up = withUpdates({ ...d, ig: {}, release: async () => ['u/reel.mp4', 'u/s1.jpg', 'u/s2.jpg'], publishStories: async (urls) => { storyCalls.push(urls); d.events.push('stories'); return urls.map((_, i) => `m${i}`); } }, [cbq('i1', 'approve')]);
+  await poll({ ...up, now: new Date('2026-11-04T12:00:00Z') });
+  assert.deepEqual(storyCalls, [['u/s1.jpg', 'u/s2.jpg']]);
+  assert.deepEqual(d.published, ['i1']);
+  assert.ok(d.events.indexOf('publish') < d.events.indexOf('stories'));
+  assert.equal((await loadState('queue'))[0].status, 'posted');
+});
+test('a story failure never undoes or repeats the main post', async () => {
+  const d = deps({ render: { reel: async () => ({ path: 'out/reel.mp4' }), carousel: async () => ({ paths: ['c1'] }), story: async () => ({ paths: ['out/s1.jpg'] }) } });
+  await generate(d);
+  const up = withUpdates({ ...d, ig: {}, release: async () => ['u/reel.mp4', 'u/s1.jpg'], publishStories: async () => { throw new Error('ig fora do ar'); } }, [cbq('i1', 'approve')]);
+  await poll({ ...up, now: new Date('2026-11-04T12:00:00Z') });
+  assert.equal((await loadState('queue'))[0].status, 'posted');
+  assert.deepEqual(d.published, ['i1']);
+  assert.ok(d.alerts.some((a) => a.includes('stories falharam')));
+});
+test('if the stories cannot be rendered the post still goes ahead', async () => {
+  const d = deps({ render: { reel: async () => ({ path: 'out/reel.mp4' }), carousel: async () => ({ paths: ['c1'] }), story: async () => { throw new Error('chrome'); } } });
+  const r = await generate(d);
+  assert.equal(r.status, 'pending');
+  assert.equal(r.story, undefined);
+  assert.ok(d.alerts.some((a) => a.includes('stories de hoje não saíram')));
+});

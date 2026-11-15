@@ -95,3 +95,21 @@ test('checklist publishes one plain image, no carousel container', async () => {
   assert.equal(media[0][2].is_carousel_item, undefined);
   assert.equal(ig.log.filter((l) => l[1].endsWith('/media_publish')).length, 1);
 });
+
+import { publishStories } from '../src/publisher.js';
+test('single-image post publishes like a plain image', async () => {
+  const ig = fakeIg();
+  await publish(item({ format: 'post' }), ['http://x/p.jpg'], ig, { sleep: noSleep });
+  const media = ig.log.filter((l) => l[0] === 'post' && l[1].endsWith('/media'));
+  assert.equal(media.length, 1);
+  assert.equal(media[0][2].media_type, undefined);
+});
+test('stories are published one by one as STORIES media', async () => {
+  const ig = fakeIg();
+  const ids = await publishStories(['http://x/s1.jpg', 'http://x/s2.jpg', 'http://x/s3.jpg'], ig, { sleep: noSleep });
+  assert.equal(ids.length, 3);
+  const media = ig.log.filter((l) => l[0] === 'post' && l[1].endsWith('/media'));
+  assert.equal(media.length, 3);
+  assert.ok(media.every((m) => m[2].media_type === 'STORIES' && m[2].image_url.endsWith('.jpg')));
+  assert.equal(ig.log.filter((l) => l[1].endsWith('/media_publish')).length, 3);
+});

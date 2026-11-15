@@ -37,6 +37,10 @@ export function checkPost(post, format, { allowedNumbers = new Set(), keyword, s
   if (format === 'reel') {
     const n = words(`${post.hook || ''} ${post.script || ''} ${post.cta || ''}`);
     if (n < NARRATION_MIN || n > NARRATION_MAX) problems.push(`narração (gancho+roteiro+CTA) com ${n} palavras (esperado ${NARRATION_MIN}–${NARRATION_MAX}, ≈20–35 s)`);
+  } else if (format === 'post') {
+    const n = words(post.script || '');
+    if (n < 5 || n > 32) problems.push(`post com apoio de ${n} palavras (esperado 5–32)`);
+    if ((post.script || '').includes('|')) problems.push('post de imagem única não usa |');
   } else if (format === 'checklist') {
     const items = (post.script || '').split('|').map((s) => s.trim()).filter(Boolean);
     if (items.length < 3 || items.length > 5) problems.push(`checklist com ${items.length} itens separados por | (esperado 3–5)`);

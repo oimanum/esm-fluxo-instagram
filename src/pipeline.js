@@ -59,9 +59,14 @@ export async function generate(d) {
     const outDir = `out/${id}`;
     await mkdir(outDir, { recursive: true });
     const media = pick.format === 'reel' ? [(await d.render.reel(post, outDir)).path] : (await d.render[pick.format](post, outDir)).paths;
+    // Stories do dia, derivados do post. Se não saírem, o post principal segue sem eles.
+    let story;
+    if (d.render.story) {
+      try { story = { media: (await d.render.story(post, outDir, { format: pick.format })).paths }; } catch (e) { await alert(`Os stories de hoje não saíram (${e.message}); o post segue normal.`); }
+    }
     const item = {
       id, topic: pick.topic, angle: pick.angle, format: pick.format, post, media, status: d.dry ? 'dry' : 'pending',
-      createdAt: d.now.toISOString(), alternatives: pool.filter((t) => t.topic !== pick.topic), release: null,
+      createdAt: d.now.toISOString(), alternatives: pool.filter((t) => t.topic !== pick.topic), release: null, ...(story ? { story } : {}),
     };
     // A mídia precisa sobreviver até o workflow de aprovação: sobe para um release em rascunho (não público).
     if (d.stage) item.release = await d.stage(item);
@@ -109,13 +114,26 @@ export async function poll(d) {
     await checkpoint(d); // se a execução morrer daqui em diante, o próximo poll vê "publishing" e não republica
     try {
       const urls = await d.release(item);
-      const { igMediaId } = await d.publish({ ...item, status: 'approved' }, urls, d.ig);
+      const { igMediaId } = await d.publish({ ...item, status: 'approved' }, urls.slice(0, item.media.length), d.ig);
       Object.assign(item, { status: 'posted', igMediaId, postedAt: d.now.toISOString() });
       history.push({ id: item.id, topic: item.topic, format: item.format, postedAt: item.postedAt, status: 'posted', igMediaId });
       await saveState('history', history);
       await saveState('queue', queue);
       await checkpoint(d);
       await alert(`Publicado: "${item.topic}" (${item.format}).`);
+      // Stories depois do post. Falha aqui não desfaz nem repete o post principal.
+      const storyUrls = urls.slice(item.media.length);
+      if (storyUrls.length && d.publishStories) {
+        try {
+          const ids = await d.publishStories(storyUrls, d.ig);
+          item.storiesPosted = ids.length;
+          await saveState('queue', queue);
+          await checkpoint(d);
+          await alert(`Stories publicados: ${ids.length}.`);
+        } catch (e) {
+          await alert(`O post saiu, mas os stories falharam: ${e.message}`);
+        }
+      }
     } catch (e) {
       item.status = 'failed';
       await saveState('queue', queue);

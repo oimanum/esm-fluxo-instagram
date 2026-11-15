@@ -37,7 +37,7 @@ export async function publish(item, urls, ig, { sleep = defaultSleep } = {}) {
   let creationId;
   if (item.format === 'reel') {
     ({ id: creationId } = await ig.post(`/${u}/media`, { media_type: 'REELS', video_url: urls[0], caption: fullCaption(item), share_to_feed: true }));
-  } else if (item.format === 'checklist') {
+  } else if (item.format === 'checklist' || item.format === 'post') {
     ({ id: creationId } = await ig.post(`/${u}/media`, { image_url: urls[0], caption: fullCaption(item) }));
   } else {
     const kids = [];
@@ -46,16 +46,31 @@ export async function publish(item, urls, ig, { sleep = defaultSleep } = {}) {
     ({ id: creationId } = await ig.post(`/${u}/media`, { media_type: 'CAROUSEL', children: kids.join(','), caption: fullCaption(item) }));
   }
   await waitFinished(ig, creationId, sleep);
+  return { igMediaId: await mediaPublish(ig, u, creationId, sleep) };
+}
 
+async function mediaPublish(ig, u, creationId, sleep) {
   let lastErr;
   for (let attempt = 1; attempt <= 3; attempt++) {
     try {
       const { id } = await ig.post(`/${u}/media_publish`, { creation_id: creationId });
-      return { igMediaId: id };
+      return id;
     } catch (e) {
       lastErr = e;
       if (attempt < 3) await sleep(10000 * attempt);
     }
   }
   throw lastErr;
+}
+
+// Stories: cada quadro é uma mídia STORIES publicada em sequência. Devolve os ids que saíram.
+export async function publishStories(urls, ig, { sleep = defaultSleep } = {}) {
+  const u = ig.userId || 'me';
+  const ids = [];
+  for (const url of urls) {
+    const { id: creationId } = await ig.post(`/${u}/media`, { media_type: 'STORIES', image_url: url });
+    await waitFinished(ig, creationId, sleep);
+    ids.push(await mediaPublish(ig, u, creationId, sleep));
+  }
+  return ids;
 }

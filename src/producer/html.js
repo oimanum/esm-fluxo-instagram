@@ -55,6 +55,8 @@ body.clear,html:has(body.clear){background:transparent}
 .fine{margin-top:42px;font-size:28px;line-height:1.4}
 .fine .s{font-weight:500;color:#fff}
 .fine .l{font-weight:300;color:#9A9EA5}
+.chip{display:inline-block;padding:12px 26px;border:1.5px solid rgba(201,204,209,.55);border-radius:999px;font-weight:500;font-size:22px;letter-spacing:.24em;text-transform:uppercase;color:#C9CCD1;margin-bottom:40px}
+.hint{position:absolute;left:0;right:0;bottom:330px;text-align:center;font-weight:300;font-size:30px;letter-spacing:.06em;color:#9A9EA5}
 .pill{display:inline-block;margin-top:44px;padding:20px 40px;border:1.5px solid rgba(201,204,209,.7);border-radius:999px;font-weight:500;font-size:30px;color:#fff;letter-spacing:.02em}
 `;
 
@@ -164,4 +166,31 @@ export async function shot(browser, html, { w, h, path, type = 'png', transparen
   } finally {
     await pg.close();
   }
+}
+
+
+// Post de imagem única (1080x1350): título, uma frase de apoio e o fechamento.
+export async function postHtml({ brand, label, title, text, foot }) {
+  const body = `<div class="bg"></div><div class="glow"></div>${SWOOSH}
+<img class="logo" src="${await logoUri(brand.logoPath)}">
+<div class="top-right">${esc(brand.handle)}</div>
+<div class="block" style="top:50%;transform:translateY(-48%)">
+  ${label ? `<div class="label">${esc(label)}</div>` : ''}
+  <div class="title" style="font-size:${titleSize(title, 1.08)}px">${titleHtml(title)}</div>
+  ${text ? `<div class="fine" style="font-size:36px">${titleHtml(text)}</div>` : ''}
+  ${foot ? `<div class="divider"></div><div class="foot">${esc(foot)}</div>` : ''}
+</div>`;
+  return page({ w: 1080, h: 1350, body });
+}
+
+// Quadro de story (1080x1920). O Instagram cobre o topo e a base: o conteúdo fica entre ~y 300 e ~y 1500.
+export async function storyHtml({ brand, chip, title, hint }) {
+  const body = `<div class="bg"></div><div class="glow"></div>${SWOOSH}
+<img class="logo" src="${await logoUri(brand.logoPath)}" style="top:250px">
+<div class="block" style="top:52%;transform:translateY(-50%)">
+  ${chip ? `<div class="chip">${esc(chip)}</div>` : ''}
+  <div class="title" style="font-size:${titleSize(title, 1.12)}px">${titleHtml(title)}</div>
+</div>
+${hint ? `<div class="hint">${esc(hint)}</div>` : ''}`;
+  return page({ w: 1080, h: 1920, body });
 }

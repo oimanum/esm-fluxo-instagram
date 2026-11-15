@@ -29,7 +29,7 @@ export async function collectInsights(history, ig, now = new Date(), errors = []
 // Move no máximo 1 post/semana do formato pior para o melhor; só com ≥2 amostras de cada e vantagem de 30%.
 export function adjustPlan(plan, metrics) {
   const by = { reel: [], carousel: [] };
-  for (const m of metrics) by[m.format === 'checklist' ? 'carousel' : m.format]?.push(score(m)); // checklist = post estático
+  for (const m of metrics) by[m.format === 'checklist' ? 'carousel' : m.format]?.push(score(m)); // checklist = post estático; post de imagem única fica fora do ajuste
   if (by.reel.length < 2 || by.carousel.length < 2) return { ...plan };
   const r = avg(by.reel), c = avg(by.carousel);
   const next = { ...plan };

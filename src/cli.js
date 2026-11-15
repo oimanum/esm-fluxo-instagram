@@ -7,10 +7,12 @@ import { loadState, saveState } from './state.js';
 import { askJson } from './llm.js';
 import { collectSignals } from './research/index.js';
 import { renderReel } from './producer/reel.js';
+import { renderPost } from './producer/post.js';
+import { renderStory } from './producer/story.js';
 import { renderCarousel } from './producer/carousel.js';
 import { renderChecklist } from './producer/checklist.js';
 import { createTelegram } from './approval.js';
-import { createInstagram, publish } from './publisher.js';
+import { createInstagram, publish, publishStories } from './publisher.js';
 import { stageMedia, publishRelease } from './media-host.js';
 import { generate, poll, processSwaps } from './pipeline.js';
 import { runFunnel } from './funnel.js';
@@ -21,7 +23,7 @@ const run = promisify(execFile);
 const [cmd, ...flags] = process.argv.slice(2);
 const dry = flags.includes('--dry');
 
-const plan = async () => (await loadState('plan'))[0] ?? { ...config.baseline };
+const plan = async () => ({ ...config.baseline, ...((await loadState('plan'))[0] ?? {}) });
 
 function telegram() {
   const { TG_TOKEN, TG_CHAT_ID } = requireEnv(['TG_TOKEN', 'TG_CHAT_ID']);
@@ -49,12 +51,12 @@ async function baseDeps() {
     now: new Date(), plan: await plan(), dry, tg, checkpoint,
     llm: (o) => askJson(o),
     collect: () => collectSignals({ competitors: config.competitors }),
-    render: { reel: renderReel, carousel: renderCarousel, checklist: renderChecklist },
+    render: { reel: renderReel, carousel: renderCarousel, checklist: renderChecklist, post: renderPost, story: renderStory },
     newId: () => randomUUID().slice(0, 8),
     alert: (text) => tg.call('sendMessage', { text }),
   };
   if (repo && process.env.GH_TOKEN) {
-    d.stage = (item) => stageMedia(item.media, { repo, tag: `post-${item.id}` });
+    d.stage = (item) => stageMedia([...item.media, ...(item.story?.media ?? [])], { repo, tag: `post-${item.id}` });
     d.release = (item) => publishRelease(item.release, { repo });
   }
   return d;
@@ -84,6 +86,7 @@ const commands = {
       const { IG_TOKEN, IG_USER_ID } = requireEnv(['IG_TOKEN', 'IG_USER_ID']);
       d.ig = createInstagram(IG_TOKEN, IG_USER_ID);
       d.publish = publish;
+      d.publishStories = publishStories;
     }
     const { swaps } = await poll(d);
     if (process.env.GITHUB_OUTPUT) appendFileSync(process.env.GITHUB_OUTPUT, `swap=${swaps > 0}\n`);

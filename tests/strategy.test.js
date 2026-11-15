@@ -33,8 +33,8 @@ test('never schedules two posts in one day', () => {
 test('weekly plan caps reels at 4', () => {
   const h = ['11-02', '11-03'].map((d) => ({ topic: d, format: 'reel', postedAt: day(d), status: 'posted' }));
   const full = [...h, ...['10-30', '10-29'].map((d) => ({ topic: d, format: 'reel', postedAt: day(d), status: 'posted' }))];
-  // semana de 11-02 (seg) a 11-08: só 2 reels nesta semana -> ainda cabe reel
-  assert.equal(pickToday({ scored, history: full, now, plan }).format, 'reel');
+  // semana de 11-02 (seg) a 11-08: só 2 reels nesta semana, mas o último post foi reel -> alterna para carrossel
+  assert.equal(pickToday({ scored, history: full, now, plan }).format, 'carousel');
   const wk = ['11-02', '11-03', '11-01', '11-04'].slice(0, 2);
   const capped = [
     { topic: 'a', format: 'reel', postedAt: day('11-02'), status: 'posted' },
@@ -59,4 +59,25 @@ test('static slots alternate carousel and checklist', () => {
 test('checklist counts toward the carousel quota', () => {
   const h = ['11-02', '11-03'].map((d) => ({ topic: d, format: 'checklist', postedAt: day(d), status: 'posted' }));
   assert.equal(pickToday({ scored, history: h, now, plan: { reel: 0, carousel: 2 } }).skip, 'cota_semanal');
+});
+
+test('the weekly mix follows the plan: 2 reels, 4 carousels, 1 single post, never the same format twice in a row', () => {
+  const plan7 = { reel: 2, carousel: 4, post: 1 };
+  const history = [];
+  const seq = [];
+  for (let d = 2; d <= 8; d++) {
+    const dayStr = `11-${String(d).padStart(2, '0')}`;
+    const r = pickToday({ scored, history, now: new Date(`2026-${dayStr}T09:00:00-03:00`), plan: plan7 });
+    assert.ok(r.format, `dia ${dayStr}: ${r.skip}`);
+    seq.push(r.format);
+    history.push({ topic: `t${d}`, format: r.format, postedAt: day(dayStr), status: 'posted' });
+  }
+  const kinds = seq.map((f) => (f === 'checklist' ? 'carousel' : f));
+  assert.equal(kinds.filter((k) => k === 'reel').length, 2);
+  assert.equal(kinds.filter((k) => k === 'carousel').length, 4);
+  assert.equal(kinds.filter((k) => k === 'post').length, 1);
+  for (let i = 1; i < kinds.length - 1; i++) assert.notEqual(kinds[i], kinds[i - 1], seq.join(','));
+});
+test('a plan without the post key still works (old saved plans)', () => {
+  assert.ok(pickToday({ scored, history: [], now, plan: { reel: 1, carousel: 1 } }).format);
 });
