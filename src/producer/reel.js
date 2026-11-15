@@ -3,16 +3,21 @@ import { synth, ProducerError } from './tts.js';
 import { loadBrand, ffmpeg, durationOf } from './ff.js';
 import { renderMotion, pickStyle } from './motion.js';
 import { plain, splitSegments } from '../text.js';
+import { cleanVisual, visualsFor } from '../visuals.js';
 
 const sentence = (s) => (/[.!?]$/.test(s.trim()) ? s.trim() : `${s.trim()}.`);
 
 // Telas do Reel: gancho, uma tela por frase do roteiro, e o CTA no fim.
+// Cada frase do roteiro tem uma ideia visual (post.visuals, já resolvida na escrita; senão, deduzida do texto).
 export function reelScreens(post, brandLabel) {
-  return [
-    { title: post.hook, label: post.label || brandLabel },
-    ...splitSegments(plain(post.script)).map((title) => ({ title })),
-    { title: post.cta, cta: true },
-  ];
+  const sentences = plain(post.script).split(/(?<=[.!?])\s+/).map((s) => s.trim()).filter(Boolean);
+  const vis = Array.isArray(post.visuals) && post.visuals.length === sentences.length
+    ? post.visuals.map((v) => cleanVisual(v) || { type: 'none' })
+    : visualsFor(post, sentences);
+  const screens = [{ title: post.hook, label: post.label || brandLabel }];
+  sentences.forEach((s, k) => splitSegments(s).forEach((title) => screens.push({ title, vis: vis[k], gid: k })));
+  screens.push({ title: post.cta, cta: true });
+  return screens;
 }
 
 export async function renderReel(post, outDir, { ttsImpl = synth, style, fps = 30 } = {}) {

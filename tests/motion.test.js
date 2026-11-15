@@ -40,3 +40,29 @@ test('scenes cover the whole narration and sound effects stay lean', () => {
   for (let i = 1; i < sc.length; i++) assert.ok(Math.abs(sc[i].t0 - sc[i - 1].t1) < 1e-9);
   for (const st of MOTION_STYLES) assert.ok(motionSfx(sc, st).length / 30 <= 0.8, st);
 });
+
+test('every style renders every kind of animation without errors (visual catalog)', async () => {
+  const all = [
+    { type: 'search', query: 'dentista perto de mim' },
+    { type: 'chat', msgs: [{ who: 'cliente', text: 'Oi, atendem hoje?' }, { who: 'voce', text: 'Atendemos! Qual horário?' }] },
+    { type: 'loading', label: 'Carregando…', outcome: 'Cliente saiu' },
+    { type: 'versus', left: { title: 'Sem site', items: ['a', 'b'] }, right: { title: 'Com site', items: ['c', 'd'] } },
+    { type: 'checklist', items: ['um', 'dois', 'três'] },
+    { type: 'funnel', steps: ['Pesquisa', 'Visita', 'Contato'] },
+    { type: 'steps', steps: ['Briefing', 'Protótipo', 'No ar'] },
+    { type: 'notification', items: ['Novo contato', 'Pedido de orçamento'] },
+    { type: 'quote', text: 'Será que é confiável?', who: 'Cliente' },
+    { type: 'map', name: 'Sua empresa', label: 'Aberto agora' },
+    { type: 'clock', label: 'Sempre disponível' },
+    { type: 'stat', value: '53%', label: 'saem se demora' },
+    { type: 'site', niche: 2 },
+    { type: 'none' },
+  ];
+  const script = all.map((_, i) => `Frase número ${i + 1} que a animação ilustra aqui.`).join(' ');
+  const rich = { ...post, script, visuals: all };
+  for (const style of MOTION_STYLES) {
+    const dir = await mkdtemp(join(tmpdir(), `vis-${style}-`));
+    const { path } = await renderReel(rich, dir, { ttsImpl: fakeTts(33), style, fps: 2 });
+    assert.equal(probe(path, 'stream=width,height'), '1080,1920', style);
+  }
+});

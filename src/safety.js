@@ -31,6 +31,9 @@ const PROOF = [
   /experi[êe]ncia (comprovada|de mercado)/i,
 ];
 
+// Textos das animações do Reel também passam pela checagem (alegações, prova social e números).
+const visualText = (v) => (Array.isArray(v) ? v : []).map((x) => JSON.stringify(x, (k, val) => (k === 'type' || k === 'who' ? undefined : val))).join(' ');
+
 export function checkPost(post, format, { allowedNumbers = new Set(), keyword, socialProof = false } = {}) {
   const problems = [];
   if (!post.hook || words(post.hook) > 12) problems.push('gancho ausente ou com mais de 12 palavras');
@@ -52,7 +55,7 @@ export function checkPost(post, format, { allowedNumbers = new Set(), keyword, s
   // No checklist o fechamento é "pergunta? chamada." por desenho; nos demais, o CTA é uma frase só.
   const manySentences = format !== 'checklist' && (post.cta || '').match(/[.!?]\s+\S/g)?.length > 0;
   if (!post.cta || manySentences) problems.push('CTA ausente ou múltiplo');
-  const all = [post.hook, post.script, post.caption, post.cta].join(' \n ');
+  const all = [post.hook, post.script, post.caption, post.cta, visualText(post.visuals)].join(' \n ');
   for (const re of BLOCKED) if (re.test(all)) problems.push(`alegação bloqueada: ${re}`);
   if (keyword && !plain(post.cta || '').toLowerCase().includes(keyword.toLowerCase())) problems.push(`o CTA deve convidar a comentar a palavra ${keyword}`);
   if (!socialProof) for (const re of PROOF) if (re.test(plain(all))) problems.push(`prova social sem fato real cadastrado: ${re}`);

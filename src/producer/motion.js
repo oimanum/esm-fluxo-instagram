@@ -38,7 +38,8 @@ async function fontCss() {
 
 export async function motionHtml(data) {
   const css = await readFile(here('page.css'), 'utf8');
-  const js = await readFile(here('page.js'), 'utf8');
+  const js = `${await readFile(here('visuals.js'), 'utf8')}
+${await readFile(here('page.js'), 'utf8')}`;
   const json = JSON.stringify(data).replace(/</g, '\\u003c');
   return `<!doctype html><html><head><meta charset="utf-8"><style>${await fontCss()}\n${css}</style></head><body>
 <div id="root"><div id="bg"></div><div id="stage"></div><canvas id="fx" width="1080" height="1920"></canvas>
@@ -50,11 +51,19 @@ export async function motionHtml(data) {
 export function motionScenes(screens, dur) {
   const total = screens.reduce((n, s) => n + plain(s.title).length, 0);
   let t = 0;
-  return screens.map((s, i) => {
+  const scenes = screens.map((s, i) => {
     const t0 = t;
     t += dur * (plain(s.title).length / total);
-    return { i, kind: i === 0 ? 'hook' : s.cta ? 'cta' : 'line', label: s.label || '', parts: parseEmphasis(s.title), text: plain(s.title), t0, t1: t };
+    return { i, kind: i === 0 ? 'hook' : s.cta ? 'cta' : 'line', label: s.label || '', parts: parseEmphasis(s.title), text: plain(s.title), t0, t1: t, vis: s.vis || null, gid: s.gid ?? null };
   });
+  // Frases longas viram várias telas de texto, mas a animação da frase é uma só: guarda início e fim do grupo.
+  scenes.forEach((S, i) => {
+    if (S.gid === null) return;
+    const same = scenes.filter((x) => x.gid === S.gid);
+    S.g0 = same[0].t0; S.g1 = same[same.length - 1].t1;
+    S.vcont = i > 0 && scenes[i - 1].gid === S.gid;
+  });
+  return scenes;
 }
 
 // Efeitos sonoros enxutos: whoosh a cada troca de cena, digitação nos estilos de texto digitado e um golpe no CTA.

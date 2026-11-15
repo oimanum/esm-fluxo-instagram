@@ -40,3 +40,48 @@ test('safety: a post needs one short supporting line, no carousel separators', (
   assert.equal(checkPost({ ...post, script: 'um dois três quatro cinco | seis' }, 'post').ok, false);
   assert.equal(checkPost({ ...post, script: Array(40).fill('palavra').join(' ') }, 'post').ok, false);
 });
+
+import { cleanVisual, guessVisual, visualsFor, VISUAL_TYPES } from '../src/visuals.js';
+import { reelScreens } from '../src/producer/reel.js';
+import { motionScenes } from '../src/producer/motion.js';
+test('visuals: invalid types and empty pieces are dropped, texts are clipped, lists are capped', () => {
+  assert.equal(cleanVisual({ type: 'hacker' }), null);
+  assert.equal(cleanVisual({ type: 'chat', msgs: [{ text: 'só uma' }] }), null);
+  const c = cleanVisual({ type: 'checklist', items: ['a'.repeat(80), 'b', 'c', 'd', 'e', 'f'] });
+  assert.equal(c.items.length, 4);
+  assert.ok(c.items[0].length <= 34);
+  assert.equal(cleanVisual({ type: 'steps', steps: ['um', 'dois'] }), null);
+});
+test('visuals: the animation follows what the sentence says', () => {
+  assert.equal(guessVisual('Quem procura no Google não acha sua clínica.').type, 'search');
+  assert.equal(guessVisual('Quem procura no Google não acha sua clínica.').query, 'dentista perto de mim');
+  assert.equal(guessVisual('Site lento faz o cliente sair em segundos.').type, 'loading');
+  assert.equal(guessVisual('O concorrente aparece primeiro.').type, 'versus');
+  assert.equal(guessVisual('Responda rápido no WhatsApp.').type, 'chat');
+  assert.equal(guessVisual('Teste agora: abra seu site.').type, 'checklist');
+  assert.equal(guessVisual('Frase sem pista nenhuma aqui.').type, 'none');
+});
+test('visuals: numbers without a source are dropped, same type is never repeated back to back, one site at most', () => {
+  const post = { hook: 'h', script: 'a', visuals: [{ type: 'stat', value: '99%', label: 'das pessoas' }, { type: 'site', niche: 1 }, { type: 'site', niche: 2 }] };
+  const v = visualsFor(post, ['Frase um sem pista.', 'Veja o site da clínica.', 'Outro site aqui.'], new Set());
+  assert.notEqual(v[0].type, 'stat');
+  assert.ok(v.filter((x) => x.type === 'site').length <= 1);
+  const ok = visualsFor({ ...post, visuals: [{ type: 'stat', value: '53%', label: 'saem se demora' }] }, ['Frase.'], new Set(['53%']));
+  assert.equal(ok[0].type, 'stat');
+  assert.ok(VISUAL_TYPES.includes('none'));
+});
+test('reel screens carry one visual per sentence and share it between the pieces of a long sentence', () => {
+  const longSentence = 'Quem procura no Google e não acha a sua clínica logo de cara, acaba escolhendo o concorrente que aparece primeiro na lista.';
+  const post = { hook: 'Gancho **forte**', script: `${longSentence} Teste agora no celular.`, cta: 'Chame no **WhatsApp**', visuals: [{ type: 'search', query: 'dentista perto de mim' }, { type: 'checklist', items: ['a', 'b', 'c'] }] };
+  const screens = reelScreens(post, 'ESM');
+  const s0 = screens.filter((s) => s.gid === 0);
+  assert.ok(s0.length >= 2);
+  assert.ok(s0.every((s) => s.vis.type === 'search'));
+  assert.equal(screens.find((s) => s.gid === 1).vis.type, 'checklist');
+  const scenes = motionScenes(screens, 30);
+  const g = scenes.filter((x) => x.gid === 0);
+  assert.equal(g[0].g0, g[0].t0);
+  assert.equal(g[0].g1, g[g.length - 1].t1);
+  assert.equal(g[1].vcont, true);
+  assert.equal(g[0].vcont, false);
+});
