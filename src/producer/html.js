@@ -5,10 +5,10 @@ import { parseEmphasis, plain } from '../text.js';
 import { ProducerError } from './tts.js';
 
 const require = createRequire(import.meta.url);
-const WEIGHTS = [300, 500, 600];
+const WEIGHTS = [300, 400, 500, 600, 700, 800];
 
 let cachedFontCss;
-async function fontCss() {
+export async function fontCss() {
   if (cachedFontCss) return cachedFontCss;
   const faces = [];
   for (const w of WEIGHTS) {
@@ -16,11 +16,13 @@ async function fontCss() {
     const b64 = (await readFile(file)).toString('base64');
     faces.push(`@font-face{font-family:'Poppins';font-weight:${w};font-style:normal;src:url(data:font/woff2;base64,${b64}) format('woff2');}`);
   }
+  const mono = require.resolve('@fontsource/jetbrains-mono/files/jetbrains-mono-latin-500-normal.woff2');
+  faces.push(`@font-face{font-family:'JetBrains Mono';font-weight:500;font-style:normal;src:url(data:font/woff2;base64,${(await readFile(mono)).toString('base64')}) format('woff2');}`);
   cachedFontCss = faces.join('\n');
   return cachedFontCss;
 }
 
-const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+export const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 export const titleHtml = (text) => parseEmphasis(text).map((p) => `<span class="${p.strong ? 's' : 'l'}">${esc(p.text)}</span>`).join('');
 
@@ -66,7 +68,7 @@ const SWOOSH = `<svg class="swoosh" viewBox="0 0 1080 560" preserveAspectRatio="
 <path d="M -40 560 C 260 470, 640 430, 1120 170" fill="none" stroke="url(#g)" stroke-width="2"/></svg>`;
 
 let cachedLogo;
-async function logoUri(path) {
+export async function logoUri(path) {
   cachedLogo ||= `data:image/png;base64,${(await readFile(path)).toString('base64')}`;
   return cachedLogo;
 }

@@ -3,7 +3,15 @@ import { loadFacts } from './facts.js';
 import { config } from './config.js';
 import { plain } from './text.js';
 import { visualsFor } from './visuals.js';
+import { cleanSlide, slideTitle } from './slides.js';
 
+const SLIDES_SPEC = `SLIDES (só no Carrossel): inclua "slides", de 3 a 6 slides de conteúdo (sem a capa e sem o CTA, que já existem), cada um do tipo que MELHOR mostra aquela ideia, variando os tipos. Marque com ** a parte principal das frases. Tipos e campos:
+- {"kind":"statement","kicker":"COMEÇA POR AQUI","title":"frase forte (até 90 caracteres)","body":"explicação curta (até 180)"}  (afirmação, abertura, virada)
+- {"kind":"numbered","n":1,"title":"título curto","body":"explicação","card":{"label":"O QUE MUDA","text":"frase de destaque"}}  (passo ou ponto numerado; card é opcional)
+- {"kind":"list","title":"No seu site","tag":"O ESSENCIAL","items":[{"name":"Google","desc":"o que isso faz"},{"name":"...","desc":"..."},{"name":"...","desc":"..."}]}  (3 a 5 itens)
+- {"kind":"versus","title":"Como pedir","bad":{"label":"RUIM","text":"pedido fraco"},"good":{"label":"BOM","text":"pedido melhor"},"tip":{"label":"O QUE FAZEMOS","text":"..."},"why":"por que funciona"}  (erro comum x jeito certo)
+- {"kind":"big","value":"53%","label":"o que o número mostra"}  (SÓ com número dos FATOS)
+Também inclua "sub": uma frase curta de apoio da capa (até 12 palavras). Sem número que não esteja nos FATOS. "script" continua obrigatório: os títulos dos slides separados por " | ".`;
 const VISUALS_SPEC = `VISUAIS (só no Reel): inclua "visuals", uma lista com UMA entrada por frase do "script" (cada frase termina em . ? ou !), na mesma ordem. Cada entrada é a animação que ILUSTRA o que aquela frase diz, escolhida pelo conteúdo, nunca por enfeite. Tipos e campos:
 - {"type":"search","query":"o que a pessoa digita no Google"}  (frases sobre pesquisar e achar)
 - {"type":"chat","msgs":[{"who":"cliente","text":"..."},{"who":"voce","text":"..."}]}  (2 a 3 mensagens; frases sobre WhatsApp e atendimento)
@@ -22,7 +30,7 @@ const VISUALS_SPEC = `VISUAIS (só no Reel): inclua "visuals", uma lista com UMA
 Textos curtos (até 34 caracteres), sem número que não esteja nos FATOS. Varie: não repita o mesmo tipo em frases seguidas.`;
 
 
-const valid = (o) => !!(o && typeof o.hook === 'string' && o.hook.trim() && typeof o.script === 'string' && o.script.trim()
+const valid = (o) => !!(o && typeof o.hook === 'string' && o.hook.trim() && ((typeof o.script === 'string' && o.script.trim()) || Array.isArray(o.slides))
   && typeof o.caption === 'string' && Array.isArray(o.hashtags) && typeof o.cta === 'string' && o.cta.trim());
 
 export async function writePost({ topic, format, llm, angle = '', facts, funnel = config.funnel }) {
@@ -38,9 +46,18 @@ export async function writePost({ topic, format, llm, angle = '', facts, funnel 
       : format === 'checklist'
       ? 'CHECKLIST de imagem única: "hook" é a pergunta do título (ex.: Seu site abre bem **no celular?**), "script" traz de 3 a 5 itens de autoavaliação em forma de pergunta, cada um com até 60 caracteres, separados por " | ". O "cta" é a frase de fechamento (ex.: Marcou menos de 3? **Fale com a ESM Web.**).'
       : 'Carrossel: "script" traz de 3 a 6 slides de texto curto, separados por " | " (o gancho vira a capa e o CTA o último slide).';
+  const sl = format === 'carousel' ? `\n${SLIDES_SPEC}\n` : '';
   const vis = format === 'reel' ? `\n${VISUALS_SPEC}\n` : '';
-  const prompt = `Escreva um post de Instagram em pt-BR para a ESM Web.\nTema: ${topic}\nÂngulo: ${angle}\n${spec}\nUm único CTA, curto, sem pontuação final extra. Sem promessa de resultado garantido.\nGANCHO: foque no benefício que o cliente recebe (mais pacientes, mais agendamentos, mais contatos), nunca na técnica: é proibido citar React, HTML, CSS, código ou framework.\nFATOS (únicos números, resultados e clientes que você pode citar):\n${facts.text}\nSem fato que sustente, não invente: use a dor do cliente, uma pergunta ou a consequência.\nPERSUASÃO (o dono do negócio precisa sentir que PRECISA de um site): 1) abra pela dor ou pela perda concreta (cliente que procura no Google e não acha, agendamento que vai para o concorrente, parecer menos confiável só com Instagram); 2) mostre o custo de não agir, o que ele perde a cada dia; 3) use um dado com fonte dos FATOS ou convide a testar: "Teste você mesmo: pesquise seu negócio no Google, pelo celular"; 4) mostre o que o site faz por ele (aparecer no Google, passar confiança, receber contatos no WhatsApp a qualquer hora); 5) feche com um próximo passo fácil. NUNCA cite clientes, depoimentos, cases, número de projetos ou tempo de experiência: você não tem esses fatos.\n${ctaRule}${vis}\nVisual: "label" é uma etiqueta curta em CAIXA ALTA (até 28 caracteres, ex.: TESTE RÁPIDO, NOSSO PROCESSO, ERRO COMUM). No "hook", nos slides do carrossel e no "cta", marque com ** a parte principal da frase (ex.: Seu site **perde paciente** todo dia); o resto fica em peso leve. Marque no máximo uma parte por frase. No "script" do Reel NÃO use **.\n\n${voice}\n\nResponda JSON: {"label":string,"hook":string,"script":string,"caption":string,"hashtags":string[],"cta":string${format === 'reel' ? ',"visuals":object[]' : ''}}`;
+  const prompt = `Escreva um post de Instagram em pt-BR para a ESM Web.\nTema: ${topic}\nÂngulo: ${angle}\n${spec}\nUm único CTA, curto, sem pontuação final extra. Sem promessa de resultado garantido.\nGANCHO: foque no benefício que o cliente recebe (mais pacientes, mais agendamentos, mais contatos), nunca na técnica: é proibido citar React, HTML, CSS, código ou framework.\nFATOS (únicos números, resultados e clientes que você pode citar):\n${facts.text}\nSem fato que sustente, não invente: use a dor do cliente, uma pergunta ou a consequência.\nPERSUASÃO (o dono do negócio precisa sentir que PRECISA de um site): 1) abra pela dor ou pela perda concreta (cliente que procura no Google e não acha, agendamento que vai para o concorrente, parecer menos confiável só com Instagram); 2) mostre o custo de não agir, o que ele perde a cada dia; 3) use um dado com fonte dos FATOS ou convide a testar: "Teste você mesmo: pesquise seu negócio no Google, pelo celular"; 4) mostre o que o site faz por ele (aparecer no Google, passar confiança, receber contatos no WhatsApp a qualquer hora); 5) feche com um próximo passo fácil. NUNCA cite clientes, depoimentos, cases, número de projetos ou tempo de experiência: você não tem esses fatos.\n${ctaRule}${vis}${sl}\nVisual: "label" é uma etiqueta curta em CAIXA ALTA (até 28 caracteres, ex.: TESTE RÁPIDO, NOSSO PROCESSO, ERRO COMUM). No "hook", nos slides do carrossel e no "cta", marque com ** a parte principal da frase (ex.: Seu site **perde paciente** todo dia); o resto fica em peso leve. Marque no máximo uma parte por frase. No "script" do Reel NÃO use **.\n\n${voice}\n\nResponda JSON: {"label":string,"hook":string,"script":string,"caption":string,"hashtags":string[],"cta":string${format === 'reel' ? ',"visuals":object[]' : ''}${format === 'carousel' ? ',"slides":object[],"sub":string' : ''}}`;
   const post = await llm({ prompt, schema: valid });
+  if (format === 'carousel') {
+    // Slides escolhidos pela IA (limpos); o "script" vira o resumo por títulos, usado na checagem e nos stories.
+    const slides = (Array.isArray(post.slides) ? post.slides : []).map(cleanSlide).filter(Boolean).slice(0, 6);
+    if (slides.length >= 3) {
+      post.slides = slides;
+      if (!post.script || !String(post.script).trim()) post.script = slides.map((x) => plain(slideTitle(x))).join(' | ');
+    } else delete post.slides;
+  }
   if (format === 'reel') {
     // Resolve uma ideia visual por frase: sugestão da IA limpa, ou dedução pelo texto quando faltar ou for inválida.
     const sentences = plain(post.script).split(/(?<=[.!?])\s+/).map((s) => s.trim()).filter(Boolean);
