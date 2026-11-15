@@ -75,6 +75,10 @@ Apps novos da Meta usam o **Unified login** (o "Instagram login" não está mais
 6. **Primeiro post de verdade:** *Actions → generate*, **desmarcando** "Prévia de TESTE". Aprove no Telegram e confira o perfil (post e stories).
 7. Pronto: a partir do dia seguinte o sistema gera tudo às ~06:00 e você só aprova até 10:45.
 
+**O repositório precisa ficar PÚBLICO.** O Instagram baixa as imagens e o vídeo de endereços do GitHub; em repositório privado esse endereço pede login e a Meta recusa a mídia ("Only photo or video can be accepted"). Nada sensível fica no código (as chaves ficam só em Secrets).
+
+**Teste sem publicar:** *Actions → test-media* cria o post, o story e o Reel de teste no Instagram só até a etapa de processamento (a que baixa o arquivo) e para antes de publicar; o resultado chega no Telegram. Serve para provar que a Meta aceita tudo a qualquer hora, sem aparecer no perfil.
+
 Enquanto o passo 4 não estiver feito, o sistema gera e envia a prévia normalmente (com um aviso), mas aprovar não publica, e o `approval-poll` sai sem erro.
 
 Se um dia a Meta liberar o Instagram Login para o app, defina a variável `IG_GRAPH_BASE=https://graph.instagram.com/v27.0` e cadastre também o `GH_ADMIN_TOKEN` (renovação a cada 60 dias).
