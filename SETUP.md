@@ -57,3 +57,25 @@ Quem comenta **SITE** num post recebe uma resposta privada no Direct. Para ligar
 - ~06:00 o sistema gera a prévia. Você aprova, troca o tema ou pula até as 11:00 (há 20 minutos de tolerância por causa de atrasos do GitHub; aprove até 10:45 para ter certeza). Sem resposta, nada é postado.
 - Se algum passo falhar, você recebe o motivo no Telegram e nada é publicado.
 - Domingo à noite chega o relatório semanal e o plano da semana é ajustado.
+
+## 8. Colocar para rodar (o que falta, nesta ordem)
+O que já está pronto: `GEMINI_KEY`, `TG_TOKEN`, `TG_CHAT_ID`, o repositório e os agendamentos. Faltam os 3 itens do Instagram e do GitHub abaixo.
+
+1. **App na Meta** (developers.facebook.com, conta pessoal sua): tipo **Empresa**, nome **sem a palavra "Instagram"** (ex.: ESM Posts), produto **Instagram → API com login do Instagram**.
+2. **Permissões** do app: `instagram_business_basic`, `instagram_business_content_publish`, `instagram_business_manage_insights`, `instagram_business_manage_comments`, `instagram_business_manage_messages` (as duas últimas são do funil do Direct).
+3. Em **Funções do app → Testadores do Instagram**, adicione @esm_web e aceite o convite no app do Instagram (Configurações → Apps e sites).
+4. No painel do produto, **Gerar token** da conta @esm_web (token longo, ~60 dias). Copie o token e o **ID da conta do Instagram**.
+5. No GitHub (*Settings → Secrets and variables → Actions*): `IG_TOKEN` = o token, `IG_USER_ID` = o ID.
+6. **GH_ADMIN_TOKEN** (renovação automática do token): *GitHub → Settings → Developer settings → Fine-grained tokens*, só para o repositório `esm-fluxo-instagram`, permissão **Secrets: Read and write**, validade de 1 ano (anote a data).
+7. Rode **Actions → check**. O Telegram mostra ✅ ou ❌ para cada chave, sem publicar nada.
+8. **Primeiro post de verdade:** *Actions → generate*, **desmarcando** "Prévia de TESTE". Aprove no Telegram e confira o perfil (post e stories). O `approval-poll` publica sozinho.
+9. Pronto: a partir do dia seguinte o sistema gera tudo às ~06:00 e você só aprova até 10:45.
+
+Enquanto o passo 5 não estiver feito, o sistema gera e envia a prévia normalmente (com um aviso), mas aprovar não publica, e o `approval-poll` sai sem erro.
+
+### O que o sistema gera por semana
+2 Reels, 4 carrosséis (com checklist), 1 post de imagem única e **stories todos os dias** (3 a 4 quadros, aprovados junto com o post). O Reel muda de estilo a cada dia; para fixar um, crie a variável `MOTION_STYLE` (`ember`, `editorial`, `gradient`, `selection` ou `perspective`). No domingo, a análise da semana pode ajustar a mistura entre Reels e carrosséis.
+
+### Depois do primeiro post
+- **Funil do Direct (comentar SITE):** com o `IG_TOKEN` já com as permissões de comentários e mensagens, me peça para ligar o funil (`funnel.enabled` em `src/config.js`).
+- Se a Meta recusar a URL do GitHub Releases como mídia, o Telegram avisa o erro: me mande a mensagem.

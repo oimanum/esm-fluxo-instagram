@@ -8,6 +8,7 @@ import { askJson } from './llm.js';
 import { collectSignals } from './research/index.js';
 import { renderReel } from './producer/reel.js';
 import { renderPost } from './producer/post.js';
+import { runChecks, formatChecks } from './check.js';
 import { renderStory } from './producer/story.js';
 import { renderCarousel } from './producer/carousel.js';
 import { renderChecklist } from './producer/checklist.js';
@@ -77,11 +78,18 @@ function setSecret(name, value, repo, ghToken) {
 const commands = {
   async generate() {
     requireEnv(['GEMINI_KEY']);
-    console.log(JSON.stringify(sanitizeObj(await generate(await baseDeps())), null, 2));
+    const d = await baseDeps();
+    console.log(JSON.stringify(sanitizeObj(await generate(d)), null, 2));
+    // Sem as chaves do Instagram a aprovação não publica: avisa uma vez por dia, na hora da prévia.
+    if (!dry && !(process.env.IG_TOKEN && process.env.IG_USER_ID)) {
+      try { await d.alert('⚠️ O Instagram ainda não está configurado (faltam IG_TOKEN e IG_USER_ID): aprovar ainda não publica. Rode Actions → check para ver o que falta.'); } catch { /* sem canal de aviso */ }
+    }
   },
 
   async poll() {
     const d = await baseDeps();
+    // Sem as chaves do Instagram não há o que publicar: sai sem erro e sem consumir os cliques do Telegram.
+    if (!dry && !(process.env.IG_TOKEN && process.env.IG_USER_ID)) { console.log('Instagram não configurado (IG_TOKEN/IG_USER_ID): nada a fazer.'); return; }
     if (!dry) {
       const { IG_TOKEN, IG_USER_ID } = requireEnv(['IG_TOKEN', 'IG_USER_ID']);
       d.ig = createInstagram(IG_TOKEN, IG_USER_ID);
@@ -136,13 +144,22 @@ const commands = {
     if (r.errors.length) await tg.call('sendMessage', { text: sanitize(`Funil do Direct: ${r.errors.length} erro(s). Primeiro: ${r.errors[0]}`).slice(0, 3500) });
   },
 
+  // Testa cada chave de verdade (sem publicar) e manda o resultado no Telegram.
+  async check() {
+    const results = await runChecks({ env: process.env });
+    const text = formatChecks(results);
+    console.log(text);
+    await telegram().call('sendMessage', { text });
+    if (results.some((r) => !r.ok)) process.exitCode = 1;
+  },
+
   async checkpoint() { await checkpoint(); },
 };
 
 const sanitizeObj = (o) => JSON.parse(sanitize(JSON.stringify(o)));
 
 if (!commands[cmd]) {
-  console.error('Uso: node src/cli.js generate|poll|swap|analytics|refresh|funnel|checkpoint [--dry]');
+  console.error('Uso: node src/cli.js generate|poll|swap|analytics|refresh|funnel|check|checkpoint [--dry]');
   process.exit(2);
 }
 commands[cmd]().catch(async (e) => {
