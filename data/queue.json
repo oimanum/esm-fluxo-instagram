@@ -593,5 +593,146 @@
       ]
     },
     "messageId": 34
+  },
+  {
+    "id": "d4f79e5c",
+    "topic": "O ChatGPT está virando o novo Google: sua empresa vai sumir se não tiver um site?",
+    "angle": "Com o avanço das buscas por IA, o ChatGPT e o Google recomendam empresas baseando-se em dados estruturados de sites rápidos e otimizados, e não em posts do Instagram. Se o seu negócio não tem um site, a IA vai indicar seu concorrente.",
+    "format": "carousel",
+    "post": {
+      "label": "NOVA BUSCA POR IA",
+      "hook": "Sua empresa pode **perder agendamentos todos os dias** para o ChatGPT",
+      "sub": "A IA indica quem tem site rápido, não quem posta no Instagram.",
+      "script": "Sua empresa pode perder agendamentos todos os dias para o ChatGPT | O ChatGPT virou o novo buscador dos seus clientes | Onde a IA busca recomendação | 53% dos clientes abandonam sites lentos | O que seu site precisa ter | Toque no link da bio e receba mais contatos",
+      "caption": "Teste você mesmo: pesquise seu negócio no Google, pelo celular. Você aparece nas primeiras posições?\n\nHoje, o ChatGPT e o Google recomendam empresas lendo dados estruturados em sites rápidos. Depender apenas do Instagram faz seu negócio sumir quando um cliente busca um serviço na sua cidade.\n\nSe a IA não encontra seu site, ela indica o seu concorrente. Além disso, a velocidade importa: 53% das visitas em celular são abandonadas quando a página demora mais de 3 segundos para carregar (fonte: Google, 2016).\n\nTenha um site otimizado que faz sua empresa aparecer nas buscas e receber mensagens de novos clientes a qualquer hora.\n\nClique no link da bio e fale conosco no WhatsApp.",
+      "hashtags": [
+        "#presencadigital",
+        "#negocioslocais",
+        "#siteparaempresas",
+        "#buscagoogle",
+        "#esmweb"
+      ],
+      "cta": "Clique no link da bio e **receba mais clientes** no seu WhatsApp",
+      "slides": [
+        {
+          "kind": "statement",
+          "kicker": "MUDANÇA NAS BUSCAS",
+          "title": "O ChatGPT virou o **novo buscador dos seus clientes**",
+          "body": "Quando alguém pede indicações para a IA, ela busca dados em sites otimizados. Redes sociais são invisíveis para esse tipo de resposta."
+        },
+        {
+          "kind": "versus",
+          "title": "Onde a IA **encontra seu negócio**",
+          "bad": {
+            "label": "SÓ INSTAGRAM",
+            "text": "Postagens diárias que a IA não consegue ler para indicar aos clientes."
+          },
+          "good": {
+            "label": "SITE OTIMIZADO",
+            "text": "Informações claras que o ChatGPT lê e recomenda no topo das respostas."
+          },
+          "tip": {
+            "label": "O QUE ACONTECE",
+            "text": "Sem site, o robô recomenda diretamente o seu concorrente."
+          },
+          "why": "Ferramentas de IA priorizam dados estruturados e organizados em páginas de alta velocidade."
+        },
+        {
+          "kind": "big",
+          "value": "53%",
+          "label": "das visitas em celular são abandonadas se a página demorar mais de 3…"
+        },
+        {
+          "kind": "list",
+          "title": "O que seu site **precisa ter**",
+          "tag": "ESTRUTURA CERTA",
+          "items": [
+            {
+              "name": "Velocidade máxima",
+              "desc": "Para não perder o cliente que clica pelo celular."
+            },
+            {
+              "name": "Informações diretas",
+              "desc": "Para o Google e a IA entenderem o que você vende."
+            },
+            {
+              "name": "Contato rápido",
+              "desc": "Para transformar o visitante em agendamento no WhatsApp."
+            }
+          ]
+        }
+      ]
+    },
+    "media": [
+      "out/d4f79e5c/slide-01.jpg",
+      "out/d4f79e5c/slide-02.jpg",
+      "out/d4f79e5c/slide-03.jpg",
+      "out/d4f79e5c/slide-04.jpg",
+      "out/d4f79e5c/slide-05.jpg",
+      "out/d4f79e5c/slide-06.jpg"
+    ],
+    "status": "pending",
+    "createdAt": "2026-11-15T16:01:36.355Z",
+    "alternatives": [
+      {
+        "topic": "Seu cliente pesquisa no Google e encontra o concorrente: o custo invisível de não ter um site",
+        "score": 9.4,
+        "angle": "Mais de 80% dos consumidores pesquisam no Google antes de fechar com clínicas ou advogados locais. Se a sua empresa só tem redes sociais, o cliente assume que você é menor ou menos profissional que o concorrente que está na 1ª página."
+      },
+      {
+        "topic": "Mercado de estética em US$ 7,5 trilhões: por que depender só do direct do Instagram faz você perder clientes",
+        "score": 9.3,
+        "angle": "O mercado de estética e bem-estar explodiu, mas o cliente de alto ticket não quer esperar resposta no DM. Mostre como uma landing page com agendamento direto e atendimento via WhatsApp converte cliques em consultas pagas imediatamente."
+      },
+      {
+        "topic": "Comunicação jurídica ética: como aparecer no topo do Google sem ferir as regras da OAB",
+        "score": 9.1,
+        "angle": "Em meio às discussões sobre IA e tecnologia no Direito, ter um site jurídico profissional e com SEO local é a forma mais ética e eficiente de fazer seu escritório ser encontrado antes do concorrente no Google."
+      },
+      {
+        "topic": "Site lento custa caro: 3 segundos que fazem seu cliente fechar o anúncio e ir embora",
+        "score": 9,
+        "angle": "Não adianta investir em anúncios no Meta ou Google Ads se o link de destino demora para carregar. Aborde a dor do dinheiro jogado fora em tráfego pago por falta de uma landing page ultrarrápida."
+      },
+      {
+        "topic": "'Terra Alugada': o risco de construir sua clínica ou empresa apenas dentro do Instagram",
+        "score": 8.9,
+        "angle": "Inspirado nas oscilações das Big Techs e redes sociais, o post alerta sobre a fragilidade de não ter um canal próprio. Sem um site rápido e confiável, mudanças de algoritmo podem cortar suas vendas da noite para o dia."
+      },
+      {
+        "topic": "Empresas investem 176% a mais em IA: como integrar agendamento inteligente no seu site",
+        "score": 8.8,
+        "angle": "A inteligência artificial no atendimento ao cliente só funciona perfeitamente se integrada a uma landing page de alta conversão. Mostre como automatizar a triagem e o agendamento de consultas 24/7."
+      },
+      {
+        "topic": "Mudanças no mercado de energia solar: como passar autoridade para fechar projetos de alto ticket",
+        "score": 8.7,
+        "angle": "Com instabilidades e saídas de grandes players do mercado, o consumidor de energia solar busca segurança. Um site lento ou amador transmite falência; uma landing page robusta gera a confiança necessária para fechar contratos de alto valor."
+      }
+    ],
+    "release": {
+      "tag": "post-d4f79e5c",
+      "files": [
+        "slide-01.jpg",
+        "slide-02.jpg",
+        "slide-03.jpg",
+        "slide-04.jpg",
+        "slide-05.jpg",
+        "slide-06.jpg",
+        "story-01.jpg",
+        "story-02.jpg",
+        "story-03.jpg",
+        "story-04.jpg"
+      ]
+    },
+    "story": {
+      "media": [
+        "out/d4f79e5c/story-01.jpg",
+        "out/d4f79e5c/story-02.jpg",
+        "out/d4f79e5c/story-03.jpg",
+        "out/d4f79e5c/story-04.jpg"
+      ]
+    },
+    "messageId": 49
   }
 ]
