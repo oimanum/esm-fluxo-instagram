@@ -452,5 +452,146 @@
       ]
     },
     "messageId": 22
+  },
+  {
+    "id": "df6905e8",
+    "topic": "O ChatGPT é o novo Google Meu Negócio? Como garantir que a IA recomende sua clínica ou escritório",
+    "angle": "Conecta a notícia 'O ChatGPT está virando o novo Google Meu Negócio?' com a dor do dono de negócio local. Explica que a IA busca dados em sites estruturados e otimizados (SEO/GEO). Se o advogado ou médico só tem Instagram, fica invisível para os clientes que já usam IA para buscar serviços locais.",
+    "format": "carousel",
+    "post": {
+      "label": "MUDANÇA DE HÁBITO",
+      "hook": "Como fazer a IA **recomendar seu escritório** para novos clientes",
+      "sub": "Seu negócio precisa ser encontrado onde as pessoas pesquisam hoje",
+      "script": "Como fazer a IA recomendar seu escritório para novos clientes | O ChatGPT virou o novo buscador local | Onde a IA busca as informações | O que o seu site precisa ter | Teste o seu negócio agora | Fale conosco no WhatsApp pelo link da bio",
+      "caption": "Quando alguém procura um médico ou advogado na sua cidade usando Inteligência Artificial, qual clínica ou escritório é recomendado?\n\nSe você só tem perfil no Instagram, a resposta é amarga: o seu concorrente leva a consulta.\n\nAs ferramentas de IA buscam dados em sites estruturados e otimizados para entender quais serviços você oferece e indicar seu nome aos usuários.\n\nA cada dia sem um site profissional, você perde agendamentos de pessoas que já estão procurando pelo seu serviço hoje mesmo.\n\nFaça um teste agora: pesquise seu negócio no Google, pelo celular. Você aparece logo de cara?\n\nTer um site próprio garante que sua empresa seja encontrada nas buscas, passe autoridade e receba novos contatos no WhatsApp todos os dias.\n\nQuer garantir a visibilidade do seu negócio? Clique no link da bio e fale com a gente no WhatsApp.",
+      "hashtags": [
+        "#marketingmedico",
+        "#marketingjuridico",
+        "#seolocal",
+        "#negocioslocais",
+        "#esmweb"
+      ],
+      "cta": "Fale com a gente no **WhatsApp pelo link da bio**",
+      "slides": [
+        {
+          "kind": "statement",
+          "kicker": "NOVA REALIDADE",
+          "title": "O ChatGPT virou o **novo buscador local**",
+          "body": "Seus potenciais clientes já usam IA para **encontrar médicos e advogados** na sua região."
+        },
+        {
+          "kind": "versus",
+          "title": "Onde a IA busca as informações",
+          "bad": {
+            "label": "SÓ INSTAGRAM",
+            "text": "Perfis em redes sociais **não fornecem dados** suficientes para a IA."
+          },
+          "good": {
+            "label": "SITE OTIMIZADO",
+            "text": "Páginas estruturadas **entregam as respostas** que a IA precisa."
+          },
+          "tip": {
+            "label": "O IMPACTO",
+            "text": "Sem site, seu negócio não é recomendado nas buscas por IA."
+          },
+          "why": "A IA prioriza sites com informações claras de endereço, serviços e horários."
+        },
+        {
+          "kind": "list",
+          "title": "O que o seu site precisa ter",
+          "tag": "ESTRUTURA CERTA",
+          "items": [
+            {
+              "name": "Dados Estruturados",
+              "desc": "para a IA **entender seus serviços**"
+            },
+            {
+              "name": "SEO Local",
+              "desc": "para **aparecer na sua cidade**"
+            },
+            {
+              "name": "Botão de Contato",
+              "desc": "para **receber mensagens no WhatsApp**"
+            }
+          ]
+        },
+        {
+          "kind": "numbered",
+          "n": 1,
+          "title": "Teste o seu negócio agora",
+          "body": "Abra o Google ou o ChatGPT no celular e **pesquise pelo seu serviço** na sua cidade.",
+          "card": {
+            "label": "SE VOCÊ NÃO APARECE",
+            "text": "O cliente **agenda direto** com o concorrente."
+          }
+        }
+      ]
+    },
+    "media": [
+      "out/df6905e8/slide-01.jpg",
+      "out/df6905e8/slide-02.jpg",
+      "out/df6905e8/slide-03.jpg",
+      "out/df6905e8/slide-04.jpg",
+      "out/df6905e8/slide-05.jpg",
+      "out/df6905e8/slide-06.jpg"
+    ],
+    "status": "dry",
+    "createdAt": "2026-11-15T03:58:23.263Z",
+    "alternatives": [
+      {
+        "topic": "Seu concorrente aparece primeiro no Google porque você ainda depende só do Instagram",
+        "score": 9.4,
+        "angle": "Conecta as novidades sobre SEO/GEO à dor do cliente com intenção de compra imediata. Quem precisa de um advogado especialista ou clínica de estética urgente pesquisa no Google, não no feed. Mostra que perder esse cliente para o concorrente com site rápido é rasgar dinheiro."
+      },
+      {
+        "topic": "GEO (Generative Engine Optimization): O novo SEO que define quem sobreviverá na sua cidade",
+        "score": 9.3,
+        "angle": "Inspirado no destaque nacional sobre SEO e GEO. Ensina o empresário local que a busca mudou: se a estrutura do seu site não for otimizada para respostas generativas, sua empresa deixará de existir nas buscas do Google e ChatGPT nos próximos 2 anos."
+      },
+      {
+        "topic": "O efeito 'site lento': por que seus anúncios no Instagram geram cliques, mas não geram agendamentos",
+        "score": 9.1,
+        "angle": "Aborda o desperdício de verba em tráfego pago para landing pages mal otimizadas. Se a página demora mais de 3 segundos para carregar, o cliente fecha a aba e vai para a concorrência. Destaca a necessidade de páginas ultrarrápidas focadas em conversão via WhatsApp."
+      },
+      {
+        "topic": "Advocacia Digital: Por que o Instagram traz curiosos, mas um Site Oficial fecha contratos de alto ticket",
+        "score": 9,
+        "angle": "Baseado nas notícias sobre inovação e IA no setor jurídico (OAB e Simpósios). Mostra que para fechar causas lucrativas, a banca de advocacia precisa passar a autoridade e segurança institucional que um perfil de rede social sozinho não transmite."
+      },
+      {
+        "topic": "Estética High-Ticket: Como uma Landing Page converte a pressão estética em consultas agendadas",
+        "score": 8.9,
+        "angle": "Usa as notícias sobre o crescimento do mercado de bem-estar e estética com IA. Demonstra como clínicas de estética precisam de landing pages elegantes e diretas para filtrar leads qualificados antes de enviar para o WhatsApp do atendimento."
+      },
+      {
+        "topic": "Mudanças no setor de Energia Solar: Por que depender só de indicações e redes sociais virou risco",
+        "score": 8.6,
+        "angle": "Liga a notícia do encerramento de operações diretas de fabricantes solares à necessidade de integradores dominarem a própria captação de clientes. Ter um site próprio no Google é a única forma de garantir demanda previsível de projetos."
+      }
+    ],
+    "release": {
+      "tag": "post-df6905e8",
+      "files": [
+        "slide-01.jpg",
+        "slide-02.jpg",
+        "slide-03.jpg",
+        "slide-04.jpg",
+        "slide-05.jpg",
+        "slide-06.jpg",
+        "story-01.jpg",
+        "story-02.jpg",
+        "story-03.jpg",
+        "story-04.jpg"
+      ]
+    },
+    "story": {
+      "media": [
+        "out/df6905e8/story-01.jpg",
+        "out/df6905e8/story-02.jpg",
+        "out/df6905e8/story-03.jpg",
+        "out/df6905e8/story-04.jpg"
+      ]
+    },
+    "messageId": 34
   }
 ]
