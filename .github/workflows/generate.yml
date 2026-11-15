@@ -30,6 +30,8 @@ jobs:
           MOTION_STYLE: ${{ vars.MOTION_STYLE }}
           TG_TOKEN: ${{ secrets.TG_TOKEN }}
           TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           GH_TOKEN: ${{ github.token }}
         run: node src/cli.js generate ${{ (github.event_name == 'workflow_dispatch' && inputs.dry) && '--dry' || '' }}

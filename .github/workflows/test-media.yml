@@ -1,0 +1,23 @@
+name: test-media
+on:
+  workflow_dispatch:
+concurrency:
+  group: instagram-state
+  cancel-in-progress: false
+permissions:
+  contents: write
+jobs:
+  test-media:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - name: Testar as mídias no Instagram (não publica nada)
+        env:
+          TG_TOKEN: ${{ secrets.TG_TOKEN }}
+          TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+        run: node src/cli.js testmedia

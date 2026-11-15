@@ -2,6 +2,7 @@ import { randomUUID } from 'node:crypto';
 import { execFile, spawn } from 'node:child_process';
 import { promisify } from 'node:util';
 import { appendFileSync } from 'node:fs';
+import { mkdir } from 'node:fs/promises';
 import { requireEnv, config, sanitize } from './config.js';
 import { loadState, saveState } from './state.js';
 import { askJson } from './llm.js';
@@ -9,6 +10,7 @@ import { collectSignals } from './research/index.js';
 import { renderReel } from './producer/reel.js';
 import { renderPost } from './producer/post.js';
 import { runChecks, formatChecks, tokenExpires } from './check.js';
+import { testMedia, formatMedia } from './testmedia.js';
 import { renderStory } from './producer/story.js';
 import { renderCarousel } from './producer/carousel.js';
 import { renderChecklist } from './producer/checklist.js';
@@ -155,13 +157,38 @@ const commands = {
     if (results.some((r) => !r.ok)) process.exitCode = 1;
   },
 
+  // Prova que o Instagram aceita as mídias do sistema (imagem, story, vídeo) sem publicar nada.
+  async testmedia() {
+    const { IG_TOKEN, IG_USER_ID, GITHUB_REPOSITORY: repo } = requireEnv(['IG_TOKEN', 'IG_USER_ID', 'GITHUB_REPOSITORY']);
+    const dir = 'out/testmedia';
+    await mkdir(dir, { recursive: true });
+    const post = { label: 'TESTE DE MÍDIA', hook: 'Teste de **mídia**', sub: 'Nada é publicado nesta etapa.', script: 'Esta imagem só confere se o Instagram consegue baixar o arquivo.', cta: 'Chame no **WhatsApp**', caption: '', hashtags: [] };
+    const files = {
+      image: (await renderPost(post, dir)).paths[0],
+      story: (await renderStory(post, dir, { format: 'post' })).paths[0],
+      video: `${dir}/teste.mp4`,
+    };
+    await run('ffmpeg', ['-y', '-hide_banner', '-loglevel', 'error', '-f', 'lavfi', '-i', 'color=c=0x0A0B0D:s=1080x1920:r=30', '-f', 'lavfi', '-i', 'sine=frequency=220:sample_rate=44100', '-t', '4', '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-movflags', '+faststart', files.video]);
+    const tag = `teste-midia-${Date.now()}`;
+    const results = await testMedia({
+      ig: createInstagram(IG_TOKEN, IG_USER_ID), files,
+      stage: (paths) => stageMedia(paths, { repo, tag }),
+      release: (staged) => publishRelease(staged, { repo }),
+      cleanup: () => run('gh', ['release', 'delete', tag, '--repo', repo, '--yes', '--cleanup-tag']),
+    });
+    const text = sanitize(formatMedia(results));
+    console.log(text);
+    await telegram().call('sendMessage', { text });
+    if (results.some((r) => !r.ok)) process.exitCode = 1;
+  },
+
   async checkpoint() { await checkpoint(); },
 };
 
 const sanitizeObj = (o) => JSON.parse(sanitize(JSON.stringify(o)));
 
 if (!commands[cmd]) {
-  console.error('Uso: node src/cli.js generate|poll|swap|analytics|refresh|funnel|check|checkpoint [--dry]');
+  console.error('Uso: node src/cli.js generate|poll|swap|analytics|refresh|funnel|check|testmedia|checkpoint [--dry]');
   process.exit(2);
 }
 commands[cmd]().catch(async (e) => {

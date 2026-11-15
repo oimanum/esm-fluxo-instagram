@@ -21,7 +21,7 @@ export function createInstagram(token, userId, fetchImpl = fetch) {
 const defaultSleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const fullCaption = (item) => `${item.post.caption}\n\n${item.post.hashtags.join(' ')}`.trim();
 
-async function waitFinished(ig, id, sleep, maxPolls = 40) {
+export async function waitFinished(ig, id, sleep, maxPolls = 40) {
   for (let i = 0; i < maxPolls; i++) {
     const { status_code } = await ig.get(`/${id}`, { fields: 'status_code' });
     if (status_code === 'FINISHED') return;
