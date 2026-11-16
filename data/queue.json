@@ -737,5 +737,116 @@
     "igMediaId": "18115839629616768",
     "postedAt": "2026-11-15T16:06:51.542Z",
     "storiesPosted": 4
+  },
+  {
+    "id": "fec1277d",
+    "topic": "Seu negócio é invisível para a IA? Por que sem site o ChatGPT nunca vai te indicar",
+    "angle": "Gatilho: Lançamento de tendências sobre GEO (Generative Engine Optimization) e IA. Dor: Donos de clínicas e escritórios que só usam Instagram não percebem que as IAs e o Google recomendam empresas com sites estruturados. Sem site, o concorrente vira a recomendação oficial do assistente de IA do cliente.",
+    "format": "reel",
+    "post": {
+      "label": "NOVA TENDÊNCIA DE BUSCA",
+      "hook": "Quer que a inteligência artificial recomende **mais pacientes** para você?",
+      "script": "Quando alguém pede indicação de especialista no ChatGPT, a IA pesquisa na web. Sem um site estruturado, seu negócio simplesmente não existe para ela. O assistente indica seu concorrente e você perde clientes todos os dias. Faça o teste: pesquise sua empresa no Google pelo celular. Um site próprio garante sua presença online e envia contatos diretos no WhatsApp.",
+      "caption": "Seu cliente não busca mais serviços como antigamente. Hoje, as pessoas pedem recomendações diretamente para assistentes de inteligência artificial e pesquisas no Google.\n\nSe você só tem perfil no Instagram, seu negócio é invisível para esses sistemas. O resultado? O assistente de IA recomenda o seu concorrente que já possui um site próprio.\n\nFaça o teste agora: pesquise o nome da sua empresa no Google pelo celular. Você aparece com destaque?\n\nUm estudo do Google mostra que 53% das visitas em celular são abandonadas quando a página demora mais de 3 segundos para carregar. Imagine nem ter uma página para ser encontrada.\n\nTer um site estruturado garante que sua clínica ou escritório seja encontrado a qualquer hora, transmitindo confiança e levando contatos direto para o seu WhatsApp.\n\nNão perca mais clientes para a concorrência. Chame no WhatsApp pelo link da bio.",
+      "hashtags": [
+        "#presencaonline",
+        "#marketingmedico",
+        "#marketingjuridico",
+        "#siteprofissional",
+        "#esmweb"
+      ],
+      "cta": "Clique no link da bio para **criar seu site**",
+      "visuals": [
+        {
+          "type": "search",
+          "query": "clínica recomendada na minha cidade"
+        },
+        {
+          "type": "site",
+          "niche": 0
+        },
+        {
+          "type": "quote",
+          "text": "Recomendo a clínica concorrente",
+          "who": "Assistente de IA"
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "Abre rápido no celular",
+            "Aparece no Google",
+            "Botão de WhatsApp visível"
+          ]
+        },
+        {
+          "type": "notification",
+          "items": [
+            "Novo contato no WhatsApp",
+            "Novo agendamento confirmado"
+          ]
+        }
+      ]
+    },
+    "media": [
+      "out/fec1277d/reel.mp4"
+    ],
+    "status": "pending",
+    "createdAt": "2026-11-16T19:31:32.633Z",
+    "alternatives": [
+      {
+        "topic": "Avanço da IA em pequenas empresas: Por que ter só Instagram te faz parecer amador",
+        "score": 9.4,
+        "angle": "Gatilho: Matéria sobre criação de sites e IA para PMEs. Dor: O cliente encontra a clínica ou advogado no Instagram, mas busca no Google para checar reputação. Sem um site profissional e rápido, a percepção de autoridade despenca e o agendamento no WhatsApp não acontece."
+      },
+      {
+        "topic": "Advocacia 4.0: Por que escritórios com site próprio captam 3x mais clientes que os 'tradicionais'",
+        "score": 9.2,
+        "angle": "Gatilho: Notícias sobre Legaltechs e IA transformando a advocacia. Dor: Advogados dependendo apenas de indicação ou redes sociais enquanto concorrentes com sites otimizados captam quem pesquisa por soluções jurídicas urgentes no Google."
+      },
+      {
+        "topic": "Mercado de Energia Solar: Como parar de perder projetos milionários por falta de um site",
+        "score": 9,
+        "angle": "Gatilho: Alta nos leilões de energia e busca por ANEEL. Dor: Projetos de energia solar exigem alto investimento. Se o cliente busca 'empresa de energia solar' no Google e acha um concorrente com site rápido e institucional, ele ignora a empresa que só tem Instagram."
+      },
+      {
+        "topic": "Clínicas de Estética: Por que depender só do feed faz você perder procedimentos de alto valor",
+        "score": 8.8,
+        "angle": "Gatilho: Discussões de padrões de estética e clínicas na mídia. Dor: Pacientes dispostos a pagar caro por procedimentos buscam autoridade e agendamento prático no Google. Sem landing page focada em conversão, a clínica perde o cliente para quem está no topo das buscas."
+      },
+      {
+        "topic": "Site lento ou inexistente? O motivo silencioso pelo qual seus anúncios não geram agendamentos",
+        "score": 8.7,
+        "angle": "Gatilho: Tendências em dados de IA e performance digital. Dor: Investir em anúncios no Instagram/Google enviando direto para o WhatsApp sem uma Landing Page intermediária encarece o lead e faz o cliente abandonar a compra por falta de informações claras."
+      },
+      {
+        "topic": "Atendimento com IA + Site Rápido: A combinação que faz o cliente agendar em 2 minutos",
+        "score": 8.5,
+        "angle": "Gatilho: Notícias sobre Claude Code e IAs de atendimento. Dor: Agendamento demorado e falta de integração. Mostrar como um site integrado com automação de agendamento garante vendas 24h por dia enquanto o concorrente dorme."
+      },
+      {
+        "topic": "O teste dos 3 segundos: Quanto dinheiro sua clínica perde por não aparecer em 1º no Google",
+        "score": 8.4,
+        "angle": "Gatilho: Discussão sobre experiência do usuário e visibilidade local. Dor: O cliente pesquisa no Google, seu site não abre rápido (ou nem existe) e ele clica no concorrente abaixo. Conectar a velocidade e presença digital direta ao faturamento do negócio local."
+      }
+    ],
+    "release": {
+      "tag": "post-fec1277d",
+      "files": [
+        "reel.mp4",
+        "story-01.jpg",
+        "story-02.jpg",
+        "story-03.jpg",
+        "story-04.jpg"
+      ]
+    },
+    "story": {
+      "media": [
+        "out/fec1277d/story-01.jpg",
+        "out/fec1277d/story-02.jpg",
+        "out/fec1277d/story-03.jpg",
+        "out/fec1277d/story-04.jpg"
+      ]
+    },
+    "messageId": 58
   }
 ]
