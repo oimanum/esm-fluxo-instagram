@@ -114,12 +114,21 @@ const commands = {
     d.publish = publish;
     d.publishStories = publishStories;
     d.pollTimeout = 25;
+    console.log(`${new Date().toISOString()} escuta iniciada (pendentes: ${(await loadState('queue')).filter((i) => i.status === 'pending').map((i) => i.id).join(', ') || 'nenhum'})`);
     const { swap, rearm } = await listenLoop({
       refresh: async () => { if (process.env.GITHUB_ACTIONS) { try { await run('git', ['pull', '--rebase', '--autostash']); } catch { /* segue com o estado local */ } } },
       hasPending: async () => (await loadState('queue')).some((i) => i.status === 'pending'),
-      pollOnce: async () => { d.now = new Date(); return poll(d); },
+      pollOnce: async () => {
+        d.now = new Date();
+        const r = await poll(d);
+        // registra só quando houve toque: o que o bot entendeu e respondeu
+        if (r.answers?.length) console.log(`${new Date().toISOString()} toques: ${r.answers.map((x) => x.text).join(' | ')} | decisões: ${JSON.stringify(r.decisions)}`);
+        return r;
+      },
       onError: (e) => console.error(sanitize(e.message)),
+      maxMs: process.env.LISTEN_MINUTES ? Number(process.env.LISTEN_MINUTES) * 60000 : undefined,
     });
+    console.log(`${new Date().toISOString()} escuta encerrada`);
     if (process.env.GITHUB_OUTPUT) appendFileSync(process.env.GITHUB_OUTPUT, `swap=${swap}
 rearm=${rearm}
 `);

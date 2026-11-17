@@ -147,7 +147,7 @@ export async function poll(d) {
     }
   }
   await checkpoint(d);
-  return { decisions: r.decisions, swaps: queue.filter((i) => i.status === 'swap').length };
+  return { decisions: r.decisions, answers: r.answers || [], swaps: queue.filter((i) => i.status === 'swap').length };
 }
 
 // "Trocar tema": renderiza em outro job (com ffmpeg e voz instalados), usando o segundo melhor tema.

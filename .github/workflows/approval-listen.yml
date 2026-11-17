@@ -1,6 +1,11 @@
 name: approval-listen
 on:
   workflow_dispatch:
+    inputs:
+      minutes:
+        description: 'Só para teste: encerrar a escuta depois de N minutos (vazio = até o prazo)'
+        required: false
+        default: ''
 # Grupo próprio: fica horas escutando e não pode travar os outros workflows.
 concurrency:
   group: approval-listen
@@ -29,6 +34,7 @@ jobs:
           IG_USER_ID: ${{ secrets.IG_USER_ID }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           GH_TOKEN: ${{ github.token }}
+          LISTEN_MINUTES: ${{ inputs.minutes }}
         run: node src/cli.js listen
       # "Trocar tema" precisa de ffmpeg e voz; só instala quando alguém pediu a troca.
       - name: Preparar render (só se houver troca de tema)
