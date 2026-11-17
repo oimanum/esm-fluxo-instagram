@@ -205,13 +205,29 @@ rearm=${rearm}
     if (results.some((r) => !r.ok)) process.exitCode = 1;
   },
 
+  // Diagnóstico: mostra o que o Telegram tem guardado para o bot, SEM consumir nada (não confirma o offset).
+  async tgdebug() {
+    const tg = telegram();
+    const info = await tg.call('getWebhookInfo');
+    const offset = (await loadState('tgoffset'))[0] ?? 0;
+    const ups = await tg.call('getUpdates', { offset, timeout: 0, allowed_updates: ['callback_query', 'message'] });
+    const queue = await loadState('queue');
+    console.log(`webhook: ${info.url ? 'ATIVO' : 'nenhum'} | pendentes no Telegram: ${info.pending_update_count ?? 0} | offset salvo: ${offset} | updates lidos agora: ${ups.length}`);
+    console.log(`fila: ${queue.slice(-4).map((i) => `${i.id}:${i.status}`).join(', ')}`);
+    for (const u of ups.slice(-15)) {
+      const cq = u.callback_query;
+      const [id, action] = (cq?.data || '').split(':');
+      console.log(`update ${u.update_id}: ${cq ? `clique em "${action}" do item ${id} (${queue.find((i) => i.id === id)?.status ?? 'item desconhecido'}) msg ${cq.message?.message_id}` : Object.keys(u).filter((k) => k !== 'update_id').join(',')}`);
+    }
+  },
+
   async checkpoint() { await checkpoint(); },
 };
 
 const sanitizeObj = (o) => JSON.parse(sanitize(JSON.stringify(o)));
 
 if (!commands[cmd]) {
-  console.error('Uso: node src/cli.js generate|poll|swap|analytics|refresh|funnel|check|testmedia|listen|checkpoint [--dry]');
+  console.error('Uso: node src/cli.js generate|poll|swap|analytics|refresh|funnel|check|testmedia|listen|tgdebug|checkpoint [--dry]');
   process.exit(2);
 }
 commands[cmd]().catch(async (e) => {
