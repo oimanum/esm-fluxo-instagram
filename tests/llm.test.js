@@ -81,3 +81,15 @@ test('a 429 still stops right away without trying other models', async () => {
   await assert.rejects(askJson({ prompt: 'x', schema: ok, fetchImpl: f, sleep: async () => {} }), (e) => e.code === 'rate_limit');
   assert.deepEqual([...new Set(f.seen)], ['gemini-3.6-flash']);
 });
+
+test('429 per minute waits the time Google asks and tries again', async () => {
+  const waits = [];
+  const limited = async () => ({ ok: false, status: 429, json: async () => ({ error: { message: 'quota per minute', details: [{ '@type': 'type.googleapis.com/google.rpc.RetryInfo', retryDelay: '27s' }] } }) });
+  const f = seq(limited, reply('{"a":3}'));
+  assert.deepEqual(await askJson({ prompt: 'x', schema: ok, fetchImpl: f, sleep: async (ms) => { waits.push(ms); } }), { a: 3 });
+  assert.deepEqual(waits, [28000]);
+});
+test('429 with no short retry time (daily quota) stops and says why', async () => {
+  const daily = async () => ({ ok: false, status: 429, json: async () => ({ error: { message: 'Quota exceeded for metric generate_content_free_tier_requests, limit: 250 per day' } }) });
+  await assert.rejects(askJson({ prompt: 'x', schema: ok, fetchImpl: daily, sleep: async () => {} }), (e) => e instanceof LlmError && e.code === 'rate_limit' && /per day/.test(e.message));
+});

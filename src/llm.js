@@ -27,7 +27,18 @@ async function tryModel(model, { prompt, schema, fetchImpl, retries, key, sleep 
       }),
     });
     if (res.status === 404) return { notFound: true };
-    if (res.status === 429) throw new LlmError('Limite do Gemini atingido', 'rate_limit');
+    if (res.status === 429) {
+      // Limite por minuto: o Google diz quanto esperar (retryDelay) e vale esperar. Limite do dia: explica e para.
+      let msg = ''; let waitMs = null;
+      try {
+        const body = await res.json();
+        msg = String(body?.error?.message || '').replace(/\s+/g, ' ').slice(0, 220);
+        const info = (body?.error?.details || []).find((x) => /RetryInfo/.test(x['@type'] || ''));
+        if (info?.retryDelay) waitMs = Math.ceil(parseFloat(info.retryDelay) * 1000);
+      } catch { /* sem corpo */ }
+      if (waitMs !== null && waitMs <= 70000 && attempt < retries) { await sleep(waitMs + 1000); continue; }
+      throw new LlmError(`Limite do Gemini atingido${msg ? `: ${msg}` : ''}${waitMs !== null ? ` (liberar em ~${Math.ceil(waitMs / 1000)} s)` : ''}`, 'rate_limit');
+    }
     if (!res.ok) {
       // 5xx = servidor sobrecarregado ou instável: espera mais a cada tentativa; esgotadas, passa para o próximo modelo.
       if (res.status < 500) throw new LlmError(`Gemini HTTP ${res.status} (modelo ${model})`, 'http');
