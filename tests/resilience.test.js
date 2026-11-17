@@ -67,7 +67,7 @@ test('approval: every tap gets an answer text, so the loading spinner stops', as
   assert.equal(r.answers.length, 4);
   assert.match(r.answers[0].text, /Aprovado/);
   assert.match(r.answers[1].text, /Já aprovado/);
-  assert.match(r.answers[2].text, /Não reconheci/);
+  assert.match(r.answers[2].text, /não está mais ativa/);
   assert.match(r.answers[3].text, /já foi publicado/);
 });
 
