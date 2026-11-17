@@ -114,6 +114,12 @@ const commands = {
     d.publish = publish;
     d.publishStories = publishStories;
     d.pollTimeout = 25;
+    // Troca de tema já pedida (por toque lido em outro job ou registrada à mão): vai direto para a geração do tema novo.
+    if ((await loadState('queue')).some((i) => i.status === 'swap')) {
+      console.log(`${new Date().toISOString()} troca de tema pendente: seguindo para a geração do tema novo`);
+      if (process.env.GITHUB_OUTPUT) appendFileSync(process.env.GITHUB_OUTPUT, ['swap=true', 'rearm=false', ''].join(String.fromCharCode(10)));
+      return;
+    }
     console.log(`${new Date().toISOString()} escuta iniciada (pendentes: ${(await loadState('queue')).filter((i) => i.status === 'pending').map((i) => i.id).join(', ') || 'nenhum'})`);
     const { swap, rearm } = await listenLoop({
       refresh: async () => { if (process.env.GITHUB_ACTIONS) { try { await run('git', ['pull', '--rebase', '--autostash']); } catch { /* segue com o estado local */ } } },
