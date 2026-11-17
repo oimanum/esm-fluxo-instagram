@@ -848,5 +848,127 @@
       ]
     },
     "messageId": 58
+  },
+  {
+    "id": "f1215475",
+    "topic": "IA no marketing do pequeno negócio: por que automatizar sem um site profissional é queimar dinheiro",
+    "angle": "Gancho na notícia de que pequenos negócios já usam IA no marketing, mas ainda erram na estratégia. O dono de clínica ou escritório usa IA para criar posts no Instagram, mas não tem uma landing page rápida e otimizada para capturar o lead. Sem site, a IA só gera curtida, não fecha agendamento.",
+    "format": "reel",
+    "post": {
+      "label": "ERRO NO MARKETING",
+      "hook": "A IA traz curtidas, mas você quer **mais agendamentos**?",
+      "script": "Você usa IA nos posts, mas o cliente não acha seu site. Sem uma página pronta, você só perde agendamentos para o concorrente. Teste você mesmo: pesquise seu negócio no Google pelo celular. O Google mostra que 53% das visitas no celular são abandonadas se demorar mais de 3 segundos. Um site profissional passa confiança e leva clientes direto ao seu WhatsApp.",
+      "caption": "Criar posts com inteligência artificial ajuda a atrair atenção no Instagram. Mas o que acontece quando o cliente decide contratar seu serviço ou agendar uma consulta?\n\nEle busca mais informações sobre a sua empresa. Se ele não encontra um site rápido e profissional, a dúvida aparece — e a oportunidade vai direto para o concorrente.\n\nSegundo estudo do Google (The Need for Mobile Speed), 53% das visitas em dispositivos móveis são abandonadas quando a página demora mais de 3 segundos para carregar.\n\nSem uma landing page otimizada, a automação só gera engajamento superficial, não vendas.\n\nFaça o teste agora: pesquise o nome da sua empresa no Google pelo celular. Seu negócio transmite a confiança necessária para fechar o agendamento?\n\nUm site profissional posiciona sua empresa no Google e direciona o cliente direto para o seu WhatsApp a qualquer hora do dia.\n\nToque no link da bio e fale com a ESM Web para estruturar sua presença digital.",
+      "hashtags": [
+        "#marketingmedico",
+        "#marketingjuridico",
+        "#pequenosnegocios",
+        "#siteprofissional",
+        "#esmweb",
+        "#gestaodenegocios"
+      ],
+      "cta": "Clique no **link da bio** e fale conosco",
+      "visuals": [
+        {
+          "type": "quote",
+          "text": "Cadê o site dessa clínica?",
+          "who": "Cliente"
+        },
+        {
+          "type": "versus",
+          "left": {
+            "title": "Sem site",
+            "items": [
+              "Perde cliente",
+              "Só curtidas"
+            ]
+          },
+          "right": {
+            "title": "Com site",
+            "items": [
+              "Mais contatos",
+              "Agendamento"
+            ]
+          }
+        },
+        {
+          "type": "search",
+          "query": "sua empresa no google"
+        },
+        {
+          "type": "stat",
+          "value": "53%",
+          "label": "Abandonam páginas lentas"
+        },
+        {
+          "type": "notification",
+          "items": [
+            "Novo contato pelo WhatsApp",
+            "Novo agendamento"
+          ]
+        }
+      ]
+    },
+    "media": [
+      "out/f1215475/reel.mp4"
+    ],
+    "status": "pending",
+    "createdAt": "2026-11-17T18:46:00.972Z",
+    "alternatives": [
+      {
+        "topic": "Liberação bilionária no Previdenciário: para onde vai o cliente que pesquisa advogado no Google?",
+        "score": 9.3,
+        "angle": "Com a notícia de R$ 119 bi autorizados para benefícios previdenciários, milhares de pessoas vão ao Google pesquisar 'advogado especialista em INSS perto de mim'. O perfil no Instagram não aparece no topo do Google; quem não tem site com botão de WhatsApp direto perde o cliente imediatamente para o concorrente."
+      },
+      {
+        "topic": "Avanço das legaltechs: por que depender só de rede social faz seu escritório parecer amador",
+        "score": 9.1,
+        "angle": "Gancho no crescimento de legaltechs e debates da OAB sobre o digital. Clientes corporativos e de causas rentáveis exigem autoridade e checam a reputação no Google. Escritório sem site institucional passa insegurança e perde contratos para bancas que transmitem confiança com páginas estruturadas."
+      },
+      {
+        "topic": "Nova onda de crédito para energia solar: sua integradora tem um site preparado para fechar orçamentos?",
+        "score": 8.9,
+        "angle": "Ligando a novidade de crédito com garantia de imóvel para financiar energia solar à dor das integradoras. O cliente disposto a investir 20k a 50k não vai fechar por direct do Instagram; ele precisa de uma landing page profissional com prova social e simulador para confiar na sua empresa."
+      },
+      {
+        "topic": "Mandar anúncio direto para o WhatsApp ou Direct? O erro comum das clínicas de estética",
+        "score": 8.8,
+        "angle": "Gancho nas discussões sobre hiperpersonalização e campanhas digitais. Clínicas perdem até 60% da verba de tráfego enviando o paciente para o direct desorganizado. Uma landing page dedicada para cada procedimento (ex: Botox, Harmonização) filtra o lead, tira dúvidas e entrega o paciente pronto para agendar."
+      },
+      {
+        "topic": "'Só Instagram basta?' O perigo de construir seu negócio em terreno alugado",
+        "score": 8.7,
+        "angle": "Gancho nas capacitações e tendências de negócios digitais. Donos de consultórios e escritórios acham que ter perfil ativo resolve, mas o cliente com dor aguda não fica rolando feed: ele busca solução no Google. Se sua empresa não tem site indexado, ela simplesmente não existe para o cliente com intenção de compra."
+      },
+      {
+        "topic": "Por que o concorrente da sua cidade aparece primeiro no Google (e como virar esse jogo)",
+        "score": 8.6,
+        "angle": "Focado em negócios locais (clínicas, estética, advogados). Mostrar como a dobradinha Google Meu Negócio + Landing Page rápida faz sua empresa dominar as pesquisas locais da sua cidade, gerando agendamentos diários sem refém de dancinhas de Instagram."
+      },
+      {
+        "topic": "O teste dos 3 segundos no celular: seu site está doando pacientes para a clínica concorrente?",
+        "score": 8.5,
+        "angle": "Gancho na rápida evolução tecnológica e hábitos mobile. Donos de clínicas que têm sites antigos e lentos pagam caro por anúncios no Meta e Google para o usuário desistir antes da página carregar e clicar no concorrente logo abaixo."
+      }
+    ],
+    "release": {
+      "tag": "post-f1215475",
+      "files": [
+        "reel.mp4",
+        "story-01.jpg",
+        "story-02.jpg",
+        "story-03.jpg",
+        "story-04.jpg"
+      ]
+    },
+    "story": {
+      "media": [
+        "out/f1215475/story-01.jpg",
+        "out/f1215475/story-02.jpg",
+        "out/f1215475/story-03.jpg",
+        "out/f1215475/story-04.jpg"
+      ]
+    },
+    "messageId": 67
   }
 ]
