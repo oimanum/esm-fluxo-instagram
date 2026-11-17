@@ -16,6 +16,7 @@ const BACKOFF_MS = [2000, 6000, 12000];
 // Devolve { obj } com a resposta válida, ou { notFound: true } se o modelo não existe (404).
 async function tryModel(model, { prompt, schema, fetchImpl, retries, key, sleep }) {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
+  let reason = 'sem resposta';
   for (let attempt = 0; attempt <= retries; attempt++) {
     const res = await fetchImpl(url, {
       method: 'POST',
@@ -36,23 +37,34 @@ async function tryModel(model, { prompt, schema, fetchImpl, retries, key, sleep 
     }
     try {
       const data = await res.json();
-      const obj = JSON.parse(data.candidates[0].content.parts[0].text);
-      if (schema(obj)) return { obj };
-    } catch { /* resposta inválida: tenta de novo */ }
+      const cand = data.candidates?.[0];
+      try {
+        const obj = JSON.parse(cand.content.parts[0].text);
+        if (schema(obj)) return { obj };
+        reason = `faltam campos (veio: ${Object.keys(obj || {}).join(', ') || 'nada'})`;
+      } catch {
+        reason = `JSON quebrado (${cand?.finishReason || 'sem motivo'})`;
+      }
+    } catch { reason = 'resposta ilegível'; }
+    console.warn(`Gemini ${model}: resposta inválida na tentativa ${attempt + 1}: ${reason}`);
   }
-  throw new LlmError('Gemini devolveu JSON inválido', 'invalid');
+  // Resposta inválida em todas as tentativas deste modelo: passa para o próximo modelo.
+  return { invalid: reason };
 }
 
 export async function askJson({ prompt, schema, fetchImpl = netFetch, retries = 2, sleep = defaultSleep }) {
   const { GEMINI_KEY } = requireEnv(['GEMINI_KEY']);
   const tried = [];
   const overloaded = [];
+  const invalid = [];
   for (const model of modelOrder()) {
     const r = await tryModel(model, { prompt, schema, fetchImpl, retries, key: GEMINI_KEY, sleep });
     if (r.notFound) { tried.push(model); continue; }
     if (r.overloaded) { overloaded.push(`${model} (HTTP ${r.overloaded})`); continue; }
+    if (r.invalid) { invalid.push(`${model}: ${r.invalid}`); continue; }
     return r.obj;
   }
+  if (invalid.length && !overloaded.length && !tried.length) throw new LlmError(`Gemini devolveu JSON inválido (${invalid.join('; ')})`, 'invalid');
   if (overloaded.length) {
     throw new LlmError(`Gemini sobrecarregado no momento (${overloaded.join(', ')}). É temporário: rode de novo em alguns minutos.`, 'overloaded');
   }
