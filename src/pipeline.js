@@ -159,7 +159,14 @@ export async function processSwaps(d) {
   const swaps = queue.filter((i) => i.status === 'swap');
   for (const item of swaps) item.status = 'swapped';
   await saveState('queue', queue);
-  for (const item of swaps) await generate({ ...d, scored: item.alternatives, exclude: [item.topic] });
+  for (const item of swaps) {
+    const r = await generate({ ...d, scored: item.alternatives, exclude: [item.topic] });
+    // Sem isso a troca falhava em silêncio: o log e o Telegram dizem o que aconteceu com o tema novo.
+    console.log(`troca de tema: ${JSON.stringify({ status: r.status, reason: r.reason, error: r.error, topic: r.topic })}`);
+    if (r.status === 'skipped' || r.status === 'error') {
+      try { await d.alert(`A troca de tema não gerou um post novo (${r.reason || r.error || r.status}). Me avise para eu olhar.`); } catch { /* sem canal de aviso */ }
+    }
+  }
   await checkpoint(d);
   return swaps.length;
 }
