@@ -1029,7 +1029,7 @@
     "media": [
       "out/13a192be/reel.mp4"
     ],
-    "status": "pending",
+    "status": "swap",
     "createdAt": "2026-11-17T20:26:24.188Z",
     "alternatives": [
       {
@@ -1081,6 +1081,7 @@
         "out/13a192be/story-04.jpg"
       ]
     },
-    "messageId": 82
+    "messageId": 82,
+    "redo": true
   }
 ]
