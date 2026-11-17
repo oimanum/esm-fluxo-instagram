@@ -156,7 +156,7 @@
   const FOOT = css(el('', chrome, SC.some((S) => S.vis?.type === 'site') ? 'ILUSTRAÇÃO · EMPRESAS FICTÍCIAS' : 'ILUSTRAÇÃO'), 'position:absolute;left:0;right:0;bottom:56px;text-align:center;font-family:JetBrains Mono;font-size:17px;letter-spacing:.18em;color:#6b6f76;opacity:0');
 
   // ----- rodapé comum: pílula do CTA (prata) -----
-  const PILL = { ember: ['#E4E6E9', '#0A0B0D'], editorial: ['#E4E6E9', '#0A0B0D'], gradient: ['#FFFFFF', '#0A0B0D'], selection: null, perspective: ['#E4E6E9', '#0A0B0D'] }[D.style];
+  const PILL = { ember: ['#E4E6E9', '#0A0B0D'], editorial: ['#E4E6E9', '#0A0B0D'], gradient: ['#FFFFFF', '#0A0B0D'], selection: null }[D.style];
   const ctaFoot = SC.map((S) => {
     if (S.kind !== 'cta' || !PILL) return null;
     const e = el('pillcta', top, `${esc(D.brand.site)} &nbsp;↗`);
@@ -511,81 +511,7 @@
     };
   }
 
-  // ============================================================================
-  // 5 · PERSPECTIVE — plano 3D onde a câmera passa por cada animação do Reel, com profundidade de campo
-  // ============================================================================
-  function perspective() {
-    bg.style.background = 'radial-gradient(900px 600px at 50% 30%,rgba(201,204,209,.10),transparent 70%),linear-gradient(180deg,#0A0B0D 0%,#14161A 55%,#1B1D21 100%)';
-    const persp = el('persp', stage); css(persp, 'inset:auto;left:0;top:640px;width:1080px;height:1280px;overflow:hidden;-webkit-mask-image:linear-gradient(transparent 0,#000 160px);mask-image:linear-gradient(transparent 0,#000 160px)');
-    const plane = el('plane', persp);
-    // uma linha do plano por frase: a animação daquela frase; sem animação, um painel de vidro
-    const gids = []; const rowOf = SC.map((S) => {
-      if (S.gid === null || !hasVis(S)) { gids.push(null); return gids.length - 1; }
-      const at = gids.indexOf(S.gid);
-      if (at >= 0) return at;
-      gids.push(S.gid); return gids.length - 1;
-    });
-    const rows = gids.map((g, r) => {
-      const S = g === null ? null : SC.find((x) => x.gid === g);
-      const slot = css(el('', plane), `position:absolute;left:60px;top:${r * 600}px;width:900px;height:520px;transform-origin:0 0;transform:scale(1)`);
-      if (S) return { r, vis: mountVisual(S, slot, 'light', 0, 0, 1, true), slot };
-      css(el('', slot), 'position:absolute;inset:40px 120px;border-radius:44px;border:1px solid rgba(255,255,255,.14);background:linear-gradient(150deg,rgba(255,255,255,.10),rgba(255,255,255,.02))');
-      return { r, vis: null, slot };
-    });
-    const tiles = [['linear-gradient(135deg,#F1F2F4,#9A9EA5)', '#0A0B0D'], ['#1B1D21', '#fff'], ['linear-gradient(135deg,#C9CCD1,#6f737b)', '#0A0B0D']].map(([bgc, ink]) => css(el('itile', top, `<img src="${D.brand.logo}" style="width:110px;display:block;${ink === '#0A0B0D' ? 'filter:brightness(.15)' : ''}">`), `background:${bgc};opacity:0;z-index:5;border:1px solid rgba(255,255,255,.18)`));
-    const items = SC.map((S) => {
-      const c = el('sc', stage); c.style.zIndex = '3'; c.style.overflow = 'visible';
-      const pill = css(el('', c, `<span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#fff;margin-right:12px"></span>${S.kind === 'hook' ? esc(S.label) : `ESM WEB · ${pad(S.i + 1)}`}`), 'position:absolute;left:0;right:0;margin:0 auto;width:max-content;top:236px;padding:10px 24px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);font-family:JetBrains Mono;font-size:20px;letter-spacing:.16em;text-transform:uppercase;color:#C9CCD1');
-      const fs = fsFor(S.len, 0.86);
-      const box = css(el('abs', c), `left:60px;right:60px;top:330px;text-align:center;line-height:1.04;letter-spacing:-.04em;font-size:${fs}px;color:#fff;text-shadow:0 0 28px #0A0B0D,0 0 12px #0A0B0D`);
-      const words = wordSpans(box, S, (n, w) => { if (w.strong) { n.className += ' serif'; css(n, `font-size:${Math.round(fs * 1.2)}px;letter-spacing:-.02em;color:#C9CCD1`); } else css(n, 'font-weight:800'); });
-      let hero = null;
-      if (S.kind === 'cta') {
-        hero = css(el('abs', c), 'left:130px;top:760px;width:820px;height:700px;border-radius:40px;overflow:hidden;background:linear-gradient(170deg,#3A3D44 0%,#1B1D21 55%,#0A0B0D 100%);border:1px solid rgba(255,255,255,.14);box-shadow:0 60px 120px rgba(0,0,0,.6)');
-        css(el('abs', hero, '<i style="position:absolute;left:26px;top:24px;width:12px;height:12px;border-radius:50%;background:#4A4D55"></i><i style="position:absolute;left:50px;top:24px;width:12px;height:12px;border-radius:50%;background:#4A4D55"></i><i style="position:absolute;left:74px;top:24px;width:12px;height:12px;border-radius:50%;background:#4A4D55"></i>'), 'inset:0 0 auto 0;height:60px;background:rgba(255,255,255,.05)');
-        css(el('abs', hero, `<img src="${D.brand.logo}" style="width:100%;display:block">`), 'left:250px;top:220px;width:320px');
-        css(el('abs', hero, esc(D.brand.label)), 'left:0;right:0;top:520px;text-align:center;font-family:JetBrains Mono;font-size:24px;letter-spacing:.2em;color:#9A9EA5');
-      }
-      return { S, c, pill, words, hero };
-    });
-    return (t) => {
-      setChrome('#9A9EA5', false);
-      FOOT.style.color = '#6b6f76';
-      const i = sceneAt(t);
-      const S0 = SC[i];
-      const prevRow = i === 0 ? rowOf[0] : rowOf[i - 1];
-      const cu = lerp(prevRow, rowOf[i], i === 0 ? 1 : p(t, S0.t0, 0.7, E.out5));
-      const isCta = S0.kind === 'cta';
-      const flat = isCta ? p(t, S0.t0, 0.8, E.io) : 0;
-      plane.style.transform = `rotateX(${67 - 4 * Math.sin(cu * 0.9)}deg) translateY(${-cu * 600 + 430}px) translateZ(${-flat * 600}px) scale(.8)`;
-      persp.style.opacity = String(1 - flat * 0.65);
-      rows.forEach((row) => {
-        row.slot.style.filter = `blur(${clamp(Math.abs(row.r - cu) * 2.2, 0, 7)}px)`;
-        if (row.vis) row.vis.update(t);
-      });
-      tiles.forEach((tl, k) => {
-        const q = p(t, 0.3 + k * 0.15, 0.7, E.back);
-        const pos = [[70, 1180], [820, 1040], [740, 1560]][k];
-        tl.style.opacity = String(clamp(q * 2) * 0.95);
-        tl.style.transform = `translate(${pos[0] + Math.sin(t * 0.7 + k) * 14}px,${pos[1] + Math.cos(t * 0.6 + k * 2) * 22}px) rotate(${(k - 1) * 9 + Math.sin(t * 0.5 + k) * 4}deg) scale(${0.7 + 0.3 * q})`;
-        tl.style.filter = k === 2 ? 'blur(2px)' : 'none';
-      });
-      items.forEach((o) => {
-        const { S, c } = o;
-        const on = gateScene(t, S);
-        c.style.display = on ? 'block' : 'none';
-        if (!on) return;
-        const ex = exitOf(t, S);
-        c.style.opacity = String(1 - ex); c.style.filter = ex ? `blur(${ex * 10}px)` : 'none';
-        o.pill.style.opacity = String(p(t, S.t0 + 0.05, 0.3));
-        const stag = Math.min(0.1, (S.d * 0.45) / o.words.length);
-        o.words.forEach((n, k) => blurIn(n, p(t, S.t0 + 0.12 + k * stag, 0.5, E.out5), 34, 0.94));
-        if (o.hero) { const q = p(t, S.t0 + 0.3, 0.8, E.out5); o.hero.style.opacity = String(q); o.hero.style.transform = `translateY(${(1 - q) * 160}px) scale(${0.9 + 0.1 * q})`; }
-      });
-    };
-  }
-
-  const STYLES = { ember, editorial, gradient, selection, perspective };
+  const STYLES = { ember, editorial, gradient, selection };
   const draw = (STYLES[D.style] || ember)();
   window.__draw = (t) => { drawCommon(t); draw(t); };
   window.__draw(0);

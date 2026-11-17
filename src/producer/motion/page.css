@@ -41,10 +41,3 @@ html,body{width:1080px;height:1920px;overflow:hidden;background:#07070a;font-fam
 .stag{position:absolute;padding:6px 14px;background:var(--acc,#E4E6E9);color:var(--accink,#0A0B0D);font-family:'JetBrains Mono',monospace;font-size:20px;letter-spacing:.06em;white-space:nowrap}
 .skel{position:absolute;border-radius:24px}
 .skel i{position:absolute;left:28px;height:14px;border-radius:7px}
-
-/* perspective */
-.persp{position:absolute;inset:0;perspective:1500px;perspective-origin:50% 8%}
-.plane{position:absolute;left:30px;top:40px;width:1020px;height:6000px;transform-origin:50% 0}
-.pcard{position:absolute;border-radius:34px;overflow:hidden;box-shadow:0 40px 90px rgba(40,60,110,.22)}
-.pcard i{position:absolute;left:5%;height:3.2%;border-radius:10px;background:rgba(20,30,60,.14)}
-.itile{position:absolute;width:150px;height:150px;border-radius:38px;display:flex;align-items:center;justify-content:center;box-shadow:0 30px 60px rgba(30,40,80,.25)}

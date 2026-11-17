@@ -13,7 +13,7 @@ const here = (f) => fileURLToPath(new URL(`./motion/${f}`, import.meta.url));
 const SFX = (f) => fileURLToPath(new URL(`../../brand/sfx/${f}`, import.meta.url));
 
 // Cada estilo tem uma linguagem visual própria: assim os vídeos não ficam todos iguais.
-export const MOTION_STYLES = ['ember', 'editorial', 'gradient', 'selection', 'perspective'];
+export const MOTION_STYLES = ['ember', 'editorial', 'gradient', 'selection'];
 
 // Um estilo por dia, em rodízio (e o mesmo dia sempre dá o mesmo estilo). MOTION_STYLE força um.
 export function pickStyle(now = new Date(), env = process.env) {

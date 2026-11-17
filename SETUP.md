@@ -84,7 +84,7 @@ Enquanto o passo 4 não estiver feito, o sistema gera e envia a prévia normalme
 Se um dia a Meta liberar o Instagram Login para o app, defina a variável `IG_GRAPH_BASE=https://graph.instagram.com/v27.0` e cadastre também o `GH_ADMIN_TOKEN` (renovação a cada 60 dias).
 
 ### O que o sistema gera por semana
-2 Reels, 4 carrosséis (com checklist), 1 post de imagem única e **stories todos os dias** (3 a 4 quadros, aprovados junto com o post). O Reel muda de estilo a cada dia; para fixar um, crie a variável `MOTION_STYLE` (`ember`, `editorial`, `gradient`, `selection` ou `perspective`). No domingo, a análise da semana pode ajustar a mistura entre Reels e carrosséis.
+2 Reels, 4 carrosséis (com checklist), 1 post de imagem única e **stories todos os dias** (3 a 4 quadros, aprovados junto com o post). O Reel muda de estilo a cada dia; para fixar um, crie a variável `MOTION_STYLE` (`ember`, `editorial`, `gradient` ou `selection`). No domingo, a análise da semana pode ajustar a mistura entre Reels e carrosséis.
 
 ### Depois do primeiro post
 - **Funil do Direct (comentar SITE):** o envio de mensagens pelo Unified login ainda precisa ser confirmado com a sua conta; depois do primeiro post, me peça para ligar e testar.

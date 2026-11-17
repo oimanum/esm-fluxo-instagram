@@ -27,7 +27,7 @@ test('the style rotates day by day and MOTION_STYLE forces one', () => {
   const day = (n) => pickStyle(new Date(n * 86400000), {});
   assert.notEqual(day(100), day(101));
   assert.equal(day(100), day(100));
-  assert.equal(new Set(Array.from({ length: 5 }, (_, i) => day(200 + i))).size, 5);
+  assert.equal(new Set(Array.from({ length: MOTION_STYLES.length }, (_, i) => day(200 + i))).size, MOTION_STYLES.length);
   assert.equal(pickStyle(new Date(), { MOTION_STYLE: 'selection' }), 'selection');
   assert.ok(MOTION_STYLES.includes(pickStyle(new Date(), { MOTION_STYLE: 'xx' })));
 });
