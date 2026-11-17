@@ -1029,7 +1029,7 @@
     "media": [
       "out/13a192be/reel.mp4"
     ],
-    "status": "swap",
+    "status": "swapped",
     "createdAt": "2026-11-17T20:26:24.188Z",
     "alternatives": [
       {
@@ -1083,5 +1083,133 @@
     },
     "messageId": 82,
     "redo": true
+  },
+  {
+    "id": "bfd7856f",
+    "topic": "Liberação bilionária no Previdenciário: para onde vai o cliente que pesquisa advogado no Google?",
+    "angle": "Com a notícia de R$ 119 bi autorizados para benefícios previdenciários, milhares de pessoas vão ao Google pesquisar 'advogado especialista em INSS perto de mim'. O perfil no Instagram não aparece no topo do Google; quem não tem site com botão de WhatsApp direto perde o cliente imediatamente para o concorrente.",
+    "format": "reel",
+    "post": {
+      "label": "DIREITO PREVIDENCIÁRIO",
+      "hook": "Seu escritório está **perdendo clientes de previdenciário** no Google agora.",
+      "script": "Milhares de pessoas procuram advogado de INSS pelo celular. Elas não vão procurar no Instagram, elas vão no Google. Sem um site rápido, seu concorrente recebe essa mensagem antes de você. Teste você mesmo: pesquise sua área no Google pelo celular. Um site com botão direto de WhatsApp coloca esse cliente falando com você.",
+      "caption": "Quando alguém precisa resolver um benefício previdenciário com urgência, onde essa pessoa procura? No Google.\n\nO cliente digita pelo celular e clica nos primeiros escritórios com site estruturado e botão direto de WhatsApp. Se você depende apenas do perfil no Instagram, seu escritório fica simplesmente invisível nessa busca.\n\nCada dia sem um site próprio no ar é um cliente com causa pronta indo direto para o concorrente ao lado.",
+      "hashtags": [
+        "#advocaciaprevidenciaria",
+        "#direitoprevidenciario",
+        "#marketingjuridico",
+        "#siteparaadvogados",
+        "#esmweb"
+      ],
+      "cta": "Toque no link da bio e **fale conosco no WhatsApp**",
+      "visuals": [
+        {
+          "type": "search",
+          "query": "advogado inss perto de mim"
+        },
+        {
+          "type": "funnel",
+          "steps": [
+            "Pesquisa",
+            "Visita",
+            "Contato"
+          ]
+        },
+        {
+          "type": "versus",
+          "left": {
+            "title": "Sem site",
+            "items": [
+              "Não aparece no Google",
+              "Passa pouca confiança"
+            ]
+          },
+          "right": {
+            "title": "Com site",
+            "items": [
+              "Aparece no Google",
+              "Passa confiança"
+            ]
+          }
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "Abra o celular",
+            "Busque sua área",
+            "Veja quem aparece"
+          ]
+        },
+        {
+          "type": "chat",
+          "msgs": [
+            {
+              "who": "cliente",
+              "text": "Preciso de ajuda com INSS"
+            },
+            {
+              "who": "voce",
+              "text": "Olá! Como posso ajudar?"
+            }
+          ]
+        }
+      ]
+    },
+    "media": [
+      "out/bfd7856f/reel.mp4"
+    ],
+    "status": "pending",
+    "createdAt": "2026-11-17T21:58:22.047Z",
+    "alternatives": [
+      {
+        "topic": "Avanço das legaltechs: por que depender só de rede social faz seu escritório parecer amador",
+        "score": 9.1,
+        "angle": "Gancho no crescimento de legaltechs e debates da OAB sobre o digital. Clientes corporativos e de causas rentáveis exigem autoridade e checam a reputação no Google. Escritório sem site institucional passa insegurança e perde contratos para bancas que transmitem confiança com páginas estruturadas."
+      },
+      {
+        "topic": "Nova onda de crédito para energia solar: sua integradora tem um site preparado para fechar orçamentos?",
+        "score": 8.9,
+        "angle": "Ligando a novidade de crédito com garantia de imóvel para financiar energia solar à dor das integradoras. O cliente disposto a investir 20k a 50k não vai fechar por direct do Instagram; ele precisa de uma landing page profissional com prova social e simulador para confiar na sua empresa."
+      },
+      {
+        "topic": "Mandar anúncio direto para o WhatsApp ou Direct? O erro comum das clínicas de estética",
+        "score": 8.8,
+        "angle": "Gancho nas discussões sobre hiperpersonalização e campanhas digitais. Clínicas perdem até 60% da verba de tráfego enviando o paciente para o direct desorganizado. Uma landing page dedicada para cada procedimento (ex: Botox, Harmonização) filtra o lead, tira dúvidas e entrega o paciente pronto para agendar."
+      },
+      {
+        "topic": "'Só Instagram basta?' O perigo de construir seu negócio em terreno alugado",
+        "score": 8.7,
+        "angle": "Gancho nas capacitações e tendências de negócios digitais. Donos de consultórios e escritórios acham que ter perfil ativo resolve, mas o cliente com dor aguda não fica rolando feed: ele busca solução no Google. Se sua empresa não tem site indexado, ela simplesmente não existe para o cliente com intenção de compra."
+      },
+      {
+        "topic": "Por que o concorrente da sua cidade aparece primeiro no Google (e como virar esse jogo)",
+        "score": 8.6,
+        "angle": "Focado em negócios locais (clínicas, estética, advogados). Mostrar como a dobradinha Google Meu Negócio + Landing Page rápida faz sua empresa dominar as pesquisas locais da sua cidade, gerando agendamentos diários sem refém de dancinhas de Instagram."
+      },
+      {
+        "topic": "O teste dos 3 segundos no celular: seu site está doando pacientes para a clínica concorrente?",
+        "score": 8.5,
+        "angle": "Gancho na rápida evolução tecnológica e hábitos mobile. Donos de clínicas que têm sites antigos e lentos pagam caro por anúncios no Meta e Google para o usuário desistir antes da página carregar e clicar no concorrente logo abaixo."
+      }
+    ],
+    "release": {
+      "tag": "post-bfd7856f",
+      "files": [
+        "reel.mp4",
+        "story-01.jpg",
+        "story-02.jpg",
+        "story-03.jpg",
+        "story-04.jpg"
+      ]
+    },
+    "story": {
+      "media": [
+        "out/bfd7856f/story-01.jpg",
+        "out/bfd7856f/story-02.jpg",
+        "out/bfd7856f/story-03.jpg",
+        "out/bfd7856f/story-04.jpg"
+      ]
+    },
+    "messageId": 94
   }
 ]
