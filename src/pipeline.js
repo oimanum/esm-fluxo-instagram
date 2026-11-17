@@ -173,7 +173,9 @@ export async function processSwaps(d) {
   for (const item of swaps) item.status = 'swapped';
   await saveState('queue', queue);
   for (const item of swaps) {
-    const r = await generate({ ...d, scored: item.alternatives, exclude: [item.topic] });
+    // item.redo = "refazer": mesmo tema (texto e vídeo novos); sem ele, é troca de tema (próximo da lista).
+    const same = item.redo ? [{ topic: item.topic, angle: item.angle || '', score: 10 }] : [];
+    const r = await generate({ ...d, scored: [...same, ...item.alternatives], exclude: item.redo ? [] : [item.topic] });
     // Sem isso a troca falhava em silêncio: o log e o Telegram dizem o que aconteceu com o tema novo.
     console.log(`troca de tema: ${JSON.stringify({ status: r.status, reason: r.reason, error: r.error, topic: r.topic })}`);
     if (r.status === 'skipped' || r.status === 'error') {

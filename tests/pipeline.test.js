@@ -215,3 +215,16 @@ test('if the checks reject the chosen topic three times, the next topic of the l
   assert.equal(r.status, 'pending');
   assert.equal(r.topic, 'Site lento perde cliente');
 });
+
+test('redo: the same topic is generated again (new text and video); a plain swap moves to the next topic', async () => {
+  const d = deps();
+  await generate(d);
+  const q = await loadState('queue');
+  q[0].status = 'swap'; q[0].redo = true;
+  await saveState('queue', q);
+  let n = 1;
+  await processSwaps({ ...d, newId: () => `i${++n}`, now: new Date('2026-11-04T12:01:00Z') });
+  const after = await loadState('queue');
+  assert.equal(after.find((i) => i.id === 'i1').status, 'swapped');
+  assert.equal(after.find((i) => i.id === 'i2').topic, 'IA no atendimento');
+});
