@@ -37,7 +37,8 @@ async function tryModel(model, { prompt, schema, fetchImpl, retries, key, sleep 
         if (info?.retryDelay) waitMs = Math.ceil(parseFloat(info.retryDelay) * 1000);
       } catch { /* sem corpo */ }
       if (waitMs !== null && waitMs <= 70000 && attempt < retries) { await sleep(waitMs + 1000); continue; }
-      throw new LlmError(`Limite do Gemini atingido${msg ? `: ${msg}` : ''}${waitMs !== null ? ` (liberar em ~${Math.ceil(waitMs / 1000)} s)` : ''}`, 'rate_limit');
+      // Cada modelo gratuito tem a própria cota: esgotada a deste, o próximo modelo ainda pode responder.
+      return { rateLimited: `${msg ? `${msg} ` : ''}${waitMs !== null ? `(liberar em ~${Math.ceil(waitMs / 1000)} s)` : ''}`.trim() };
     }
     if (!res.ok) {
       // 5xx = servidor sobrecarregado ou instável: espera mais a cada tentativa; esgotadas, passa para o próximo modelo.
@@ -68,13 +69,16 @@ export async function askJson({ prompt, schema, fetchImpl = netFetch, retries = 
   const tried = [];
   const overloaded = [];
   const invalid = [];
+  const limited = [];
   for (const model of modelOrder()) {
     const r = await tryModel(model, { prompt, schema, fetchImpl, retries, key: GEMINI_KEY, sleep });
     if (r.notFound) { tried.push(model); continue; }
     if (r.overloaded) { overloaded.push(`${model} (HTTP ${r.overloaded})`); continue; }
     if (r.invalid) { invalid.push(`${model}: ${r.invalid}`); continue; }
+    if (r.rateLimited !== undefined) { limited.push(`${model}: ${r.rateLimited}`); continue; }
     return r.obj;
   }
+  if (limited.length) throw new LlmError(`Limite do Gemini atingido em ${limited.length === modelOrder().length ? 'todos os modelos' : 'alguns modelos'}: ${limited[0].slice(0, 260)}`, 'rate_limit');
   if (invalid.length && !overloaded.length && !tried.length) throw new LlmError(`Gemini devolveu JSON inválido (${invalid.join('; ')})`, 'invalid');
   if (overloaded.length) {
     throw new LlmError(`Gemini sobrecarregado no momento (${overloaded.join(', ')}). É temporário: rode de novo em alguns minutos.`, 'overloaded');

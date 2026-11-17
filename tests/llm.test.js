@@ -75,11 +75,16 @@ test('every model overloaded -> clear LlmError (code overloaded) naming the mode
   const f = byModel({ 'gemini-3.6-flash': { status: 503 }, 'gemini-3.8-flash': { status: 503 }, 'gemini-3.5-flash-lite': { status: 500 }, 'gemini-3.1-flash-lite': { status: 503 } });
   await assert.rejects(askJson({ prompt: 'x', schema: ok, fetchImpl: f, sleep: async () => {} }), (e) => e instanceof LlmError && e.code === 'overloaded' && e.message.includes('503') && e.message.includes('gemini-3.8-flash'));
 });
-test('a 429 still stops right away without trying other models', async () => {
+test('a 429 (quota) on one model moves on to the next model, which has its own quota', async () => {
   delete process.env.GEMINI_MODEL;
-  const f = byModel({ 'gemini-3.6-flash': { status: 429 } });
-  await assert.rejects(askJson({ prompt: 'x', schema: ok, fetchImpl: f, sleep: async () => {} }), (e) => e.code === 'rate_limit');
-  assert.deepEqual([...new Set(f.seen)], ['gemini-3.6-flash']);
+  const f = byModel({ 'gemini-3.6-flash': { status: 429 }, 'gemini-3.8-flash': { status: 200, text: '{"a":9}' } });
+  assert.deepEqual(await askJson({ prompt: 'x', schema: ok, fetchImpl: f, sleep: async () => {} }), { a: 9 });
+  assert.deepEqual([...new Set(f.seen)], ['gemini-3.6-flash', 'gemini-3.8-flash']);
+});
+test('every model out of quota -> rate_limit error that says so', async () => {
+  delete process.env.GEMINI_MODEL;
+  const all = byModel({ 'gemini-3.6-flash': { status: 429 }, 'gemini-3.8-flash': { status: 429 }, 'gemini-3.5-flash-lite': { status: 429 }, 'gemini-3.1-flash-lite': { status: 429 } });
+  await assert.rejects(askJson({ prompt: 'x', schema: ok, fetchImpl: all, sleep: async () => {} }), (e) => e.code === 'rate_limit' && /todos os modelos/.test(e.message));
 });
 
 test('429 per minute waits the time Google asks and tries again', async () => {
