@@ -1,9 +1,10 @@
+import { netFetch } from './net.js';
 import { readFile } from 'node:fs/promises';
 import { basename } from 'node:path';
 import { config } from './config.js';
 
 // Cliente real do Telegram. Nos testes entra um objeto falso com a mesma interface.
-export function createTelegram(token, chatId, fetchImpl = fetch) {
+export function createTelegram(token, chatId, fetchImpl = netFetch) {
   const base = `https://api.telegram.org/bot${token}`;
   const unwrap = async (res) => {
     const j = await res.json();
@@ -88,22 +89,33 @@ export function expireOverdue(queue, now) {
 }
 
 const NEXT = { approve: 'approved', swap: 'swap', skip: 'skipped' };
+// Resposta que aparece no Telegram assim que o botão é tocado (também faz o círculo de "carregando" parar).
+const ANSWER = { approve: '✅ Aprovado! Publicando…', swap: '✏️ Trocando o tema…', skip: '❌ Pulado: nada será postado.' };
+const STALE = { approved: 'Já aprovado, publicando.', publishing: 'Já está sendo publicado.', posted: 'Esse post já foi publicado.', skipped: 'Esse post já foi pulado.', swapped: 'Esse tema já foi trocado.', swap: 'A troca de tema já foi pedida.', expired: 'O prazo desse post acabou.', sem_resposta: 'O prazo desse post acabou.', failed: 'A publicação desse post falhou.', uncertain: 'Confira no Instagram se esse post saiu.' };
 
-export async function pollDecisions({ tg, queue, now, offset }) {
-  const updates = await tg.call('getUpdates', { offset, timeout: 0, allowed_updates: ['callback_query'] });
+export const isOverdue = (item, now) => now > cutoffOf(item);
+
+// Lê os toques nos botões. timeout > 0 faz o Telegram segurar a conexão até chegar um toque (resposta em segundos).
+// Devolve também `answers`: o texto de resposta de cada toque, para o bot responder e tirar o "carregando".
+export async function pollDecisions({ tg, queue, now, offset, timeout = 0 }) {
+  const updates = await tg.call('getUpdates', { offset, timeout, allowed_updates: ['callback_query'] });
   const out = queue.map((i) => ({ ...i }));
   const decisions = [];
+  const answers = [];
   let nextOffset = offset;
   for (const u of updates) {
     nextOffset = Math.max(nextOffset, u.update_id + 1);
-    const data = u.callback_query?.data;
+    const cq = u.callback_query;
+    const data = cq?.data;
     if (!data) continue;
     const [id, action] = data.split(':');
     const item = out.find((i) => i.id === id);
-    if (!item || !NEXT[action] || item.status !== 'pending') continue; // idempotente: só age sobre pendente
-    if (now > cutoffOf(item)) { item.status = 'expired'; decisions.push({ id, action: 'expired' }); continue; }
+    if (!item || !NEXT[action]) { answers.push({ id: cq.id, text: 'Não reconheci esse botão.' }); continue; }
+    if (item.status !== 'pending') { answers.push({ id: cq.id, text: STALE[item.status] || 'Esse post já foi tratado.' }); continue; } // idempotente: só age sobre pendente
+    if (now > cutoffOf(item)) { item.status = 'expired'; decisions.push({ id, action: 'expired' }); answers.push({ id: cq.id, text: 'O prazo acabou: nada foi postado.' }); continue; }
     item.status = NEXT[action];
     decisions.push({ id, action });
+    answers.push({ id: cq.id, text: ANSWER[action] });
   }
-  return { queue: out, decisions, nextOffset };
+  return { queue: out, decisions, nextOffset, answers };
 }

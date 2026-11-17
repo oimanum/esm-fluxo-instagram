@@ -1,3 +1,4 @@
+import { netFetch } from './net.js';
 import { requireEnv } from './config.js';
 
 export class LlmError extends Error {
@@ -42,7 +43,7 @@ async function tryModel(model, { prompt, schema, fetchImpl, retries, key, sleep 
   throw new LlmError('Gemini devolveu JSON inválido', 'invalid');
 }
 
-export async function askJson({ prompt, schema, fetchImpl = fetch, retries = 2, sleep = defaultSleep }) {
+export async function askJson({ prompt, schema, fetchImpl = netFetch, retries = 2, sleep = defaultSleep }) {
   const { GEMINI_KEY } = requireEnv(['GEMINI_KEY']);
   const tried = [];
   const overloaded = [];

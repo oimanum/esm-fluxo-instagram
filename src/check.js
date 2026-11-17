@@ -23,6 +23,13 @@ export async function runChecks({ env, fetchImpl = fetch, base = GRAPH_BASE }) {
     if (!j.ok) throw new Error('o token do bot foi recusado');
     return `bot @${j.result.username}`;
   });
+  await safe('Telegram (leitura dos cliques)', async () => {
+    if (!env.TG_TOKEN) throw new Error('TG_TOKEN não cadastrado');
+    const r = await fetchImpl(`https://api.telegram.org/bot${env.TG_TOKEN}/getWebhookInfo`);
+    const j = await r.json();
+    if (j.result?.url) throw new Error('o bot tem um webhook ativo: outro programa recebe os cliques e o sistema não os vê. Remova o webhook ou use outro bot');
+    return 'sem webhook: o ouvinte do Telegram recebe os cliques';
+  });
   await safe('Instagram (publicação)', async () => {
     if (!env.IG_TOKEN || !env.IG_USER_ID) throw new Error('IG_TOKEN ou IG_USER_ID não cadastrados');
     // Lê a própria conta pelo ID: vale para os dois tipos de token e prova que o token enxerga a conta certa.

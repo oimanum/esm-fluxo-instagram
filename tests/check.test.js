@@ -14,9 +14,15 @@ const routes = (over = {}) => async (url) => {
 
 test('check: everything configured gives all green and the next step', async () => {
   const r = await runChecks({ env, fetchImpl: routes() });
-  assert.equal(r.length, 4);
+  assert.equal(r.length, 5);
   assert.ok(r.every((x) => x.ok));
   assert.ok(formatChecks(r).includes('Tudo pronto'));
+});
+test('check: a webhook on the bot steals the clicks and is reported', async () => {
+  const r = await runChecks({ env, fetchImpl: routes({ tg: ok({ ok: true, result: { username: 'b', url: 'https://outro.app/hook' } }) }) });
+  const t = r.find((x) => x.name.startsWith('Telegram (leitura'));
+  assert.equal(t.ok, false);
+  assert.ok(t.detail.includes('webhook'));
 });
 test('check: missing Instagram keys are reported, not thrown', async () => {
   const r = await runChecks({ env: { ...env, IG_TOKEN: '', IG_USER_ID: '' }, fetchImpl: routes() });

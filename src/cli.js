@@ -11,6 +11,7 @@ import { renderReel } from './producer/reel.js';
 import { renderPost } from './producer/post.js';
 import { runChecks, formatChecks, tokenExpires } from './check.js';
 import { testMedia, formatMedia } from './testmedia.js';
+import { listenLoop } from './listen.js';
 import { renderStory } from './producer/story.js';
 import { renderCarousel } from './producer/carousel.js';
 import { renderChecklist } from './producer/checklist.js';
@@ -102,6 +103,28 @@ const commands = {
     if (process.env.GITHUB_OUTPUT) appendFileSync(process.env.GITHUB_OUTPUT, `swap=${swaps > 0}\n`);
   },
 
+  // Fica escutando o Telegram até decidirem (ou o prazo vencer): resposta em segundos, sem depender do agendador do GitHub.
+  // Sai quando não há mais nada pendente, quando alguém pede troca de tema (o workflow gera o novo tema) ou perto do limite
+  // de 6 h do GitHub (o workflow se reabre sozinho).
+  async listen() {
+    if (!(process.env.IG_TOKEN && process.env.IG_USER_ID)) { console.log('Instagram não configurado: nada a escutar.'); return; }
+    const { IG_TOKEN, IG_USER_ID } = requireEnv(['IG_TOKEN', 'IG_USER_ID']);
+    const d = await baseDeps();
+    d.ig = createInstagram(IG_TOKEN, IG_USER_ID);
+    d.publish = publish;
+    d.publishStories = publishStories;
+    d.pollTimeout = 25;
+    const { swap, rearm } = await listenLoop({
+      refresh: async () => { if (process.env.GITHUB_ACTIONS) { try { await run('git', ['pull', '--rebase', '--autostash']); } catch { /* segue com o estado local */ } } },
+      hasPending: async () => (await loadState('queue')).some((i) => i.status === 'pending'),
+      pollOnce: async () => { d.now = new Date(); return poll(d); },
+      onError: (e) => console.error(sanitize(e.message)),
+    });
+    if (process.env.GITHUB_OUTPUT) appendFileSync(process.env.GITHUB_OUTPUT, `swap=${swap}
+rearm=${rearm}
+`);
+  },
+
   async swap() {
     requireEnv(['GEMINI_KEY']);
     console.log(`trocas processadas: ${await processSwaps(await baseDeps())}`);
@@ -188,7 +211,7 @@ const commands = {
 const sanitizeObj = (o) => JSON.parse(sanitize(JSON.stringify(o)));
 
 if (!commands[cmd]) {
-  console.error('Uso: node src/cli.js generate|poll|swap|analytics|refresh|funnel|check|testmedia|checkpoint [--dry]');
+  console.error('Uso: node src/cli.js generate|poll|swap|analytics|refresh|funnel|check|testmedia|listen|checkpoint [--dry]');
   process.exit(2);
 }
 commands[cmd]().catch(async (e) => {

@@ -1,3 +1,4 @@
+import { netFetch } from '../net.js';
 import { parseRss } from './rss.js';
 import { fromCompetitors, fetchCompetitor } from './competitors.js';
 
@@ -11,7 +12,7 @@ const NEWS_QUERIES = [
 ];
 const text = async (r) => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.text(); };
 
-export async function collectSignals({ fetchImpl = fetch, competitors = [] }) {
+export async function collectSignals({ fetchImpl = netFetch, competitors = [] }) {
   const jobs = [
     async () => parseRss(await text(await fetchImpl('https://trends.google.com/trending/rss?geo=BR')), 'google-trends'),
     ...NEWS_QUERIES.map((q) => async () => parseRss(

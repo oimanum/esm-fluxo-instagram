@@ -1,0 +1,56 @@
+name: approval-listen
+on:
+  workflow_dispatch:
+# Grupo próprio: fica horas escutando e não pode travar os outros workflows.
+concurrency:
+  group: approval-listen
+  cancel-in-progress: false
+permissions:
+  contents: write
+  actions: write
+jobs:
+  listen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Escutar o Telegram e publicar o que for aprovado
+        id: listen
+        env:
+          TG_TOKEN: ${{ secrets.TG_TOKEN }}
+          TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+        run: node src/cli.js listen
+      # "Trocar tema" precisa de ffmpeg e voz; só instala quando alguém pediu a troca.
+      - name: Preparar render (só se houver troca de tema)
+        if: steps.listen.outputs.swap == 'true'
+        uses: ./.github/actions/setup
+      - name: Gerar o tema novo
+        if: steps.listen.outputs.swap == 'true'
+        env:
+          GEMINI_KEY: ${{ secrets.GEMINI_KEY }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
+          GEMINI_VOICE: ${{ vars.GEMINI_VOICE }}
+          GEMINI_TTS_MODEL: ${{ vars.GEMINI_TTS_MODEL }}
+          TTS_ENGINE: ${{ vars.TTS_ENGINE }}
+          MOTION_STYLE: ${{ vars.MOTION_STYLE }}
+          TG_TOKEN: ${{ secrets.TG_TOKEN }}
+          TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+        run: node src/cli.js swap
+      - name: Salvar estado
+        if: always()
+        run: node src/cli.js checkpoint
+      # Perto do limite de 6 h, ou depois de uma troca de tema, a escuta recomeça sozinha.
+      - name: Reabrir a escuta
+        if: steps.listen.outputs.rearm == 'true' || steps.listen.outputs.swap == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run approval-listen.yml

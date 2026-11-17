@@ -1,7 +1,8 @@
+import { netFetch } from './net.js';
 // Instagram API: por padrão o Unified login (graph.facebook.com, token de usuário do sistema que não expira). Para um token do Instagram Login, defina IG_GRAPH_BASE=https://graph.instagram.com/v27.0.
 export const GRAPH_BASE = process.env.IG_GRAPH_BASE || 'https://graph.facebook.com/v27.0';
 
-export function createInstagram(token, userId, fetchImpl = fetch) {
+export function createInstagram(token, userId, fetchImpl = netFetch) {
   const unwrap = async (res) => {
     const j = await res.json();
     if (!res.ok || j.error) throw new Error(`Instagram: ${j.error?.message || res.status}`);

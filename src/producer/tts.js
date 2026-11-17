@@ -1,3 +1,4 @@
+import { netFetch } from '../net.js';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { writeFile, rm } from 'node:fs/promises';
@@ -24,7 +25,7 @@ function findAudio(node) {
 }
 
 // Voz do Gemini (Interactions API): estilo pedido em linguagem natural. Devolve um mp3 em outPath.
-export async function synthGemini(text, outPath, { fetchImpl = fetch, key, cfg }) {
+export async function synthGemini(text, outPath, { fetchImpl = netFetch, key, cfg }) {
   const res = await fetchImpl('https://generativelanguage.googleapis.com/v1beta/interactions', {
     method: 'POST',
     headers: { 'content-type': 'application/json', 'x-goog-api-key': key },
@@ -60,7 +61,7 @@ export async function synthEdge(text, outPath, { cmd = 'python', voice = 'pt-BR-
 }
 
 // Tenta a voz do Gemini; qualquer erro (limite, 403, instabilidade, resposta vazia) cai para a voz Edge.
-export async function synth(text, outPath, { cmd, voice, fetchImpl = fetch, geminiKey = process.env.GEMINI_KEY, cfg = config.voice, edgeImpl } = {}) {
+export async function synth(text, outPath, { cmd, voice, fetchImpl = netFetch, geminiKey = process.env.GEMINI_KEY, cfg = config.voice, edgeImpl } = {}) {
   const edge = edgeImpl || ((t, o) => synthEdge(t, o, { cmd, voice: voice || cfg.edge }));
   let geminiError;
   if (cfg.engine === 'gemini' && geminiKey) {
