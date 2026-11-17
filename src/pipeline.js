@@ -17,7 +17,7 @@ const checkpoint = (d) => (d.checkpoint ? d.checkpoint() : Promise.resolve());
 async function writeChecked({ topic, angle, format, llm, facts }) {
   let problems = [];
   for (let i = 0; i < 3; i++) {
-    const post = await writePost({ topic, angle, format, llm, facts });
+    const post = await writePost({ topic, angle, format, llm, facts, feedback: problems.join('; ') });
     const check = checkPost(post, format, {
       allowedNumbers: facts.allowedNumbers,
       keyword: config.funnel.enabled ? config.funnel.keyword : undefined,
@@ -48,13 +48,26 @@ export async function generate(d) {
       scored = await scoreTopics(signals, d.llm);
     }
     const pool = scored.filter((t) => !(d.exclude || []).includes(t.topic));
-    const pick = pickToday({ scored: pool, history, now: d.now, plan: d.plan });
-    if (pick.skip) {
-      await alert(`Hoje não vou postar (${pick.skip}).`);
-      return { status: 'skipped', reason: pick.skip };
-    }
     const facts = d.facts ?? await loadFacts();
-    const post = await writeChecked({ topic: pick.topic, angle: pick.angle, format: pick.format, llm: d.llm, facts });
+    // Se a checagem barrar o texto do tema escolhido (3 tentativas), tenta o próximo tema da lista (até 3 temas).
+    const rejected = [];
+    let pick; let post; let lastErr;
+    for (let n = 0; n < 3; n++) {
+      pick = pickToday({ scored: pool.filter((t) => !rejected.includes(t.topic)), history, now: d.now, plan: d.plan });
+      if (pick.skip) {
+        if (lastErr) throw lastErr; // todos os temas tentados foram barrados: o motivo é o que importa
+        await alert(`Hoje não vou postar (${pick.skip}).`);
+        return { status: 'skipped', reason: pick.skip };
+      }
+      try {
+        post = await writeChecked({ topic: pick.topic, angle: pick.angle, format: pick.format, llm: d.llm, facts });
+        break;
+      } catch (e) {
+        if (!/checagem barrou/.test(e.message) || n === 2) throw e;
+        lastErr = e;
+        rejected.push(pick.topic);
+      }
+    }
     const id = d.newId();
     const outDir = `out/${id}`;
     await mkdir(outDir, { recursive: true });

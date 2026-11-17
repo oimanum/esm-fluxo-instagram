@@ -207,3 +207,11 @@ test('if the stories cannot be rendered the post still goes ahead', async () => 
   assert.equal(r.story, undefined);
   assert.ok(d.alerts.some((a) => a.includes('stories de hoje não saíram')));
 });
+
+test('if the checks reject the chosen topic three times, the next topic of the list is tried', async () => {
+  const BAD = { ...GOOD, script: `${words(69)} R$119` };
+  const d = deps({ llm: async ({ prompt }) => (prompt.includes('SINAIS') ? TOPICS : prompt.includes('Tema: IA no atendimento') ? BAD : GOOD) });
+  const r = await generate(d);
+  assert.equal(r.status, 'pending');
+  assert.equal(r.topic, 'Site lento perde cliente');
+});

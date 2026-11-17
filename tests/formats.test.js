@@ -85,3 +85,17 @@ test('reel screens carry one visual per sentence and share it between the pieces
   assert.equal(g[1].vcont, true);
   assert.equal(g[0].vcont, false);
 });
+
+import { writePost } from '../src/writer.js';
+import { generate } from '../src/pipeline.js';
+import { mkdtemp as mkd } from 'node:fs/promises';
+test('writer: numbers from the news are forbidden in the prompt and the previous rejection is fed back', async () => {
+  const facts = { text: '', allowedNumbers: new Set() };
+  let prompt = '';
+  await writePost({ topic: 'Crédito de R$119 mil', format: 'post', facts, funnel: { enabled: false }, feedback: 'número de resultado sem fonte: R$119', llm: async (o) => { prompt = o.prompt; return { hook: 'h', script: 'um dois três quatro cinco seis', caption: 'c', hashtags: [], cta: 'Chame' }; } });
+  assert.ok(prompt.includes('NÃO repita nenhum deles'));
+  assert.ok(prompt.includes('foi barrada pela checagem (número de resultado sem fonte: R$119)'));
+  let clean = '';
+  await writePost({ topic: 't', format: 'post', facts, funnel: { enabled: false }, llm: async (o) => { clean = o.prompt; return { hook: 'h', script: 'um dois três quatro cinco seis', caption: 'c', hashtags: [], cta: 'Chame' }; } });
+  assert.ok(!clean.includes('foi barrada pela checagem'));
+});
