@@ -790,7 +790,7 @@
     "media": [
       "out/fec1277d/reel.mp4"
     ],
-    "status": "pending",
+    "status": "sem_resposta",
     "createdAt": "2026-11-16T19:31:32.633Z",
     "alternatives": [
       {
