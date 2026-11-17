@@ -110,9 +110,11 @@ export async function pollDecisions({ tg, queue, now, offset, timeout = 0 }) {
     if (!data) continue;
     const [id, action] = data.split(':');
     const item = out.find((i) => i.id === id);
-    if (!item || !NEXT[action]) { answers.push({ id: cq.id, text: 'Não reconheci esse botão.' }); continue; }
-    if (item.status !== 'pending') { answers.push({ id: cq.id, text: STALE[item.status] || 'Esse post já foi tratado.' }); continue; } // idempotente: só age sobre pendente
-    if (now > cutoffOf(item)) { item.status = 'expired'; decisions.push({ id, action: 'expired' }); answers.push({ id: cq.id, text: 'O prazo acabou: nada foi postado.' }); continue; }
+    // Prévia que o sistema não reconhece, já decidida ou vencida: janela de aviso (não só um balãozinho) e os botões saem da mensagem.
+    const dead = (text) => answers.push({ id: cq.id, text, alert: true, messageId: cq.message?.message_id });
+    if (!item || !NEXT[action]) { dead('Esta prévia não está mais ativa (foi substituída por outra). Use a prévia mais recente.'); continue; }
+    if (item.status !== 'pending') { dead(STALE[item.status] || 'Esse post já foi tratado.'); continue; } // idempotente: só age sobre pendente
+    if (now > cutoffOf(item)) { item.status = 'expired'; decisions.push({ id, action: 'expired' }); dead('O prazo acabou: nada foi postado.'); continue; }
     item.status = NEXT[action];
     decisions.push({ id, action });
     answers.push({ id: cq.id, text: ANSWER[action] });

@@ -81,3 +81,18 @@ test('poll answers the taps and removes the buttons of the decided message', asy
   assert.ok(methods.includes('editMessageReplyMarkup'));
   assert.equal((await loadState('queue'))[0].status, 'skipped');
 });
+
+test('approval: a tap on a preview the system does not know shows a pop-up and clears that message buttons', async () => {
+  process.env.DATA_DIR = await mkdtemp(join(tmpdir(), 'orf-'));
+  await saveState('queue', [mk()]);
+  const orphan = { update_id: 7, callback_query: { id: 'q7', data: 'zzzzzzzz:approve', message: { message_id: 321 } } };
+  const tg = fakeTg([orphan]);
+  const r = await poll({ tg, now: new Date('2026-11-04T12:00:00Z'), checkpoint: async () => {}, alert: async () => {}, ig: {}, publish: async () => ({}), release: async () => [] });
+  assert.deepEqual(r.decisions, []);
+  const ans = tg.calls.find((c) => c[0] === 'answerCallbackQuery')[1];
+  assert.equal(ans.show_alert, true);
+  assert.match(ans.text, /não está mais ativa/);
+  const edit = tg.calls.find((c) => c[0] === 'editMessageReplyMarkup')[1];
+  assert.equal(edit.message_id, 321);
+  assert.equal((await loadState('queue'))[0].status, 'pending');
+});

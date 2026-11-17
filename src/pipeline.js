@@ -98,7 +98,10 @@ export async function poll(d) {
   const r = await pollDecisions({ tg: d.tg, queue, now: d.now, offset, timeout: d.pollTimeout ?? 0 });
   queue = r.queue;
   // O bot responde a cada toque (para o "carregando" parar) e tira os botões do que já foi decidido.
-  for (const a of r.answers || []) { try { await d.tg.call('answerCallbackQuery', { callback_query_id: a.id, text: a.text }); } catch { /* o toque já expirou no Telegram */ } }
+  for (const a of r.answers || []) {
+    try { await d.tg.call('answerCallbackQuery', { callback_query_id: a.id, text: a.text, ...(a.alert ? { show_alert: true } : {}) }); } catch { /* o toque já expirou no Telegram */ }
+    if (a.messageId) { try { await d.tg.call('editMessageReplyMarkup', { message_id: a.messageId, reply_markup: { inline_keyboard: [] } }); } catch { /* mensagem antiga ou já editada */ } }
+  }
   for (const dec of r.decisions) {
     const it = queue.find((i) => i.id === dec.id);
     if (it?.messageId) { try { await d.tg.call('editMessageReplyMarkup', { message_id: it.messageId, reply_markup: { inline_keyboard: [] } }); } catch { /* mensagem antiga ou já editada */ } }
