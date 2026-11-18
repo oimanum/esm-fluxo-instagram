@@ -1237,7 +1237,7 @@
     "media": [
       "out/ca8cb064/checklist-01.jpg"
     ],
-    "status": "publishing",
+    "status": "posted",
     "createdAt": "2026-11-18T17:58:25.360Z",
     "alternatives": [
       {
@@ -1294,6 +1294,8 @@
         "out/ca8cb064/story-04.jpg"
       ]
     },
-    "messageId": 102
+    "messageId": 102,
+    "igMediaId": "18090197348334520",
+    "postedAt": "2026-11-18T18:00:52.438Z"
   }
 ]
