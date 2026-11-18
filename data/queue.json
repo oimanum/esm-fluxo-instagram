@@ -1214,5 +1214,86 @@
     "igMediaId": "18135600529682860",
     "postedAt": "2026-11-17T22:04:00.298Z",
     "storiesPosted": 4
+  },
+  {
+    "id": "ca8cb064",
+    "topic": "IA no atendimento para clínicas e estética",
+    "angle": "Inspirado no uso de IA por PMEs: mostrar como um chatbot inteligente integrado ao WhatsApp e ao site da clínica automatiza agendamentos 24h e evita a perda de pacientes fora do horário comercial.",
+    "format": "checklist",
+    "post": {
+      "label": "ATENDIMENTO 24H",
+      "hook": "Quantos pacientes você **perde toda noite**?",
+      "script": "Sua clínica responde mensagens de madrugada? | O paciente espera até o dia seguinte ou chama o concorrente? | Seu atendimento para no fim de semana? | Você perde agendamentos fora do horário comercial?",
+      "caption": "Quem procura estética ou clínica quer resposta rápida. Se o paciente manda mensagem no WhatsApp à noite e fica sem retorno, ele vai para o concorrente. Um chatbot inteligente integrado ao seu WhatsApp e ao seu site resolve isso. Ele faz o pré-atendimento e agenda horários a qualquer hora do dia ou da noite, sem que você precise ficar de plantão no celular. É mais facilidade para quem quer marcar e mais pacientes fechados para a sua clínica.",
+      "hashtags": [
+        "esmweb",
+        "atendimentoia",
+        "clinicadeestetica",
+        "gestaodeclinicas",
+        "whatsappparaclinicas"
+      ],
+      "cta": "Fale com a ESM Web"
+    },
+    "media": [
+      "out/ca8cb064/checklist-01.jpg"
+    ],
+    "status": "pending",
+    "createdAt": "2026-11-18T17:58:25.360Z",
+    "alternatives": [
+      {
+        "topic": "Por que só o Instagram não basta para fechar clientes",
+        "score": 9,
+        "angle": "Conectando com a necessidade de vendas e gestão: explicar que o perfil pode cair ou perder engajamento, enquanto um site profissional com SEO garante presença constante para quem busca serviços locais no Google."
+      },
+      {
+        "topic": "O perigo do site lento para o faturamento da sua clínica ou escritório",
+        "score": 8.5,
+        "angle": "Focado na experiência do usuário e conversão: provar que potenciais clientes desistem de agendar consulta ou contratar serviços jurídicos em menos de 3 segundos se o site demorar para carregar."
+      },
+      {
+        "topic": "Concorrente aparecendo primeiro no Google: o que você está perdendo?",
+        "score": 8.5,
+        "angle": "Foco em posicionamento local: mostrar que donos de negócios de estética, direito e energia solar perdem contratos diários porque o concorrente tem um site otimizado (SEO) que aparece no topo das buscas."
+      },
+      {
+        "topic": "A autoridade digital que falta: por que parecer amador afasta clientes de alto padrão",
+        "score": 8,
+        "angle": "Abordagem baseada em confiança: demonstrar que médicos, advogados e empresas de energia solar sem um site próprio e estruturado passam menos credibilidade do que aqueles com uma presença digital profissional."
+      },
+      {
+        "topic": "Automação e CRM para energia solar: da captação ao pós-venda",
+        "score": 7.5,
+        "angle": "Baseado na tendência do setor solar (CRM e monitoramento): explicar como integrar landing pages de alta conversão com ferramentas de automação para acelerar o fechamento de projetos solares."
+      },
+      {
+        "topic": "Como advogados podem usar inteligência e marketing digital sem violar a OAB",
+        "score": 7.5,
+        "angle": "Inspirado nas novidades do setor jurídico e IA: mostrar como escritórios de advocacia devem estruturar um site institucional focado em captação ética e autoridade no Google."
+      },
+      {
+        "topic": "Marketing contínuo para clínicas de estética: como transformar visitas em agendamentos",
+        "score": 7,
+        "angle": "Alinhado ao marketing B2B/B2C para 2027: debater a importância de unir tráfego pago, landing pages focadas em procedimentos específicos (como o boom de novos públicos na estética) e fechamento rápido no WhatsApp."
+      }
+    ],
+    "release": {
+      "tag": "post-ca8cb064",
+      "files": [
+        "checklist-01.jpg",
+        "story-01.jpg",
+        "story-02.jpg",
+        "story-03.jpg",
+        "story-04.jpg"
+      ]
+    },
+    "story": {
+      "media": [
+        "out/ca8cb064/story-01.jpg",
+        "out/ca8cb064/story-02.jpg",
+        "out/ca8cb064/story-03.jpg",
+        "out/ca8cb064/story-04.jpg"
+      ]
+    },
+    "messageId": 102
   }
 ]
