@@ -1298,5 +1298,86 @@
     "igMediaId": "18090197348334520",
     "postedAt": "2026-11-18T18:00:52.438Z",
     "storiesPosted": 4
+  },
+  {
+    "id": "525fee86",
+    "topic": "Inteligência Artificial no atendimento e marketing para pequenas empresas",
+    "angle": "Com palestras e eventos do Sebrae destacando a transformação digital e a IA, mostre que clínicas, estética e advogados perdem clientes se dependem apenas do WhatsApp manual e do Instagram. Apresente o site profissional integrado com IA como a chave para capturar leads 24h.",
+    "format": "post",
+    "post": {
+      "label": "ATENDIMENTO 24H",
+      "hook": "Sua clínica **perde agendamentos toda noite** respondendo mensagens no dia seguinte",
+      "script": "Um site profissional com atendimento inteligente acolhe visitantes e captura contatos qualificados mesmo quando suas portas estão fechadas.",
+      "caption": "Quanto tempo uma pessoa espera por uma resposta no seu WhatsApp antes de procurar outro profissional?\n\nSe alguém procura seu serviço à noite ou no final de semana e encontra apenas silêncio no direct, a escolha é simples: ela fecha com o concorrente que responder primeiro. Ficar dependente de respostas manuais custa pacientes e contratos todos os dias.\n\nTeste você mesmo: pesquise seu negócio no Google, pelo celular. Você aparece com clareza para quem precisa de ajuda imediata?\n\nUm site profissional integrado com inteligência artificial atende o visitante na hora, esclarece dúvidas iniciais e direciona o contato pronto para o seu WhatsApp a qualquer momento do dia. Sua empresa passa credibilidade imediata e você não perde oportunidades fora do horário comercial.",
+      "hashtags": [
+        "#marketingmedico",
+        "#gestaodeclinicas",
+        "#advocacia",
+        "#atendimentointeligente",
+        "#negocioslocais"
+      ],
+      "cta": "Fale conosco pelo **link da bio**"
+    },
+    "media": [
+      "out/525fee86/post-01.jpg"
+    ],
+    "status": "pending",
+    "createdAt": "2026-11-19T18:12:36.199Z",
+    "alternatives": [
+      {
+        "topic": "Cliente pesquisa no Google e não acha sua clínica ou escritório?",
+        "score": 9.5,
+        "angle": "Focado diretamente na dor principal do negócio local: o concorrente aparece primeiro no Google porque tem um site estruturado, enquanto sua empresa fica invisível. Demonstre o prejuízo financeiro de depender só do 'boca a boca' ou do Instagram."
+      },
+      {
+        "topic": "O fim do 'clique fácil' no marketing digital e a dependência do Instagram",
+        "score": 9,
+        "angle": "Inspirado na notícia de que a IA mudou as buscas, questione o dono de negócio local: e se o Instagram sair do ar ou o algoritmo barrar seu alcance? Mostrar que apenas o perfil na rede social não basta e que um site otimizado garante presença fixa no Google."
+      },
+      {
+        "topic": "Transformação digital para negócios locais: por que o site é o seu QG de vendas",
+        "score": 9,
+        "angle": "Conectando com as iniciativas de capacitação do Sebrae, explique que redes sociais são alugadas, mas o site é terreno próprio. Mostre como uma landing page rápida resolve problemas de agendamento e conversão para clínicas e profissionais liberais."
+      },
+      {
+        "topic": "Pressão estética na web: como sua clínica de estética passa confiança digital?",
+        "score": 8.5,
+        "angle": "Usando as discussões sobre pressão estética e procedimentos na mídia, conecte a necessidade de credibilidade: pacientes buscam clínicas de estética no Google. Se sua clínica tem um site amador, lento ou inexistente, a cliente desconfia antes mesmo de agendar."
+      },
+      {
+        "topic": "O futuro da advocacia digital e o posicionamento do escritório",
+        "score": 8.5,
+        "angle": "Aproveitando a alta de debates da OAB e tecnologia jurídica (IA e Fenalaw), mostre que advogados modernos precisam ir além do cartão de visitas físico. Um site profissional com foco em conversão e otimizado para o Google atrai clientes qualificados que buscam assessoria urgente."
+      },
+      {
+        "topic": "Energia solar e vendas digitais: o que aprender com o mercado B2B",
+        "score": 8,
+        "angle": "Com o aquecimento do setor de energia solar e investimentos corporativos, destaque que integradores solares perdem grandes projetos por terem sites lentos e sem autoridade. Landing pages focadas em conversão transformam cliques em orçamentos fechados."
+      },
+      {
+        "topic": "Serviços jurídicos e a barreira da confiança online",
+        "score": 8,
+        "angle": "Alinhado aos debates sobre o futuro da advocacia, mostre que o cliente em litígio pesquisa o nome do advogado no Google. Um escritório sem site passa menor percepção de autoridade e perde honorários valiosos para a concorrência digital."
+      }
+    ],
+    "release": {
+      "tag": "post-525fee86",
+      "files": [
+        "post-01.jpg",
+        "story-01.jpg",
+        "story-02.jpg",
+        "story-03.jpg",
+        "story-04.jpg"
+      ]
+    },
+    "story": {
+      "media": [
+        "out/525fee86/story-01.jpg",
+        "out/525fee86/story-02.jpg",
+        "out/525fee86/story-03.jpg",
+        "out/525fee86/story-04.jpg"
+      ]
+    },
+    "messageId": 110
   }
 ]
