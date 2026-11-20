@@ -1379,5 +1379,79 @@
       ]
     },
     "messageId": 110
+  },
+  {
+    "id": "91cab1ce",
+    "topic": "Por que confiar apenas no Instagram faz sua clínica ou escritório perder clientes no Google",
+    "angle": "Quando o cliente tem uma dor urgente (ex: dor de dente, processo judicial), ele pesquisa no Google, não no feed. Sem um site otimizado, seu concorrente que aparece nos primeiros resultados fica com o cliente.",
+    "format": "post",
+    "post": {
+      "label": "ERRO COMUM",
+      "hook": "Confiar só no Instagram faz você **perder clientes no Google**",
+      "script": "Quem tem uma urgência pesquisa direto no buscador e fecha com o concorrente que aparece primeiro.",
+      "caption": "Quando o dente dói ou surge uma dor jurídica urgente, ninguém vai rolar o feed do Instagram. A pessoa abre o Google para resolver o problema na hora.\n\nSe a sua clínica ou escritório não aparece nos primeiros resultados, você perde esse cliente para o concorrente que tem um site pronto para receber contatos.\n\nTeste você mesmo: pesquise seu serviço no Google, pelo celular. A sua empresa aparece?\n\nUm site otimizado coloca seu negócio onde as buscas de alta intenção acontecem, passando credibilidade e gerando agendamentos no seu WhatsApp a qualquer hora.",
+      "hashtags": [
+        "#marketingmedico",
+        "#advocacia",
+        "#siteprofissional",
+        "#esmweb",
+        "#negocioslocais"
+      ],
+      "cta": "Clique no link da bio e **fale no WhatsApp**"
+    },
+    "media": [
+      "out/91cab1ce/post-01.jpg"
+    ],
+    "status": "pending",
+    "createdAt": "2026-11-20T17:45:47.946Z",
+    "alternatives": [
+      {
+        "topic": "Seu concorrente aparece primeiro no Google? Entenda a estrutura por trás dos sites que dominam a busca local",
+        "score": 9.5,
+        "angle": "Desmistificamos o SEO local e Google Meu Negócio integrado ao site, mostrando como clínicas e escritórios locais podem tomar a liderança do concorrente na busca por serviços na região."
+      },
+      {
+        "topic": "Seu potencial cliente pesquisou sua empresa no Google e não achou nada? O custo invisível da falta de site",
+        "score": 9.4,
+        "angle": "Empresas sem site oficial passam a sensação de amadorismo ou menor credibilidade. Mostramos o impacto direto na decisão do cliente de fechar com quem tem presença profissional verificada no Google."
+      },
+      {
+        "topic": "Automação Jurídica: Como escritórios de advocacia captam clientes de alto ticket sem ferir o código da OAB",
+        "score": 9.3,
+        "angle": "Com base nas novidades sobre automação no direito, mostramos como uma Landing Page rápida e profissional transmite a autoridade necessária para converter buscas do Google em atendimentos no WhatsApp."
+      },
+      {
+        "topic": "Corrida do Verão na Estética: O perigo de perder agendamentos por causa de um site lento ou inexistente",
+        "score": 9.1,
+        "angle": "Com o aumento da busca por procedimentos estéticos na temporada, depender apenas de links na bio ou atendimento manual no Instagram faz a clínica perder pacientes para concorrentes que têm site rápido e agendamento simplificado."
+      },
+      {
+        "topic": "Empresas de Energia Solar: Por que investir em anúncios sem uma Landing Page de alta conversão é queimar dinheiro",
+        "score": 8.9,
+        "angle": "Vendas de alto valor (como sistemas fotovoltaicos) exigem extrema confiança. Se o anúncio leva para um site lento ou sem provas sociais claras, o lead abandona a página em menos de 3 segundos."
+      },
+      {
+        "topic": "IA e Automação no Atendimento: De nada adianta robô no WhatsApp se o seu site não gera leads qualificados",
+        "score": 8.7,
+        "angle": "Conectando as notícias de IA no marketing à dor real do empresário local: a inteligência artificial só converte se a estrutura digital (site + página de captura) atrair o público certo primeiro."
+      }
+    ],
+    "release": {
+      "tag": "post-91cab1ce",
+      "files": [
+        "post-01.jpg",
+        "story-01.jpg",
+        "story-02.jpg",
+        "story-03.jpg"
+      ]
+    },
+    "story": {
+      "media": [
+        "out/91cab1ce/story-01.jpg",
+        "out/91cab1ce/story-02.jpg",
+        "out/91cab1ce/story-03.jpg"
+      ]
+    },
+    "messageId": 116
   }
 ]
