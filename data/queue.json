@@ -1453,5 +1453,87 @@
       ]
     },
     "messageId": 116
+  },
+  {
+    "id": "49451b85",
+    "topic": "Alta da energia impulsiona busca por Energia Solar: Sua empresa aparece no Google quando o cliente decide cotar?",
+    "angle": "Conectar a notícia sobre o aumento de custos de combustível/energia impulsionando a energia solar com a dor de empresas do setor que investem em anúncios, mas perdem leads porque a landing page é lenta ou não transmite a credibilidade necessária para um investimento de alto valor.",
+    "format": "post",
+    "post": {
+      "label": "MERCADO SOLAR",
+      "hook": "A alta da energia atraiu compradores. Sua empresa **recebe esses orçamentos**?",
+      "script": "Investir em anúncios não traz retorno se sua página é lenta e não passa a credibilidade que um projeto solar exige.",
+      "caption": "A alta no custo de energia fez a busca por energia solar disparar. O problema é que muitos empresários investem em anúncios, mas perdem feio na hora de converter o lead.\n\nQuando o cliente decide cotar um projeto de alto valor, ele busca segurança. Se a sua página não transmite confiança ou demora para carregar, ele fecha a aba e chama o concorrente.\n\nO custo de não agir é alto: você paga pelo clique, mas vê o contrato ir embora todos os dias.\n\nSegundo o Google, 53% das visitas em celular são abandonadas quando a página demora mais de 3 segundos para carregar. Faça o teste você mesmo: pesquise seu negócio no Google, pelo celular. A sua página passa autoridade logo de cara?\n\nUm site rápido posiciona sua empresa no topo das pesquisas e coloca potenciais compradores falando com você no WhatsApp.\n\nFale com a ESM Web no WhatsApp pelo link da bio.",
+      "hashtags": [
+        "#energiasolar",
+        "#energiasolarbrasil",
+        "#marketingparaclínicas",
+        "#negocioslocais",
+        "#esmweb",
+        "#vendasnosetorsolar"
+      ],
+      "cta": "Clique no link da bio e **receba mais orçamentos**"
+    },
+    "media": [
+      "out/49451b85/post-01.jpg"
+    ],
+    "status": "pending",
+    "createdAt": "2026-11-21T16:45:18.056Z",
+    "alternatives": [
+      {
+        "topic": "Marketing Jurídico em alta: Por que o Instagram não é suficiente para advogados captarem clientes qualificados?",
+        "score": 9.4,
+        "angle": "Aproveitar as discussões do 1º CEMJU Summit sobre marketing jurídico para mostrar que, embora o Instagram crie conexão, é o site otimizado (SEO) que traz o cliente com intenção real de contratação quando ele pesquisa um especialista no Google. Sem site, o advogado perde espaço para concorrentes posicionados na primeira página."
+      },
+      {
+        "topic": "Transformação Digital nos Negócios Locais: Se o cliente pesquisa sua empresa no Google e não acha, ela existe?",
+        "score": 9.3,
+        "angle": "Aproveitar a pauta de transformação digital do Sebrae para alertar sobre a perda de credibilidade. Quando um potencial cliente ouve uma indicação e busca o nome da clínica/escritório no Google, não encontrar um site profissional gera desconfiança e faz o cliente optar pelo concorrente."
+      },
+      {
+        "topic": "Automação elevando em 90% a produtividade: Como um site com agendamento e IA filtra seus clientes no WhatsApp",
+        "score": 9.1,
+        "angle": "Com base na notícia sobre ganhos de produtividade com automação em escritórios, mostrar como uma landing page integrada com IA e WhatsApp qualifica o lead antes de ele falar com a recepção/secretária, evitando perder tempo com curiosos."
+      },
+      {
+        "topic": "Do Instagram ao Google: O que clínicas de estética precisam para transformar seguidores em agendamentos reais",
+        "score": 9,
+        "angle": "Inspirado nas histórias de sucesso do 'Mapa da Beleza', abordar a dor de clínicas estéticas que têm visualizações no Instagram, mas sofrem com agenda vazia. O site próprio com catálogo de procedimentos e botão de agendamento transmite o profissionalismo que faz o cliente fechar."
+      },
+      {
+        "topic": "Google vs Meta (Instagram): Por que depender de apenas uma rede social é perigoso para o seu negócio",
+        "score": 8.9,
+        "angle": "Aproveitar a disputa tecnológica entre Google e Meta para explicar ao dono de negócio local que o Instagram atrai atenção passiva, mas o Google pega o cliente no momento exato da dor. Sem um site próprio, o negócio fica refém dos algoritmos e fora das pesquisas no Google."
+      },
+      {
+        "topic": "IA e o novo papel dos gestores: Como clínicas e escritórios estão convertendo clientes 24 horas por dia",
+        "score": 8.8,
+        "angle": "Ligar a matéria da Exame sobre IA nas empresas à necessidade de ter um site moderno com atendimento inteligente. O cliente que pesquisa um serviço médico, estético ou jurídico à noite quer respostas rápidas, e o site com IA faz esse papel sem depender do horário comercial."
+      },
+      {
+        "topic": "O fenômeno de vendas do GTA VI: O que a velocidade e estabilidade de um site ensina para o seu negócio local?",
+        "score": 8.7,
+        "angle": "Usar o hype do recorde de vendas online do GTA VI para ilustrar como a velocidade da página impacta diretamente o faturamento. Se a landing page da clínica ou escritório demora mais de 3 segundos para carregar no celular do cliente, ele volta para o Google e clica no concorrente."
+      }
+    ],
+    "release": {
+      "tag": "post-49451b85",
+      "files": [
+        "post-01.jpg",
+        "story-01.jpg",
+        "story-02.jpg",
+        "story-03.jpg",
+        "story-04.jpg"
+      ]
+    },
+    "story": {
+      "media": [
+        "out/49451b85/story-01.jpg",
+        "out/49451b85/story-02.jpg",
+        "out/49451b85/story-03.jpg",
+        "out/49451b85/story-04.jpg"
+      ]
+    },
+    "messageId": 123
   }
 ]
