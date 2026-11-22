@@ -1535,5 +1535,79 @@
       ]
     },
     "messageId": 123
+  },
+  {
+    "id": "cb1b1e19",
+    "topic": "Por que depender APENAS do Instagram é o maior risco para o seu negócio local",
+    "angle": "Usando as discussões sobre saturação de conteúdo por IA e mudanças de algoritmo, o post alerta donos de clínicas, escritórios de advocacia e estética: se você não tem um site próprio no Google, sua empresa é invisível para o cliente que tem urgência e intenção real de compra.",
+    "format": "post",
+    "post": {
+      "label": "RISCO NO NEGÓCIO",
+      "hook": "Depender só do Instagram faz você **perder pacientes**",
+      "script": "Quando a pessoa tem urgência em contratar, ela pesquisa no Google e encontra o seu concorrente.",
+      "caption": "Se alguém precisa de uma clínica, escritório de advocacia ou serviço de estética com urgência, essa pessoa não fica rolando o feed. Ela vai direto ao Google.\n\nCom as mudanças constantes de algoritmo e a saturação de conteúdos nas redes sociais, depender apenas do Instagram é um risco diário. Quem não tem um site próprio fica invisível para o cliente que tem intenção real e imediata de compra.\n\nTeste você mesmo: pesquise o seu serviço no Google, pelo celular. Você aparece para quem precisa do seu atendimento agora?\n\nUm site próprio garante que sua empresa seja encontrada nas buscas, passe a confiança necessária e receba contatos no WhatsApp a qualquer hora do dia.\n\nFale conosco pelo link da bio e garanta mais agendamentos.",
+      "hashtags": [
+        "#negociolocal",
+        "#marketingmedico",
+        "#estetica",
+        "#advocacia",
+        "#esmweb"
+      ],
+      "cta": "Fale conosco pelo **link da bio**"
+    },
+    "media": [
+      "out/cb1b1e19/post-01.jpg"
+    ],
+    "status": "pending",
+    "createdAt": "2026-11-22T17:04:59.184Z",
+    "alternatives": [
+      {
+        "topic": "Invirtendo em anúncios mas sem retorno? O erro pode ser a sua página de destino",
+        "score": 9.5,
+        "angle": "Com base na notícia de que 42,7% dos empreendedores querem aprender propaganda, mostramos que fazer anúncios sem um site ou landing page de alta conversão é rasgar dinheiro. Jogar o tráfego pago apenas para o Instagram ou para um site lento faz você perder o cliente que estava pronto para agendar."
+      },
+      {
+        "topic": "Site Lento: o ralo silencioso que faz seu cliente contratar o concorrente",
+        "score": 9.4,
+        "angle": "Conectando a busca por eficiência e inteligência nos negócios, o post aborda a dor do cliente que pesquisa no Google, clica no seu link, mas desiste em 3 segundos porque o site não carrega no celular, indo direto para a clínica/escritório rival."
+      },
+      {
+        "topic": "A busca por Energia Solar disparou: sua empresa aparece no Google ou o concorrente leva?",
+        "score": 9.3,
+        "angle": "Aproveitando a tendência sobre o aumento dos custos de combustível impulsionando a energia solar, o post aborda como o consumidor de alto ticket pesquisa diretamente no Google. Quem só tem Instagram perde a venda para o concorrente que possui um site profissional e bem posicionado."
+      },
+      {
+        "topic": "Como pequenas clínicas e escritórios usam IA + Site para vender como gigantes",
+        "score": 9,
+        "angle": "Conectado à notícia de que a IA reduz a distância entre pequenas e grandes empresas, mostramos que ter um site rápido integrado com atendimento inteligente via WhatsApp garante agendamentos automáticos 24 horas por dia, sem deixar o cliente esperando."
+      },
+      {
+        "topic": "Clínicas de Estética e Saúde: como passar autoridade e segurança no primeiro clique",
+        "score": 8.8,
+        "angle": "A partir dos alertas e notícias sobre procedimentos estéticos, o ângulo foca na necessidade de credibilidade. O Instagram gera atração, mas é o site institucional (com termos claros, procedimentos explicados e registros profissionais) que faz o cliente sentir confiança para agendar."
+      },
+      {
+        "topic": "A lição dos grandes e-commerces: por que sua empresa precisa de uma estrutura própria",
+        "score": 8.6,
+        "angle": "Inspirado no marco de faturamento do GTA VI e e-commerces, o post mostra para advogados e empresários locais que ter um site é possuir um 'terreno próprio' na internet, enquanto o Instagram é um 'terreno alugado' sujeito a bloqueios e quedas de alcance."
+      }
+    ],
+    "release": {
+      "tag": "post-cb1b1e19",
+      "files": [
+        "post-01.jpg",
+        "story-01.jpg",
+        "story-02.jpg",
+        "story-03.jpg"
+      ]
+    },
+    "story": {
+      "media": [
+        "out/cb1b1e19/story-01.jpg",
+        "out/cb1b1e19/story-02.jpg",
+        "out/cb1b1e19/story-03.jpg"
+      ]
+    },
+    "messageId": 129
   }
 ]
