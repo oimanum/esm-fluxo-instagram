@@ -1609,5 +1609,131 @@
       ]
     },
     "messageId": 129
+  },
+  {
+    "id": "14a0ee6f",
+    "topic": "Seu escritório de advocacia não aparece no Google? Por que você está perdendo os clientes mais rentáveis para concorrentes com site próprio",
+    "angle": "Com base na busca dos empreendedores por investimento em propaganda e nas recentes decisões de reputação no Google, o post mostra que clientes com dores jurídicas urgentes buscam primeiro no Google, não no Instagram. Sem um site rápido e otimizado, o escritório fica invisível.",
+    "format": "reel",
+    "post": {
+      "label": "CLIENTES NO GOOGLE",
+      "hook": "Pessoas com urgência jurídica buscam no **Google**, não no Instagram.",
+      "script": "Sem um site próprio, seu escritório fica invisível para os clientes mais rentáveis. Teste você mesmo: pesquise seu serviço jurídico no celular. Seu concorrente aparece e recebe a mensagem antes de você. Além disso, 53% das pessoas desistem se a página demora 3 segundos. Um site profissional posiciona sua marca e atrai contatos a qualquer hora.",
+      "caption": "Quando alguém enfrenta um problema jurídico urgente, a primeira atitude não é olhar o Instagram. A pessoa vai direto ao Google buscar um especialista.\n\nSe o seu escritório de advocacia não tem um site próprio, rápido e otimizado, você fica invisível para quem está pronto para contratar.\n\nUm estudo do Google revela que 53% das visitas no celular são abandonadas quando a página demora mais de 3 segundos para carregar. Ou seja, velocidade e presença fazem toda a diferença.\n\nEnquanto você depende apenas de redes sociais, concorrentes com site estão fechando os contratos mais rentáveis.\n\nQuer garantir que seu escritório seja a primeira escolha?",
+      "hashtags": [
+        "#marketingjuridico",
+        "#advocacia",
+        "#escritoriodeadvocacia",
+        "#direito",
+        "#esmweb"
+      ],
+      "cta": "Toque no **link da bio** e receba mais contatos",
+      "visuals": [
+        {
+          "type": "versus",
+          "left": {
+            "title": "Sem site",
+            "items": [
+              "Invisível no Google",
+              "Perde contratos"
+            ]
+          },
+          "right": {
+            "title": "Com site",
+            "items": [
+              "Topo das buscas",
+              "Mais consultas"
+            ]
+          }
+        },
+        {
+          "type": "search",
+          "query": "advogado trabalhista perto de mim"
+        },
+        {
+          "type": "chat",
+          "msgs": [
+            {
+              "who": "cliente",
+              "text": "Preciso de atendimento jurídico."
+            },
+            {
+              "who": "voce",
+              "text": "Olá! Podemos agendar agora."
+            }
+          ]
+        },
+        {
+          "type": "stat",
+          "value": "53%",
+          "label": "Desistem se demorar 3s"
+        },
+        {
+          "type": "site",
+          "niche": 1
+        }
+      ]
+    },
+    "media": [
+      "out/14a0ee6f/reel.mp4"
+    ],
+    "status": "pending",
+    "createdAt": "2026-11-23T21:15:44.952Z",
+    "alternatives": [
+      {
+        "topic": "Direct lotado de curiosos, mas agenda da clínica vazia? Por que só o Instagram não basta para vender procedimentos estéticos",
+        "score": 9.3,
+        "angle": "Conectando o boom de notícias sobre estética (harmonização, tratamentos corporais) com a dor de gastar tempo respondendo 'quanto custa' no WhatsApp. Uma Landing Page filtra o cliente, transmite autoridade e faz o agendamento automático."
+      },
+      {
+        "topic": "Investindo em tráfego pago sem retorno? O erro de mandar o clique do anúncio para o WhatsApp em vez de uma Landing Page",
+        "score": 9.1,
+        "angle": "Baseado na pesquisa de que 42,7% dos empresários querem aprender propaganda. O post explica que fazer anúncios (Google/Meta Ads) sem uma Landing Page de alta conversão é rasgar dinheiro, pois o cliente chega sem contexto e abandona a conversa."
+      },
+      {
+        "topic": "Proposta de Energia Solar de R$ 30 mil pelo Direct? Por que a falta de um site institucional faz sua empresa perder contratos altos",
+        "score": 9,
+        "angle": "Aproveitando o crescimento do setor de energia renovável. Compradores de alto ticket exigem credibilidade e segurança institucional que o Instagram sozinho não transmite, necessitando de um site completo com simulador e cases."
+      },
+      {
+        "topic": "IA no atendimento de PMEs: como integrar seu WhatsApp a um site ultra-rápido para fechar agendamentos 24/7",
+        "score": 8.9,
+        "angle": "Ligando as notícias sobre a adoção desigual de IA em PMEs. Mostra como clínicas e escritórios podem automatizar o primeiro contato unindo um site de alta performance com agentes inteligentes para não perder clientes fora do horário comercial."
+      },
+      {
+        "topic": "3 segundos de lentidão = 50% a menos de clientes: como o site lento da sua clínica ou escritório destrói suas campanhas",
+        "score": 8.8,
+        "angle": "Focado na dor técnica do dono de negócio local. Explica o impacto da velocidade do site no índice de qualidade do Google Ads e na perda imediata de potenciais pacientes/clientes que desistem de esperar a página carregar."
+      },
+      {
+        "topic": "Prospecção ética para advogados: como usar Landing Pages dentro das normas da OAB para atrair casos qualificados",
+        "score": 8.7,
+        "angle": "Conectando as notícias sobre diretrizes da OAB e eventos jurídicos. Demonstra como uma Landing Page informativa e sóbria respeita o código de ética da OAB enquanto posiciona o advogado como referência na busca do Google."
+      },
+      {
+        "topic": "Por que clínicas estéticas que cobram mais caro não dependem apenas de redes sociais",
+        "score": 8.5,
+        "angle": "Explora a alta procura por procedimentos estéticos e a necessidade de posicionamento premium. Um site com design exclusivo e depoimentos gera percepção de valor superior, permitindo cobrar consultas mais altas sem guerra de preços."
+      }
+    ],
+    "release": {
+      "tag": "post-14a0ee6f",
+      "files": [
+        "reel.mp4",
+        "story-01.jpg",
+        "story-02.jpg",
+        "story-03.jpg",
+        "story-04.jpg"
+      ]
+    },
+    "story": {
+      "media": [
+        "out/14a0ee6f/story-01.jpg",
+        "out/14a0ee6f/story-02.jpg",
+        "out/14a0ee6f/story-03.jpg",
+        "out/14a0ee6f/story-04.jpg"
+      ]
+    },
+    "messageId": 137
   }
 ]
