@@ -1816,7 +1816,7 @@
       "out/dc4f3a85/slide-05.jpg",
       "out/dc4f3a85/slide-06.jpg"
     ],
-    "status": "swap",
+    "status": "swapped",
     "createdAt": "2026-11-24T20:07:20.581Z",
     "alternatives": [
       {
@@ -1874,5 +1874,128 @@
       ]
     },
     "messageId": 150
+  },
+  {
+    "id": "9315a9f7",
+    "topic": "Blog em 2026 ainda funciona? Como respostas no Google e IAs atraem clientes para clínicas e advogados",
+    "angle": "Conectando à notícia sobre o impacto dos blogs na era da IA: buscas de clientes e ferramentas de IA recomendam empresas que possuem sites com conteúdo estruturado. Sem site, sua clínica ou escritório fica invisível para o motor de busca e para as IAs.",
+    "format": "carousel",
+    "post": {
+      "label": "VISIBILIDADE E IAS",
+      "hook": "Ter um blog faz você **atrair mais pacientes** no Google.",
+      "sub": "Descubra como buscas e IAs recomendam sua clínica para novos clientes.",
+      "script": "Ter um blog faz você atrair mais pacientes no Google | As IAs e o Google recomendam sites | Sua presença na internet | 53% das visitas mobile são abandonadas | Faça o teste agora | Toque no link da bio e fale conosco pelo WhatsApp",
+      "caption": "Quando um cliente procura por um médico ou advogado no Google, ele quer respostas rápidas.\n\nSe a sua empresa não tem um site com conteúdo organizado, você fica invisível tanto para os buscadores quanto para as novas ferramentas de IA. Elas recomendam exatamente quem possui informação estruturada na web.\n\nO custo de não agir é perder agendamentos todos os dias para o concorrente que já aparece nas pesquisas.\n\nEstudo do Google (The Need for Mobile Speed) mostra que 53% das visitas em celular são abandonadas quando a página demora mais de 3 segundos para carregar.\n\nTeste você mesmo: pesquise seu negócio no Google, pelo celular. Você aparece de primeira?\n\nTer um site rápido e informativo faz sua marca aparecer no topo, passar confiança e receber mensagens no WhatsApp a qualquer hora do dia.\n\nToque no link da bio e fale conosco pelo WhatsApp",
+      "hashtags": [
+        "#marketingmedico",
+        "#marketingjuridico",
+        "#siteparaclinicas",
+        "#siteparaadvogados",
+        "#esmweb",
+        "#presencadigital"
+      ],
+      "cta": "Toque no link da bio e fale conosco pelo WhatsApp",
+      "slides": [
+        {
+          "kind": "statement",
+          "kicker": "MUDANÇA NAS BUSCAS",
+          "title": "As IAs e o Google **recomendam sites** com respostas diretas",
+          "body": "Seu cliente faz perguntas no celular. Sem um site com conteúdo claro, a IA indica a clínica concorrente."
+        },
+        {
+          "kind": "versus",
+          "title": "Sua presença na internet",
+          "bad": {
+            "label": "SÓ REDES SOCIAIS",
+            "text": "Post antigo sumindo e **IAs não lendo** sua empresa"
+          },
+          "good": {
+            "label": "SITE COM CONTEÚDO",
+            "text": "Páginas ativas que **atraem novos clientes** todo dia"
+          },
+          "tip": {
+            "label": "RESULTADO",
+            "text": "Sua empresa é recomendada no momento exato da dúvida."
+          },
+          "why": "Ferramentas de busca e IAs priorizam textos bem estruturados em sites para indicar serviços."
+        },
+        {
+          "kind": "big",
+          "value": "53%",
+          "label": "das visitas em celular são abandonadas se a página demora mais de 3 s…"
+        },
+        {
+          "kind": "numbered",
+          "n": 1,
+          "title": "Faça o teste agora",
+          "body": "Pesquise seu serviço no Google pelo celular. **Seu negócio aparece** para quem precisa?",
+          "card": {
+            "label": "DIAGNÓSTICO",
+            "text": "Se você não aparece, o agendamento vai para quem tem site."
+          }
+        }
+      ]
+    },
+    "media": [
+      "out/9315a9f7/slide-01.jpg",
+      "out/9315a9f7/slide-02.jpg",
+      "out/9315a9f7/slide-03.jpg",
+      "out/9315a9f7/slide-04.jpg",
+      "out/9315a9f7/slide-05.jpg",
+      "out/9315a9f7/slide-06.jpg"
+    ],
+    "status": "pending",
+    "createdAt": "2026-11-24T20:47:48.916Z",
+    "alternatives": [
+      {
+        "topic": "Google Meu Negócio + Site Próprio: A combinação exata para dominar a sua região",
+        "score": 9.1,
+        "angle": "Mostrando a dor do dono de negócio que investe em anúncios no Instagram, mas vê o concorrente local aparecer primeiro no Google. Ter o perfil no Google linkado a um site rápido garante o topo das buscas locais e dobra os pedidos de orçamento."
+      },
+      {
+        "topic": "Além do feed bonito: Por que clínicas de estética perdem procedimentos de alto valor por não ter site",
+        "score": 9,
+        "angle": "Ligando com as tendências do mercado da beleza e harmonização facial: pacientes que investem alto pesquisam autoridade, segurança e portfólio no Google. O Instagram passa apelo visual, mas o site transmite a credibilidade necessária para fechar o agendamento."
+      },
+      {
+        "topic": "O segredo das empresas de Energia Solar que faturam milhões: Landing Pages de Alta Conversão",
+        "score": 8.8,
+        "angle": "Aproveitando o boom das fazendas solares e recordes do setor: empresas de energia solar não vendem projetos complexos só pelo direct do Instagram. Elas precisam de uma Landing Page rápida, com calculadora de economia e integração direta ao WhatsApp."
+      },
+      {
+        "topic": "Advocacia e autoridade digital: Por que um site lento ou a falta dele faz você perder contratos no Google",
+        "score": 8.7,
+        "angle": "Com base nos eventos e atualizações da advocacia: o cliente jurídico busca discrição e confiança. Se ele pesquisa seu nome ou especialidade, encontra um site lento ou não encontra nada, ele clica imediatamente no concorrente que está no topo do Google."
+      },
+      {
+        "topic": "Gargalo no WhatsApp? Como ter um site integrado com agendamento automático 24/7",
+        "score": 8.6,
+        "angle": "Conectando à pauta de produtividade e IA no atendimento: donos de clínicas e serviços locais perdem clientes à noite e nos fins de semana porque o atendimento depende do WhatsApp manual. Um site moderno capta e agenda consultas automaticamente."
+      }
+    ],
+    "release": {
+      "tag": "post-9315a9f7",
+      "files": [
+        "slide-01.jpg",
+        "slide-02.jpg",
+        "slide-03.jpg",
+        "slide-04.jpg",
+        "slide-05.jpg",
+        "slide-06.jpg",
+        "story-01.jpg",
+        "story-02.jpg",
+        "story-03.jpg",
+        "story-04.jpg"
+      ]
+    },
+    "story": {
+      "media": [
+        "out/9315a9f7/story-01.jpg",
+        "out/9315a9f7/story-02.jpg",
+        "out/9315a9f7/story-03.jpg",
+        "out/9315a9f7/story-04.jpg"
+      ]
+    },
+    "messageId": 161
   }
 ]
