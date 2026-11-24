@@ -2070,7 +2070,7 @@
       "out/dbb4d384/slide-05.jpg",
       "out/dbb4d384/slide-06.jpg"
     ],
-    "status": "pending",
+    "status": "swap",
     "createdAt": "2026-11-24T21:16:05.319Z",
     "alternatives": [
       {
@@ -2160,6 +2160,7 @@
         "out/dbb4d384/story-04.jpg"
       ]
     },
-    "messageId": 173
+    "messageId": 173,
+    "redo": true
   }
 ]
