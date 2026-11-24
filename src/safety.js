@@ -1,6 +1,7 @@
 import { plain } from './text.js';
 import { numbersIn } from './facts.js';
 import { slideTexts } from './slides.js';
+import { hasBridge } from './bridge.js';
 
 const words = (s) => plain(s).trim().split(/\s+/).filter(Boolean).length;
 
@@ -56,6 +57,7 @@ export function checkPost(post, format, { allowedNumbers = new Set(), keyword, s
   // No checklist o fechamento é "pergunta? chamada." por desenho; nos demais, o CTA é uma frase só.
   const manySentences = format !== 'checklist' && (post.cta || '').match(/[.!?]\s+\S/g)?.length > 0;
   if (!post.cta || manySentences) problems.push('CTA ausente ou múltiplo');
+  if (!hasBridge(post, format)) problems.push('falta a ponte no final: ligue o assunto ao porquê de um site ou sistema feito sob medida (ESM Web)');
   const all = [post.hook, post.script, post.caption, post.cta, visualText(post.visuals), (post.slides || []).flatMap(slideTexts).join(' '), post.sub || ''].join(' \n ');
   for (const re of BLOCKED) if (re.test(all)) problems.push(`alegação bloqueada: ${re}`);
   if (keyword && !plain(post.cta || '').toLowerCase().includes(keyword.toLowerCase())) problems.push(`o CTA deve convidar a comentar a palavra ${keyword}`);

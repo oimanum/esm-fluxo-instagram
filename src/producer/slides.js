@@ -136,6 +136,13 @@ ${s.why ? `<div class="note"><b>Por que funciona:</b> ${esc(s.why)}</div>` : ''}
 ${s.items.map((i) => `<div class="crow"><div class="chk">${CHECK('#0A0B0D')}</div><span>${esc(plain(i))}</span></div>`).join('')}
 ${s.footer ? `<div class="sub" style="font-size:34px;margin-top:30px">${tx(s.footer)}</div>` : ''}`,
   }),
+  bridge: (s) => ({
+    theme: 'pp', area: 'center',
+    body: `<div class="kick">Como a ESM Web resolve</div>
+<div class="h" style="font-size:${size(plain(s.title).length, [[40, 90], [70, 78], [999, 66]])}px">${tx(s.title)}</div>
+${s.text ? `<div class="sub" style="font-size:34px;margin-top:34px">${tx(s.text)}</div>` : ''}
+<div class="dcard"><div class="lb">Feito sob medida</div><div class="tx">Site, página ou sistema criado para o seu negócio</div></div>`,
+  }),
   cta: (s, c) => {
     const key = parseEmphasis(s.title).find((p) => p.strong && plain(p.text).trim().length <= 14 && parseEmphasis(s.title).some((q) => !q.strong));
     return {

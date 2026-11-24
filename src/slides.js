@@ -65,3 +65,11 @@ export function slidesFor(post) {
     ? { kind: 'statement', kicker: i === 0 ? 'COMEÇA POR AQUI' : '', title: text, body: '' }
     : { kind: 'numbered', n: i, title: text, body: '' }));
 }
+
+// Ponte do carrossel: { title, text } curtos; sem título ou texto, nada.
+export function cleanBridge(b) {
+  if (!b || typeof b !== 'object') return null;
+  const title = clip(b.title, 70);
+  const text = clip(b.text, 180);
+  return title && text ? { title, text } : null;
+}

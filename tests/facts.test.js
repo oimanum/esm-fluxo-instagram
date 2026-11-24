@@ -42,7 +42,7 @@ test('writer prompt is value-first (useful, savable, specific), keeps the honest
   await writePost({ topic: 't', format: 'reel', llm: async (o) => { prompt = o.prompt; return {}; }, facts: { text: 'x', allowedNumbers: new Set(), data: {} }, funnel: { enabled: true, keyword: 'SITE' } });
   assert.ok(/SALVAR e MANDAR/.test(prompt));
   assert.ok(/GANCHO VIRAL/.test(prompt));
-  assert.ok(/NÃO transforme o post em "você precisa de um site"/.test(prompt));
+  assert.ok(/NÃO transforme o post inteiro em "você precisa de um site"/.test(prompt));
   assert.ok(!/PRECISA de um site/.test(prompt));
   assert.ok(/nunca.*(clientes|depoimentos|experi)/i.test(prompt));
   assert.ok(prompt.includes('Comente **SITE**'));

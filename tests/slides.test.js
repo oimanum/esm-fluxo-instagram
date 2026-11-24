@@ -20,7 +20,7 @@ const S = [
   { kind: 'list', title: 'No seu site', tag: 'O essencial', items: [{ name: 'Google', desc: 'Aparece na busca.' }, { name: 'WhatsApp', desc: 'Botão direto.' }, { name: 'Confiança', desc: 'Passa segurança.' }] },
   { kind: 'versus', title: 'Como pedir um site', bad: { label: 'ruim', text: 'Quero um site bonito.' }, good: { label: 'bom', text: 'Quero que o cliente chame no WhatsApp.' }, tip: { label: 'O que fazemos', text: 'Desenhamos para gerar contato.' }, why: 'Diz o objetivo.' },
 ];
-const post = { label: 'ERRO COMUM', hook: 'Só Instagram **não basta**', sub: 'O cliente confere no Google.', script: 'a | b | c', caption: 'c', hashtags: [], cta: 'Comente **SITE** e receba o caminho', slides: S };
+const post = { label: 'ERRO COMUM', hook: 'Só Instagram **não basta**', sub: 'O cliente confere no Google.', script: 'a | b | c', caption: 'c', hashtags: [], cta: 'Comente **SITE** e receba o caminho', slides: S, bridge: { title: 'É aqui que um **site sob medida** entra', text: 'Uma página própria responde a essa busca por você, o dia todo.' } };
 
 test('slides: invalid kinds and incomplete slides are dropped, texts clipped, lists capped', () => {
   assert.equal(cleanSlide({ kind: 'hack' }), null);
@@ -39,9 +39,9 @@ test('slides: without suggestions they come from the script, alternating stateme
   assert.ok(slideTexts(S[3]).includes('Quero um site bonito.'));
   assert.equal(slideTitle(S[2]), 'No seu site');
 });
-test('carousel with chosen slide kinds renders cover + slides + CTA as 1080x1350 JPEGs', async () => {
+test('carousel with chosen slide kinds renders cover + slides + the bridge + CTA as 1080x1350 JPEGs', async () => {
   const { paths } = await renderCarousel(post, await mkdtemp(join(tmpdir(), 'cv-')));
-  assert.equal(paths.length, 6);
+  assert.equal(paths.length, 7);
   assert.ok(paths.every((p) => p.endsWith('.jpg') && probe(p) === '1080,1350'));
 });
 test('story frames are rendered in the same style at 1080x1920', async () => {
@@ -67,10 +67,25 @@ test('writer: a carousel keeps the cleaned slides and builds the script from the
   assert.equal(reel.slides, undefined);
 });
 test('safety: texts inside the slides are checked too (blocked claims, numbers without a source)', () => {
-  const ok = { hook: 'Só Instagram **não basta**', script: 'a | b | c', caption: 'c', hashtags: [], cta: 'Chame no **WhatsApp**', slides: S };
+  const ok = { hook: 'Só Instagram **não basta**', script: 'a | b | c', caption: 'c', hashtags: [], cta: 'Chame no **WhatsApp**', slides: S, bridge: { title: 'Aqui entra um site sob medida', text: 'Ele responde por você.' } };
   assert.equal(checkPost(ok, 'carousel').ok, true);
   const bad = { ...ok, slides: [{ kind: 'big', value: '87%', label: 'dos clientes escolhem quem tem site' }, ...S] };
   assert.equal(checkPost(bad, 'carousel').ok, false);
   const claim = { ...ok, slides: [{ kind: 'statement', title: 'Resultado garantido em 30 dias', body: '' }, ...S] };
   assert.equal(checkPost(claim, 'carousel').ok, false);
+});
+
+import { cleanBridge } from '../src/slides.js';
+import { hasBridge } from '../src/bridge.js';
+test('bridge: cleaned, clipped, dropped when incomplete; stories get a "Como resolver" frame before the CTA', () => {
+  assert.equal(cleanBridge({ title: 'só título' }), null);
+  assert.equal(cleanBridge(null), null);
+  const b = cleanBridge({ title: 'x'.repeat(200), text: 'y'.repeat(400) });
+  assert.ok(b.title.length <= 70 && b.text.length <= 180);
+  const f = storyFrames(post, 'carousel');
+  const i = f.findIndex((x) => x.kicker === 'Como resolver');
+  assert.ok(i > 0 && i === f.length - 2, JSON.stringify(f.map((x) => x.kicker)));
+  assert.match(f[i].title, /site sob medida/);
+  assert.equal(f[f.length - 1].kind, 'cta');
+  assert.equal(hasBridge({ script: 'x' }, 'reel'), false);
 });

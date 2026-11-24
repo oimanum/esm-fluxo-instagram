@@ -4,7 +4,7 @@ import { config } from './config.js';
 import { PILLARS } from './pillars.js';
 import { plain } from './text.js';
 import { visualsFor } from './visuals.js';
-import { cleanSlide, slideTitle } from './slides.js';
+import { cleanSlide, slideTitle, cleanBridge } from './slides.js';
 
 const SLIDES_SPEC = `SLIDES (só no Carrossel): inclua "slides", de 3 a 6 slides de conteúdo (sem a capa e sem o CTA, que já existem), cada um do tipo que MELHOR mostra aquela ideia, variando os tipos. Marque com ** a parte principal das frases. Tipos e campos:
 - {"kind":"statement","kicker":"COMEÇA POR AQUI","title":"frase forte (até 90 caracteres)","body":"explicação curta (até 180)"}  (afirmação, abertura, virada)
@@ -52,22 +52,31 @@ export async function writePost({ topic, format, llm, angle = '', facts, funnel 
   const pl = PILLARS[pillar];
   const pillarBlock = pl ? `PILAR: ${pl.nome}. ${pl.descricao}. Formas de gancho que funcionam aqui: ${pl.ganchos.join(' | ')}.${pl.cuidado ? ` CUIDADO: ${pl.cuidado}` : ''}\nPÚBLICO: ${niche || 'dono de negócio local'}. Fale com esse público de forma específica (cenário, exemplo e vocabulário dele), sem só trocar a palavra do nicho.` : '';
   const recentBlock = recentHooks.length ? `JÁ PUBLICADOS (não repita a ideia nem a estrutura do gancho):\n${recentHooks.map((h) => `- ${h}`).join('\n')}` : '';
+  const FMT = {
+    reel: 'No Reel, as 1 ou 2 ÚLTIMAS frases do "script" são a ponte (antes do CTA).',
+    carousel: 'No carrossel, o campo "bridge" ({"title":"frase curta que liga o assunto à solução","text":"como o site ou sistema sob medida resolve isso, em até 170 caracteres"}) vira o penúltimo slide.',
+    post: 'No post de imagem única, o "script" (a frase de apoio) É a ponte: liga o gancho ao porquê de um site ou sistema sob medida.',
+    checklist: 'No checklist, a frase de fechamento ("cta") é a ponte: liga o resultado do teste ao porquê de um site ou sistema sob medida.',
+  }[format] || '';
+  const ponte = `PONTE (obrigatória, só no FINAL do post): ligue o assunto ao porquê de este negócio precisar de um SITE ou de um SISTEMA feito sob medida pela ESM Web (página que converte, agendamento online, WhatsApp integrado, painel ou CRM, automação do atendimento). Escolha o que combina com o assunto e diga, de forma concreta, o que falta no negócio e como isso resolve EXATAMENTE aquele problema. Sem prometer resultado e sem citar clientes ou casos. O corpo do post continua entregando valor: NÃO transforme o post inteiro em "você precisa de um site". ${FMT}`;
   const valor = [
     'OBJETIVO DO POST: entregar valor de verdade para o dono do negócio (ensinar, esclarecer ou alertar sobre algo que ele precisa saber), de um jeito que ele queira SALVAR e MANDAR para alguém. A autoridade e a venda nascem de ajudar.',
     pillarBlock,
     'GANCHO VIRAL: precisa parar a rolagem em 2 segundos com uma promessa concreta, uma contradição ("pare de..."), um erro que a pessoa comete sem saber ou uma pergunta que ela não sabe responder. Nada de gancho genérico.',
     'ESTRUTURA: gancho, por que importa (a consequência real), o conteúdo útil (passos, regra, comparação ou explicação simples) e um fechamento com o próximo passo.',
     'VALOR: quem terminar de ler precisa saber FAZER ou ENTENDER algo novo. Sem generalidade ("invista em marketing"); dê instruções que dá para executar hoje, com exemplo do dia a dia do público.',
-    'O SITE: só aparece quando for a solução natural do assunto, no máximo uma vez (em um passo ou no fechamento). NÃO transforme o post em "você precisa de um site".',
+    ponte,
     recentBlock,
     'NUNCA cite clientes, depoimentos, cases, número de projetos ou tempo de experiência: você não tem esses fatos.',
   ].filter(Boolean).join('\n');
   const vis = format === 'reel' ? `\n${VISUALS_SPEC}\n` : '';
-  const prompt = `Escreva um post de Instagram em pt-BR para a ESM Web.\nTema: ${topic}\nÂngulo: ${angle}\n${spec}\nUm único CTA, curto, sem pontuação final extra. Sem promessa de resultado garantido.\nGANCHO: foque no benefício que o cliente recebe (mais pacientes, mais agendamentos, mais contatos), nunca na técnica: é proibido citar React, HTML, CSS, código ou framework.\nFATOS (únicos números, resultados e clientes que você pode citar):\n${facts.text}\nSem fato que sustente, não invente: use a dor do cliente, uma pergunta ou a consequência.\n${valor}\n${ctaRule}${vis}${sl}\nNÚMEROS: o tema e o ângulo vêm de notícias e podem citar números, valores em R$, US$ ou porcentagens. NÃO repita nenhum deles nos textos; os únicos números permitidos são os de FATOS.${fb}\nVisual: "label" é uma etiqueta curta em CAIXA ALTA (até 28 caracteres, ex.: TESTE RÁPIDO, NOSSO PROCESSO, ERRO COMUM). No "hook", nos slides do carrossel e no "cta", marque com ** a parte principal da frase (ex.: Seu site **perde paciente** todo dia); o resto fica em peso leve. Marque no máximo uma parte por frase. No "script" do Reel NÃO use **.\n\n${voice}\n\nResponda JSON: {"label":string,"hook":string,"script":string,"caption":string,"hashtags":string[],"cta":string${format === 'reel' ? ',"visuals":object[]' : ''}${format === 'carousel' ? ',"slides":object[],"sub":string' : ''}}`;
+  const prompt = `Escreva um post de Instagram em pt-BR para a ESM Web.\nTema: ${topic}\nÂngulo: ${angle}\n${spec}\nUm único CTA, curto, sem pontuação final extra. Sem promessa de resultado garantido.\nGANCHO: foque no benefício que o cliente recebe (mais pacientes, mais agendamentos, mais contatos), nunca na técnica: é proibido citar React, HTML, CSS, código ou framework.\nFATOS (únicos números, resultados e clientes que você pode citar):\n${facts.text}\nSem fato que sustente, não invente: use a dor do cliente, uma pergunta ou a consequência.\n${valor}\n${ctaRule}${vis}${sl}\nNÚMEROS: o tema e o ângulo vêm de notícias e podem citar números, valores em R$, US$ ou porcentagens. NÃO repita nenhum deles nos textos; os únicos números permitidos são os de FATOS.${fb}\nVisual: "label" é uma etiqueta curta em CAIXA ALTA (até 28 caracteres, ex.: TESTE RÁPIDO, NOSSO PROCESSO, ERRO COMUM). No "hook", nos slides do carrossel e no "cta", marque com ** a parte principal da frase (ex.: Seu site **perde paciente** todo dia); o resto fica em peso leve. Marque no máximo uma parte por frase. No "script" do Reel NÃO use **.\n\n${voice}\n\nResponda JSON: {"label":string,"hook":string,"script":string,"caption":string,"hashtags":string[],"cta":string${format === 'reel' ? ',"visuals":object[]' : ''}${format === 'carousel' ? ',"slides":object[],"sub":string,"bridge":{"title":string,"text":string}' : ''}}`;
   const post = await llm({ prompt, schema: valid });
   if (format === 'carousel') {
     // Slides escolhidos pela IA (limpos); o "script" vira o resumo por títulos, usado na checagem e nos stories.
     const slides = (Array.isArray(post.slides) ? post.slides : []).map(cleanSlide).filter(Boolean).slice(0, 6);
+    post.bridge = cleanBridge(post.bridge);
+    if (!post.bridge) delete post.bridge;
     if (slides.length >= 3) {
       post.slides = slides;
       if (!post.script || !String(post.script).trim()) post.script = slides.map((x) => plain(slideTitle(x))).join(' | ');

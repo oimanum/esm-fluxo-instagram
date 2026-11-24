@@ -28,7 +28,7 @@ test('splitSegments cuts by sentence and splits long ones', () => {
   assert.ok(segs.every((s) => s.length <= 110));
 });
 test('safety counts words without ** markers', () => {
-  assert.equal(checkPost({ ...post, hook: 'a **b** c', cta: 'x **y**', script: words(60) }, 'reel').ok, true);
+  assert.equal(checkPost({ ...post, hook: 'a **b** c', cta: 'x **y**', script: `${words(60)}. Um site sob medida resolve.` }, 'reel').ok, true);
 });
 test('tts never receives ** markers', async () => {
   const dir = await mkdtemp(join(tmpdir(), 'tts-'));

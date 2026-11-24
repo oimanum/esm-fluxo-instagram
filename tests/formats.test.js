@@ -18,9 +18,9 @@ test('a single-image post is one 1080x1350 JPEG', async () => {
   assert.ok(paths[0].endsWith('.jpg'));
   assert.equal(probe(paths[0]), '1080,1350');
 });
-test('story frames are 1080x1920 JPEGs, 3 to 4 per day', async () => {
+test('story frames are 1080x1920 JPEGs, 3 to 5 per day', async () => {
   const { paths } = await renderStory(post, await mkdtemp(join(tmpdir(), 'st-')), { format: 'post' });
-  assert.ok(paths.length >= 3 && paths.length <= 4, String(paths.length));
+  assert.ok(paths.length >= 3 && paths.length <= 5, String(paths.length));
   assert.ok(paths.every((p) => p.endsWith('.jpg') && probe(p) === '1080,1920'));
 });
 test('story frames come from the post itself: hook first, CTA last, no new text invented', () => {
