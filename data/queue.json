@@ -2070,7 +2070,7 @@
       "out/dbb4d384/slide-05.jpg",
       "out/dbb4d384/slide-06.jpg"
     ],
-    "status": "swap",
+    "status": "swapped",
     "createdAt": "2026-11-24T21:16:05.319Z",
     "alternatives": [
       {
@@ -2162,5 +2162,172 @@
     },
     "messageId": 173,
     "redo": true
+  },
+  {
+    "id": "faa07cbe",
+    "topic": "Como responder avaliações negativas no Google sem violar o sigilo médico nem afastar novos pacientes",
+    "angle": "Passo a passo com modelo prático para responder reviews de 1 estrela protegendo os dados do paciente e demonstrando profissionalismo para potenciais clientes.",
+    "pillar": null,
+    "niche": null,
+    "format": "carousel",
+    "post": {
+      "label": "REPUTAÇÃO MÉDICA",
+      "hook": "Transforme uma avaliação ruim no Google em **confiança para novos pacientes**",
+      "sub": "O passo a passo seguro para responder reviews sem violar o sigilo médico.",
+      "script": "Avaliação ruim no Google? | O erro no sigilo médico | O modelo seguro de resposta | Sua clínica com atendimento organizado | Chame no WhatsApp",
+      "caption": "Uma avaliação de 1 estrela no Google assusta, mas a forma como você responde pode ser o motivo exato para um novo paciente agendar uma consulta.\n\nQuando alguém procura um médico no Google, essa pessoa não olha apenas as estrelas: ela lê as respostas da clínica para saber como será tratada.\n\nO grande desafio na medicina é responder sem violar o sigilo médico ou a LGPD. Você jamais deve confirmar que a pessoa esteve na clínica, nem discutir diagnósticos ou condutas em um comentário público.\n\nPasso a passo para responder com segurança:\n\n1. Mantenha a calma e não debata online.\n2. Não confirme nem negue o atendimento daquele paciente específico.\n3. Reafirme o compromisso da sua clínica com a qualidade e o sigilo das informações.\n4. Direcione o contato para um canal privado (e-mail ou telefone da ouvidoria).\n\nModelo prático para copiar e adaptar:\n\"Olá! Prezamos pelo alto padrão de atendimento e pelo respeito rigoroso ao sigilo das informações. Como não expomos detalhes de atendimentos em canais públicos, pedimos que entre em contato diretamente pelo nosso canal oficial de atendimento [e-mail/telefone] para que nossa equipe possa ouvir você e ajudar da melhor forma.\"\n\nQuem lê essa resposta percebe postura ética, seriedade e respeito.\n\n---\n\nDepois que o paciente decide agendar, a experiência dele precisa ser simples. Se a sua clínica ainda depende apenas de mensagens soltas para marcar consultas, você perde pacientes interessados.\n\nUm site sob medida desenvolvido pela ESM Web resolve isso com agendamento online integrado e botão direto para o WhatsApp da sua equipe.",
+      "hashtags": [
+        "#marketingmedico",
+        "#gestaodeclinicas",
+        "#medicina",
+        "#esmweb",
+        "#siteparaclinica"
+      ],
+      "cta": "Clique no link da bio ou **chame no WhatsApp** para estruturar a presença digital da sua clínica",
+      "slides": [
+        {
+          "kind": "versus",
+          "title": "Como responder críticas",
+          "bad": {
+            "label": "ERRO GRAVE",
+            "text": "Confirmar a consulta e **discutir o caso clínico** publicamente"
+          },
+          "good": {
+            "label": "JEITO CERTO",
+            "text": "Agradecer o contato e **levar a conversa ao privado** sem expor dados"
+          },
+          "tip": {
+            "label": "REGRA DE OURO",
+            "text": "Nunca confirme publicamente que a pessoa foi atendida na clínica."
+          },
+          "why": "Protege sua clínica juridicamente e demonstra ética aos futuros pacientes."
+        },
+        {
+          "kind": "numbered",
+          "n": 1,
+          "title": "O modelo seguro de resposta",
+          "body": "Responda com postura ética, reafirme seus padrões e **convide para o canal privado**.",
+          "card": {
+            "label": "MODELO PRÁTICO",
+            "text": "Prezamos pelo sigilo e qualidade. Entre em contato pelo nosso canal o…"
+          }
+        },
+        {
+          "kind": "numbered",
+          "n": 2,
+          "title": "Pense no futuro paciente",
+          "body": "Quem busca seu nome no Google **lê como você reage**. Respostas serenas geram agendamentos.",
+          "card": {
+            "label": "O IMPACTO",
+            "text": "O visitante indeciso ganha confiança na sua postura profissional."
+          }
+        }
+      ],
+      "bridge": {
+        "title": "Sua clínica com atendimento organizado",
+        "text": "Um site sob medida pela ESM Web traz agendamento online e canal direto de WhatsApp para transformar visitantes em pacientes."
+      }
+    },
+    "media": [
+      "out/faa07cbe/slide-01.jpg",
+      "out/faa07cbe/slide-02.jpg",
+      "out/faa07cbe/slide-03.jpg",
+      "out/faa07cbe/slide-04.jpg",
+      "out/faa07cbe/slide-05.jpg",
+      "out/faa07cbe/slide-06.jpg"
+    ],
+    "status": "pending",
+    "createdAt": "2026-11-24T21:27:10.312Z",
+    "alternatives": [
+      {
+        "topic": "Pare de publicar artigos jurídicos acadêmicos no seu site se você quer atrair clientes reais e não outros advogados",
+        "pillar": "opiniao",
+        "niche": "advocacia",
+        "angle": "Defende a troca de termos jurídicos complexos por respostas diretas às dúvidas do dia a dia do cliente, convertendo autoridade em consultas agendadas.",
+        "score": 9.5
+      },
+      {
+        "topic": "O que a OAB realmente proíbe no seu anúncio do Google (e o detalhe que quase todo advogado erra sem saber)",
+        "pillar": "regras",
+        "niche": "advocacia",
+        "angle": "Explica as regras éticas do Provimento 205/2021 sobre anúncios patrocinados (ostentação vs caráter informativo) para evitar sanções disciplinares mantendo a captação ética.",
+        "score": 9.4
+      },
+      {
+        "topic": "O caminho invisível que o paciente faz antes de marcar a consulta de maior valor do seu consultório",
+        "pillar": "bastidor",
+        "niche": "clínicas e consultórios",
+        "angle": "Revela os bastidores da jornada de decisão do paciente (do sintoma à validação da credibilidade da equipe e facilidade de contato) para estruturar seus pontos de contato.",
+        "score": 9.3
+      },
+      {
+        "topic": "Simulador de economia no site vs Enviar proposta por PDF no WhatsApp: qual converte mais projetos de energia solar?",
+        "pillar": "comparacao",
+        "niche": "energia solar",
+        "angle": "Compara a experiência do cliente que quer estimativa rápida no site com quem recebe um arquivo pesado no chat, mostrando em qual momento usar a calculadora como isca de lead.",
+        "score": 9.2
+      },
+      {
+        "topic": "Mito ou Verdade: Preciso investir fortunas em anúncios pagos para aparecer nas primeiras posições da minha cidade?",
+        "pillar": "mitos",
+        "niche": "negócio local em geral",
+        "angle": "Desmistifica a ideia de que o topo exige grandes orçamentos digitais, mostrando como o posicionamento local orgânico e o SEO geolocalizado trazem contatos qualificados.",
+        "score": 9.2
+      },
+      {
+        "topic": "O erro no tempo e tom de resposta do WhatsApp que faz sua clínica parecer desorganizada antes da consulta",
+        "pillar": "erros",
+        "niche": "estética",
+        "angle": "Mostra como mensagens genéricas ou demoras na triagem destroem a percepção de alto valor de procedimentos estéticos e ensina a alinhar o primeiro atendimento.",
+        "score": 9.1
+      },
+      {
+        "topic": "Checklist de 5 minutos: o perfil do seu Google Meu Negócio está pronto para o cliente do final de semana?",
+        "pillar": "checklist",
+        "niche": "negócio local em geral",
+        "angle": "Lista rápida de verificação contendo fotos atualizadas, horários especiais, link de agendamento e categorias para garantir atração sem gastar nada.",
+        "score": 9
+      },
+      {
+        "topic": "Imagine que uma cliente decide fazer harmonização hoje: o que ela encontra quando digita o seu nome na internet?",
+        "pillar": "cenario",
+        "niche": "estética",
+        "angle": "Apresenta o cenário hipotético de uma cliente com intenção de compra buscando provas de segurança para evidenciar os pontos de vazamento de credibilidade na presença digital.",
+        "score": 9
+      },
+      {
+        "topic": "Grandes empresas fecham parcerias de energia renovável: o que o integrador solar local pode aprender sobre retenção",
+        "pillar": "noticia",
+        "niche": "energia solar",
+        "angle": "Traduz as notícias de grandes parcerias de desconto em energia para a realidade do integrador local, mostrando a importância de focar em benefícios contínuos além do investimento inicial.",
+        "score": 8.8
+      }
+    ],
+    "release": {
+      "tag": "post-faa07cbe",
+      "files": [
+        "slide-01.jpg",
+        "slide-02.jpg",
+        "slide-03.jpg",
+        "slide-04.jpg",
+        "slide-05.jpg",
+        "slide-06.jpg",
+        "story-01.jpg",
+        "story-02.jpg",
+        "story-03.jpg",
+        "story-04.jpg",
+        "story-05.jpg"
+      ]
+    },
+    "story": {
+      "media": [
+        "out/faa07cbe/story-01.jpg",
+        "out/faa07cbe/story-02.jpg",
+        "out/faa07cbe/story-03.jpg",
+        "out/faa07cbe/story-04.jpg",
+        "out/faa07cbe/story-05.jpg"
+      ]
+    },
+    "messageId": 185
   }
 ]
