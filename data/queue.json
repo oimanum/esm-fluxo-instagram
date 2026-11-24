@@ -1738,5 +1738,141 @@
     "igMediaId": "18035238701681676",
     "postedAt": "2026-11-23T21:18:04.926Z",
     "storiesPosted": 4
+  },
+  {
+    "id": "dc4f3a85",
+    "topic": "PMEs subestimam o Google: Por que seu cliente procura seu serviço no Google e não no Instagram?",
+    "angle": "Com base em estudos recentes que provam que PMEs ignoram o comportamento de busca dos clientes, mostramos que quando a dor aperta (advogado, clínica de estética, energia solar), o cliente vai direto ao Google. Quem só tem Instagram perde o cliente pro concorrente que tem site otimizado.",
+    "format": "carousel",
+    "post": {
+      "label": "COMPORTAMENTO DO CLIENTE",
+      "hook": "Quando a dor aperta, seu cliente **não procura no Instagram**",
+      "sub": "Descubra por que você perde agendamentos todos os dias",
+      "script": "Quando a dor aperta, seu cliente não procura no Instagram | Onde o cliente procura quando precisa de você | Pesquise seu negócio no Google pelo celular | O impacto do tempo de carregamento | O que um site otimizado faz por você | Toque no link da bio e receba mais agendamentos",
+      "caption": "Quando alguém precisa de um advogado, uma clínica ou um serviço de energia solar urgente, essa pessoa abre o Google.\n\nSe a sua empresa só tem perfil no Instagram, você perde esse cliente para o concorrente que aparece na busca.\n\nQuem tem uma necessidade imediata quer resolver o problema rápido, não rolar o feed.\n\nAlém de ser encontrado, a rapidez importa: 53% das visitas em celular são abandonadas quando a página demora mais de 3 segundos para carregar (fonte: Google, estudo 'The Need for Mobile Speed', 2016).\n\nTeste você mesmo: pesquise seu negócio no Google, pelo celular. Você aparece nas primeiras posições?\n\nUm site profissional coloca sua empresa onde o cliente procura, passa credibilidade e leva o contato direto para o seu WhatsApp.\n\nToque no link da bio e fale com a gente no WhatsApp.",
+      "hashtags": [
+        "#marketingdigital",
+        "#negocioslocais",
+        "#siteprofissional",
+        "#esmweb",
+        "#googlemeunegocio"
+      ],
+      "cta": "Toque no link da bio e **receba mais agendamentos**",
+      "slides": [
+        {
+          "kind": "versus",
+          "title": "Onde o cliente procura quando **precisa fechar hoje**",
+          "bad": {
+            "label": "INSTAGRAM",
+            "text": "Usado para passar o tempo e ver fotos"
+          },
+          "good": {
+            "label": "GOOGLE",
+            "text": "Usado para **encontrar soluções urgentes**"
+          },
+          "tip": {
+            "label": "ATENÇÃO",
+            "text": "Seu cliente ideal vai direto na busca"
+          },
+          "why": "Quem tem uma dor concreta quer encontrar o serviço e entrar em contato na hora."
+        },
+        {
+          "kind": "statement",
+          "kicker": "TESTE RÁPIDO",
+          "title": "Pesquise seu negócio no **Google pelo celular**",
+          "body": "Se você não aparece ou não tem site, o cliente clica no concorrente que transmite mais confiança."
+        },
+        {
+          "kind": "big",
+          "value": "53%",
+          "label": "das visitas no celular são abandonadas se a página demora mais de 3 s…"
+        },
+        {
+          "kind": "list",
+          "title": "O que um site otimizado faz pela sua em…",
+          "tag": "RESULTADO PRÁTICO",
+          "items": [
+            {
+              "name": "Presença no Google",
+              "desc": "Apareça exatamente para quem quer contratar seu serviço."
+            },
+            {
+              "name": "Mais credibilidade",
+              "desc": "Passe a imagem profissional que seu negócio merece."
+            },
+            {
+              "name": "Contato direto",
+              "desc": "Receba mensagens de clientes direto no seu WhatsApp."
+            }
+          ]
+        }
+      ]
+    },
+    "media": [
+      "out/dc4f3a85/slide-01.jpg",
+      "out/dc4f3a85/slide-02.jpg",
+      "out/dc4f3a85/slide-03.jpg",
+      "out/dc4f3a85/slide-04.jpg",
+      "out/dc4f3a85/slide-05.jpg",
+      "out/dc4f3a85/slide-06.jpg"
+    ],
+    "status": "pending",
+    "createdAt": "2026-11-24T20:07:20.581Z",
+    "alternatives": [
+      {
+        "topic": "Blog em 2026 ainda funciona? Como respostas no Google e IAs atraem clientes para clínicas e advogados",
+        "score": 9.3,
+        "angle": "Conectando à notícia sobre o impacto dos blogs na era da IA: buscas de clientes e ferramentas de IA recomendam empresas que possuem sites com conteúdo estruturado. Sem site, sua clínica ou escritório fica invisível para o motor de busca e para as IAs."
+      },
+      {
+        "topic": "Google Meu Negócio + Site Próprio: A combinação exata para dominar a sua região",
+        "score": 9.1,
+        "angle": "Mostrando a dor do dono de negócio que investe em anúncios no Instagram, mas vê o concorrente local aparecer primeiro no Google. Ter o perfil no Google linkado a um site rápido garante o topo das buscas locais e dobra os pedidos de orçamento."
+      },
+      {
+        "topic": "Além do feed bonito: Por que clínicas de estética perdem procedimentos de alto valor por não ter site",
+        "score": 9,
+        "angle": "Ligando com as tendências do mercado da beleza e harmonização facial: pacientes que investem alto pesquisam autoridade, segurança e portfólio no Google. O Instagram passa apelo visual, mas o site transmite a credibilidade necessária para fechar o agendamento."
+      },
+      {
+        "topic": "O segredo das empresas de Energia Solar que faturam milhões: Landing Pages de Alta Conversão",
+        "score": 8.8,
+        "angle": "Aproveitando o boom das fazendas solares e recordes do setor: empresas de energia solar não vendem projetos complexos só pelo direct do Instagram. Elas precisam de uma Landing Page rápida, com calculadora de economia e integração direta ao WhatsApp."
+      },
+      {
+        "topic": "Advocacia e autoridade digital: Por que um site lento ou a falta dele faz você perder contratos no Google",
+        "score": 8.7,
+        "angle": "Com base nos eventos e atualizações da advocacia: o cliente jurídico busca discrição e confiança. Se ele pesquisa seu nome ou especialidade, encontra um site lento ou não encontra nada, ele clica imediatamente no concorrente que está no topo do Google."
+      },
+      {
+        "topic": "Gargalo no WhatsApp? Como ter um site integrado com agendamento automático 24/7",
+        "score": 8.6,
+        "angle": "Conectando à pauta de produtividade e IA no atendimento: donos de clínicas e serviços locais perdem clientes à noite e nos fins de semana porque o atendimento depende do WhatsApp manual. Um site moderno capta e agenda consultas automaticamente."
+      }
+    ],
+    "release": {
+      "tag": "post-dc4f3a85",
+      "files": [
+        "slide-01.jpg",
+        "slide-02.jpg",
+        "slide-03.jpg",
+        "slide-04.jpg",
+        "slide-05.jpg",
+        "slide-06.jpg",
+        "story-01.jpg",
+        "story-02.jpg",
+        "story-03.jpg",
+        "story-04.jpg"
+      ]
+    },
+    "story": {
+      "media": [
+        "out/dc4f3a85/story-01.jpg",
+        "out/dc4f3a85/story-02.jpg",
+        "out/dc4f3a85/story-03.jpg",
+        "out/dc4f3a85/story-04.jpg"
+      ]
+    },
+    "messageId": 150
   }
 ]
