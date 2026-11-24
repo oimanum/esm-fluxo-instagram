@@ -2236,7 +2236,7 @@
       "out/faa07cbe/slide-05.jpg",
       "out/faa07cbe/slide-06.jpg"
     ],
-    "status": "publishing",
+    "status": "posted",
     "createdAt": "2026-11-24T21:27:10.312Z",
     "alternatives": [
       {
@@ -2328,6 +2328,8 @@
         "out/faa07cbe/story-05.jpg"
       ]
     },
-    "messageId": 185
+    "messageId": 185,
+    "igMediaId": "18109829474361729",
+    "postedAt": "2026-11-24T21:29:18.224Z"
   }
 ]
