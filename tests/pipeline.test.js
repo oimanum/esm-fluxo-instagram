@@ -17,7 +17,7 @@ function deps(over = {}) {
     now: new Date('2026-11-04T09:00:00Z'), // 06:00 BRT, quarta
     plan: { reel: 4, carousel: 2 },
     collect: async () => [{ source: 's', title: 'x', strength: 1 }],
-    llm: async ({ prompt }) => (prompt.includes('SINAIS') ? TOPICS : GOOD),
+    llm: async ({ prompt }) => (prompt.includes('PILARES:') ? TOPICS : GOOD),
     render: { reel: async () => ({ path: 'out/reel.mp4' }), carousel: async () => ({ paths: ['out/1.jpg'] }) },
     tg: { call: async (m) => { if (m === 'getUpdates') return d.updates || []; return { message_id: 1 }; }, upload: async (...a) => { sent.push(a); return { message_id: 1 }; } },
     stage: async (item) => ({ tag: `post-${item.id}`, files: ['reel.mp4'] }),
@@ -110,22 +110,41 @@ test('any step error sends Telegram alert and posts nothing', async () => {
   assert.deepEqual(await loadState('queue'), []);
 });
 test('no qualifying topic skips day with alert', async () => {
-  const d = deps({ llm: async ({ prompt }) => (prompt.includes('SINAIS') ? { topics: [{ topic: 'fraco', score: 3, angle: '' }] } : GOOD) });
+  const d = deps({ llm: async ({ prompt }) => (prompt.includes('PILARES:') ? { topics: [{ topic: 'fraco', score: 3, angle: '' }] } : GOOD) });
   const r = await generate(d);
   assert.equal(r.status, 'skipped');
   assert.equal(d.alerts.length, 1);
 });
-test('zero research signals skips the day without asking the llm to invent topics', async () => {
-  let asked = false;
-  const d = deps({ collect: async () => [], llm: async () => { asked = true; return TOPICS; } });
+test('with zero news signals the ideas still come from the pillars (news is only inspiration)', async () => {
+  let prompt = '';
+  const d = deps({ collect: async () => [], llm: async (o) => { if (o.prompt.includes('PILARES:')) { prompt = o.prompt; return TOPICS; } return GOOD; } });
   const r = await generate(d);
-  assert.equal(r.status, 'skipped');
-  assert.equal(asked, false);
-  assert.equal(d.alerts.length, 1);
+  assert.equal(r.status, 'pending');
+  assert.ok(prompt.includes('(sem notícias hoje)'));
+});
+test('the ideation prompt receives what was already published, so it cannot repeat or just swap the niche', async () => {
+  await saveState('history', [{ id: 'h1', topic: 'Instagram não basta para clínicas', hook: 'Só **Instagram** não basta', format: 'carousel', postedAt: '2026-11-01T12:00:00Z', status: 'posted' }]);
+  let prompt = '';
+  const d = deps({ llm: async (o) => { if (o.prompt.includes('PILARES:')) { prompt = o.prompt; return TOPICS; } return GOOD; } });
+  await generate(d);
+  assert.ok(prompt.includes('Instagram não basta para clínicas'));
+  assert.ok(prompt.includes('gancho: Só Instagram não basta'));
+});
+test('the pillar and the audience travel with the item and into the history', async () => {
+  const topics = { topics: [{ topic: 'Mito do anúncio', score: 9, angle: 'a', pillar: 'mitos', niche: 'estética' }] };
+  const d = deps({ llm: async (o) => (o.prompt.includes('PILARES:') ? topics : GOOD) });
+  const r = await generate(d);
+  assert.equal(r.pillar, 'mitos');
+  assert.equal(r.niche, 'estética');
+  await poll({ ...withUpdates(d, [cbq('i1', 'approve')]), now: new Date('2026-11-04T12:00:00Z') });
+  const h = (await loadState('history'))[0];
+  assert.equal(h.pillar, 'mitos');
+  assert.equal(h.niche, 'estética');
+  assert.equal(h.hook, GOOD.hook);
 });
 test('unsafe post is rejected after retries and nothing is sent', async () => {
   const bad = { ...GOOD, caption: 'Resultado garantido: ganhe 10 mil por mês' };
-  const d = deps({ llm: async ({ prompt }) => (prompt.includes('SINAIS') ? TOPICS : bad) });
+  const d = deps({ llm: async ({ prompt }) => (prompt.includes('PILARES:') ? TOPICS : bad) });
   const r = await generate(d);
   assert.equal(r.status, 'error');
   assert.equal(d.sent.length, 0);
@@ -156,7 +175,7 @@ test('checklist day renders with render.checklist and is staged as one image', a
   let used = false;
   const d = deps({
     plan: { reel: 0, carousel: 2 },
-    llm: async ({ prompt }) => (prompt.includes('SINAIS') ? TOPICS : prompt.includes('CHECKLIST') ? CHECK : GOOD),
+    llm: async ({ prompt }) => (prompt.includes('PILARES:') ? TOPICS : prompt.includes('CHECKLIST') ? CHECK : GOOD),
     render: { reel: async () => ({ path: 'x' }), carousel: async () => ({ paths: ['c1', 'c2'] }), checklist: async () => { used = true; return { paths: ['out/check.jpg'] }; } },
   });
   const r = await generate(d);
@@ -210,7 +229,7 @@ test('if the stories cannot be rendered the post still goes ahead', async () => 
 
 test('if the checks reject the chosen topic three times, the next topic of the list is tried', async () => {
   const BAD = { ...GOOD, script: `${words(69)} R$119` };
-  const d = deps({ llm: async ({ prompt }) => (prompt.includes('SINAIS') ? TOPICS : prompt.includes('Tema: IA no atendimento') ? BAD : GOOD) });
+  const d = deps({ llm: async ({ prompt }) => (prompt.includes('PILARES:') ? TOPICS : prompt.includes('Tema: IA no atendimento') ? BAD : GOOD) });
   const r = await generate(d);
   assert.equal(r.status, 'pending');
   assert.equal(r.topic, 'Site lento perde cliente');

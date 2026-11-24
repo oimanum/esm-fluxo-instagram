@@ -1,0 +1,22 @@
+name: ideas
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  ideas:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Mostrar as ideias de conteúdo (não gera nem publica nada)
+        env:
+          GEMINI_KEY: ${{ secrets.GEMINI_KEY }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
+          TG_TOKEN: ${{ secrets.TG_TOKEN }}
+          TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+        run: node src/cli.js ideas

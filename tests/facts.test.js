@@ -37,13 +37,23 @@ test('writer prompt asks for label and **emphasis** markup (the design depends o
   assert.ok(prompt.includes('**'));
 });
 
-test('writer prompt carries the persuasion framework and the honest-proof rule', async () => {
+test('writer prompt is value-first (useful, savable, specific), keeps the honest-proof rule and no longer forces "you need a site"', async () => {
   let prompt = '';
   await writePost({ topic: 't', format: 'reel', llm: async (o) => { prompt = o.prompt; return {}; }, facts: { text: 'x', allowedNumbers: new Set(), data: {} }, funnel: { enabled: true, keyword: 'SITE' } });
-  assert.ok(/dor/i.test(prompt) && /perde/i.test(prompt));
-  assert.ok(/teste voc/i.test(prompt));
+  assert.ok(/SALVAR e MANDAR/.test(prompt));
+  assert.ok(/GANCHO VIRAL/.test(prompt));
+  assert.ok(/NÃO transforme o post em "você precisa de um site"/.test(prompt));
+  assert.ok(!/PRECISA de um site/.test(prompt));
   assert.ok(/nunca.*(clientes|depoimentos|experi)/i.test(prompt));
   assert.ok(prompt.includes('Comente **SITE**'));
   await writePost({ topic: 't', format: 'reel', llm: async (o) => { prompt = o.prompt; return {}; }, facts: { text: 'x', allowedNumbers: new Set(), data: {} }, funnel: { enabled: false, keyword: 'SITE' } });
   assert.ok(!prompt.includes('Comente **SITE**'));
+});
+test('writer prompt carries the pillar, the audience and the hooks already published', async () => {
+  let prompt = '';
+  await writePost({ topic: 't', format: 'carousel', pillar: 'regras', niche: 'advocacia', recentHooks: ['Gancho antigo um', 'Gancho antigo dois'], llm: async (o) => { prompt = o.prompt; return {}; }, facts: { text: 'x', allowedNumbers: new Set(), data: {} }, funnel: { enabled: false } });
+  assert.ok(prompt.includes('PILAR: O que pode e o que não pode'));
+  assert.ok(prompt.includes('Nunca dê parecer jurídico'));
+  assert.ok(prompt.includes('PÚBLICO: advocacia'));
+  assert.ok(prompt.includes('- Gancho antigo um') && prompt.includes('JÁ PUBLICADOS'));
 });

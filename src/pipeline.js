@@ -14,10 +14,10 @@ const ACTIVE = ['pending', 'approved', 'publishing', 'posted'];
 const safeAlert = (d) => async (text) => { try { await d.alert(sanitize(text)); } catch { /* sem canal de aviso */ } };
 const checkpoint = (d) => (d.checkpoint ? d.checkpoint() : Promise.resolve());
 
-async function writeChecked({ topic, angle, format, llm, facts }) {
+async function writeChecked({ topic, angle, format, llm, facts, pillar, niche, recentHooks }) {
   let problems = [];
   for (let i = 0; i < 3; i++) {
-    const post = await writePost({ topic, angle, format, llm, facts, feedback: problems.join('; ') });
+    const post = await writePost({ topic, angle, format, llm, facts, pillar, niche, recentHooks, feedback: problems.join('; ') });
     const check = checkPost(post, format, {
       allowedNumbers: facts.allowedNumbers,
       keyword: config.funnel.enabled ? config.funnel.keyword : undefined,
@@ -29,6 +29,17 @@ async function writeChecked({ topic, angle, format, llm, facts }) {
   throw new Error(`A checagem barrou o post: ${problems.join('; ')}`);
 }
 
+// O que já saiu ou já foi gerado nas últimas semanas: a IA não pode repetir nem variar só o nicho.
+export function recentContent(history, queue, now) {
+  const since = now.getTime() - 21 * 86400000;
+  const recent = [
+    ...history.map((h) => ({ topic: h.topic, hook: h.hook, at: h.postedAt })),
+    ...queue.filter((i) => i.status !== 'dry' && new Date(i.createdAt).getTime() >= since).map((i) => ({ topic: i.topic, hook: i.post?.hook, at: i.createdAt })),
+  ].sort((a, b) => new Date(a.at) - new Date(b.at));
+  const recentHooks = recent.filter((h) => h.hook).slice(-12).map((h) => String(h.hook).replace(/\*\*/g, ''));
+  return { recent, recentHooks };
+}
+
 // Gera o conteúdo do dia e manda a prévia. Com dry, a prévia sai como TESTE, sem botões. Nada é publicado aqui.
 export async function generate(d) {
   const alert = safeAlert(d);
@@ -38,14 +49,13 @@ export async function generate(d) {
       return { status: 'skipped', reason: 'ja_gerado_hoje' };
     }
     const history = await loadState('history');
+    const { recent, recentHooks } = recentContent(history, queue, d.now);
     let scored = d.scored;
     if (!scored) {
-      const signals = await d.collect();
-      if (!signals.length) {
-        await alert('Hoje não vou postar: nenhuma fonte de pesquisa respondeu (sem_sinais).');
-        return { status: 'skipped', reason: 'sem_sinais' };
-      }
-      scored = await scoreTopics(signals, d.llm);
+      // As notícias são só inspiração: se nenhuma fonte responder, as ideias saem dos pilares do mesmo jeito.
+      let signals = [];
+      try { signals = await d.collect(); } catch { /* sem notícias hoje */ }
+      scored = await scoreTopics(signals, d.llm, { recent });
     }
     const pool = scored.filter((t) => !(d.exclude || []).includes(t.topic));
     const facts = d.facts ?? await loadFacts();
@@ -60,7 +70,7 @@ export async function generate(d) {
         return { status: 'skipped', reason: pick.skip };
       }
       try {
-        post = await writeChecked({ topic: pick.topic, angle: pick.angle, format: pick.format, llm: d.llm, facts });
+        post = await writeChecked({ topic: pick.topic, angle: pick.angle, format: pick.format, llm: d.llm, facts, pillar: pick.pillar, niche: pick.niche, recentHooks });
         break;
       } catch (e) {
         if (!/checagem barrou/.test(e.message) || n === 2) throw e;
@@ -78,7 +88,7 @@ export async function generate(d) {
       try { story = { media: (await d.render.story(post, outDir, { format: pick.format })).paths }; } catch (e) { await alert(`Os stories de hoje não saíram (${e.message}); o post segue normal.`); }
     }
     const item = {
-      id, topic: pick.topic, angle: pick.angle, format: pick.format, post, media, status: d.dry ? 'dry' : 'pending',
+      id, topic: pick.topic, angle: pick.angle, pillar: pick.pillar, niche: pick.niche, format: pick.format, post, media, status: d.dry ? 'dry' : 'pending',
       createdAt: d.now.toISOString(), alternatives: pool.filter((t) => t.topic !== pick.topic), release: null, ...(story ? { story } : {}),
     };
     // A mídia precisa sobreviver até o workflow de aprovação: sobe para um release em rascunho (não público).
@@ -138,7 +148,7 @@ export async function poll(d) {
       const urls = await d.release(item);
       const { igMediaId } = await d.publish({ ...item, status: 'approved' }, urls.slice(0, item.media.length), d.ig);
       Object.assign(item, { status: 'posted', igMediaId, postedAt: d.now.toISOString() });
-      history.push({ id: item.id, topic: item.topic, format: item.format, postedAt: item.postedAt, status: 'posted', igMediaId });
+      history.push({ id: item.id, topic: item.topic, hook: item.post?.hook, pillar: item.pillar, niche: item.niche, format: item.format, postedAt: item.postedAt, status: 'posted', igMediaId });
       await saveState('history', history);
       await saveState('queue', queue);
       await checkpoint(d);

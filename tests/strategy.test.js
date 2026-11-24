@@ -81,3 +81,39 @@ test('the weekly mix follows the plan: 2 reels, 4 carousels, 1 single post, neve
 test('a plan without the post key still works (old saved plans)', () => {
   assert.ok(pickToday({ scored, history: [], now, plan: { reel: 1, carousel: 1 } }).format);
 });
+
+import { PILLARS, pillarIds, formatFor } from '../src/pillars.js';
+const T = (topic, score, pillar, niche) => ({ topic, score, angle: 'a', pillar, niche });
+test('pillars: the ideation prompt lists every pillar and the rule against swapping only the niche', async () => {
+  let prompt = '';
+  const out = await scoreTopics([{ source: 's', title: 'x' }], async (o) => { prompt = o.prompt; return { topics: [{ topic: 'A', score: 8, pillar: 'tutorial' }, { topic: 'B', score: 9, pillar: 'inventado' }] }; }, { recent: [{ topic: 'Antigo um', hook: 'Gancho **um**' }] });
+  for (const id of pillarIds) assert.ok(prompt.includes(`- ${id}:`), id);
+  assert.ok(/nem apenas trocar o nicho/.test(prompt));
+  assert.ok(prompt.includes('Antigo um') && prompt.includes('gancho: Gancho um'));
+  assert.equal(out[0].topic, 'B');
+  assert.equal(out[0].pillar, null);
+  assert.equal(out[1].pillar, 'tutorial');
+});
+test('pillars: the next topic avoids the last two pillars and the last audience', () => {
+  const history = [
+    { topic: 'h1', format: 'carousel', postedAt: day('11-02'), status: 'posted', pillar: 'erros', niche: 'estética' },
+    { topic: 'h2', format: 'reel', postedAt: day('11-03'), status: 'posted', pillar: 'mitos', niche: 'advocacia' },
+  ];
+  const list = [T('Mais um mito', 9, 'mitos', 'estética'), T('Outro erro', 9, 'erros', 'clínicas'), T('Como funciona', 8.5, 'bastidor', 'advocacia'), T('Passo a passo', 8, 'tutorial', 'solar')];
+  const r = pickToday({ scored: list, history, now, plan: { reel: 2, carousel: 4, post: 1 } });
+  assert.equal(r.topic, 'Passo a passo');
+  assert.equal(r.pillar, 'tutorial');
+  assert.equal(r.niche, 'solar');
+});
+test('pillars: when only repeated pillars are left, it still posts (rotation is a preference, not a block)', () => {
+  const history = [{ topic: 'h', format: 'carousel', postedAt: day('11-03'), status: 'posted', pillar: 'mitos', niche: 'x' }];
+  assert.equal(pickToday({ scored: [T('Outro mito', 9, 'mitos', 'y')], history, now, plan: { reel: 2, carousel: 4, post: 1 } }).topic, 'Outro mito');
+});
+test('pillars: the format follows what the pillar asks for, within the weekly quota', () => {
+  const plan3 = { reel: 2, carousel: 4, post: 1 };
+  assert.equal(pickToday({ scored: [T('Lista', 9, 'checklist')], history: [], now, plan: plan3 }).format, 'checklist');
+  assert.equal(pickToday({ scored: [T('Opinião', 9, 'opiniao')], history: [], now, plan: plan3 }).format, 'post');
+  assert.equal(pickToday({ scored: [T('Mito', 9, 'mitos')], history: [], now, plan: plan3 }).format, 'reel');
+  assert.equal(formatFor('regras', ['reel']), null);
+  assert.ok(PILLARS.regras.cuidado.includes('parecer jurídico'));
+});

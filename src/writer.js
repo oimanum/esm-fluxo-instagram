@@ -1,6 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { loadFacts } from './facts.js';
 import { config } from './config.js';
+import { PILLARS } from './pillars.js';
 import { plain } from './text.js';
 import { visualsFor } from './visuals.js';
 import { cleanSlide, slideTitle } from './slides.js';
@@ -33,7 +34,7 @@ Textos curtos (até 34 caracteres), sem número que não esteja nos FATOS. Varie
 const valid = (o) => !!(o && typeof o.hook === 'string' && o.hook.trim() && ((typeof o.script === 'string' && o.script.trim()) || Array.isArray(o.slides))
   && typeof o.caption === 'string' && Array.isArray(o.hashtags) && typeof o.cta === 'string' && o.cta.trim());
 
-export async function writePost({ topic, format, llm, angle = '', facts, funnel = config.funnel, feedback = '' }) {
+export async function writePost({ topic, format, llm, angle = '', facts, funnel = config.funnel, feedback = '', pillar = null, niche = null, recentHooks = [] }) {
   facts ||= await loadFacts();
   const ctaRule = funnel.enabled
     ? `O CTA deve convidar a comentar a palavra-chave, neste formato: Comente **${funnel.keyword}** e receba o caminho no Direct. (a palavra ${funnel.keyword} sempre dentro de ** **).`
@@ -48,8 +49,21 @@ export async function writePost({ topic, format, llm, angle = '', facts, funnel 
       : 'Carrossel: "script" traz de 3 a 6 slides de texto curto, separados por " | " (o gancho vira a capa e o CTA o último slide).';
   const sl = format === 'carousel' ? `\n${SLIDES_SPEC}\n` : '';
   const fb = feedback ? `\nATENÇÃO: a sua versão anterior foi barrada pela checagem (${feedback}). Reescreva corrigindo exatamente isso.\n` : '';
+  const pl = PILLARS[pillar];
+  const pillarBlock = pl ? `PILAR: ${pl.nome}. ${pl.descricao}. Formas de gancho que funcionam aqui: ${pl.ganchos.join(' | ')}.${pl.cuidado ? ` CUIDADO: ${pl.cuidado}` : ''}\nPÚBLICO: ${niche || 'dono de negócio local'}. Fale com esse público de forma específica (cenário, exemplo e vocabulário dele), sem só trocar a palavra do nicho.` : '';
+  const recentBlock = recentHooks.length ? `JÁ PUBLICADOS (não repita a ideia nem a estrutura do gancho):\n${recentHooks.map((h) => `- ${h}`).join('\n')}` : '';
+  const valor = [
+    'OBJETIVO DO POST: entregar valor de verdade para o dono do negócio (ensinar, esclarecer ou alertar sobre algo que ele precisa saber), de um jeito que ele queira SALVAR e MANDAR para alguém. A autoridade e a venda nascem de ajudar.',
+    pillarBlock,
+    'GANCHO VIRAL: precisa parar a rolagem em 2 segundos com uma promessa concreta, uma contradição ("pare de..."), um erro que a pessoa comete sem saber ou uma pergunta que ela não sabe responder. Nada de gancho genérico.',
+    'ESTRUTURA: gancho, por que importa (a consequência real), o conteúdo útil (passos, regra, comparação ou explicação simples) e um fechamento com o próximo passo.',
+    'VALOR: quem terminar de ler precisa saber FAZER ou ENTENDER algo novo. Sem generalidade ("invista em marketing"); dê instruções que dá para executar hoje, com exemplo do dia a dia do público.',
+    'O SITE: só aparece quando for a solução natural do assunto, no máximo uma vez (em um passo ou no fechamento). NÃO transforme o post em "você precisa de um site".',
+    recentBlock,
+    'NUNCA cite clientes, depoimentos, cases, número de projetos ou tempo de experiência: você não tem esses fatos.',
+  ].filter(Boolean).join('\n');
   const vis = format === 'reel' ? `\n${VISUALS_SPEC}\n` : '';
-  const prompt = `Escreva um post de Instagram em pt-BR para a ESM Web.\nTema: ${topic}\nÂngulo: ${angle}\n${spec}\nUm único CTA, curto, sem pontuação final extra. Sem promessa de resultado garantido.\nGANCHO: foque no benefício que o cliente recebe (mais pacientes, mais agendamentos, mais contatos), nunca na técnica: é proibido citar React, HTML, CSS, código ou framework.\nFATOS (únicos números, resultados e clientes que você pode citar):\n${facts.text}\nSem fato que sustente, não invente: use a dor do cliente, uma pergunta ou a consequência.\nPERSUASÃO (o dono do negócio precisa sentir que PRECISA de um site): 1) abra pela dor ou pela perda concreta (cliente que procura no Google e não acha, agendamento que vai para o concorrente, parecer menos confiável só com Instagram); 2) mostre o custo de não agir, o que ele perde a cada dia; 3) use um dado com fonte dos FATOS ou convide a testar: "Teste você mesmo: pesquise seu negócio no Google, pelo celular"; 4) mostre o que o site faz por ele (aparecer no Google, passar confiança, receber contatos no WhatsApp a qualquer hora); 5) feche com um próximo passo fácil. NUNCA cite clientes, depoimentos, cases, número de projetos ou tempo de experiência: você não tem esses fatos.\n${ctaRule}${vis}${sl}\nNÚMEROS: o tema e o ângulo vêm de notícias e podem citar números, valores em R$, US$ ou porcentagens. NÃO repita nenhum deles nos textos; os únicos números permitidos são os de FATOS.${fb}\nVisual: "label" é uma etiqueta curta em CAIXA ALTA (até 28 caracteres, ex.: TESTE RÁPIDO, NOSSO PROCESSO, ERRO COMUM). No "hook", nos slides do carrossel e no "cta", marque com ** a parte principal da frase (ex.: Seu site **perde paciente** todo dia); o resto fica em peso leve. Marque no máximo uma parte por frase. No "script" do Reel NÃO use **.\n\n${voice}\n\nResponda JSON: {"label":string,"hook":string,"script":string,"caption":string,"hashtags":string[],"cta":string${format === 'reel' ? ',"visuals":object[]' : ''}${format === 'carousel' ? ',"slides":object[],"sub":string' : ''}}`;
+  const prompt = `Escreva um post de Instagram em pt-BR para a ESM Web.\nTema: ${topic}\nÂngulo: ${angle}\n${spec}\nUm único CTA, curto, sem pontuação final extra. Sem promessa de resultado garantido.\nGANCHO: foque no benefício que o cliente recebe (mais pacientes, mais agendamentos, mais contatos), nunca na técnica: é proibido citar React, HTML, CSS, código ou framework.\nFATOS (únicos números, resultados e clientes que você pode citar):\n${facts.text}\nSem fato que sustente, não invente: use a dor do cliente, uma pergunta ou a consequência.\n${valor}\n${ctaRule}${vis}${sl}\nNÚMEROS: o tema e o ângulo vêm de notícias e podem citar números, valores em R$, US$ ou porcentagens. NÃO repita nenhum deles nos textos; os únicos números permitidos são os de FATOS.${fb}\nVisual: "label" é uma etiqueta curta em CAIXA ALTA (até 28 caracteres, ex.: TESTE RÁPIDO, NOSSO PROCESSO, ERRO COMUM). No "hook", nos slides do carrossel e no "cta", marque com ** a parte principal da frase (ex.: Seu site **perde paciente** todo dia); o resto fica em peso leve. Marque no máximo uma parte por frase. No "script" do Reel NÃO use **.\n\n${voice}\n\nResponda JSON: {"label":string,"hook":string,"script":string,"caption":string,"hashtags":string[],"cta":string${format === 'reel' ? ',"visuals":object[]' : ''}${format === 'carousel' ? ',"slides":object[],"sub":string' : ''}}`;
   const post = await llm({ prompt, schema: valid });
   if (format === 'carousel') {
     // Slides escolhidos pela IA (limpos); o "script" vira o resumo por títulos, usado na checagem e nos stories.

@@ -18,7 +18,8 @@ import { renderChecklist } from './producer/checklist.js';
 import { createTelegram } from './approval.js';
 import { createInstagram, publish, publishStories } from './publisher.js';
 import { stageMedia, publishRelease } from './media-host.js';
-import { generate, poll, processSwaps } from './pipeline.js';
+import { generate, poll, processSwaps, recentContent } from './pipeline.js';
+import { scoreTopics } from './strategy.js';
 import { runFunnel } from './funnel.js';
 import { collectInsights, adjustPlan, weeklyReport } from './analytics.js';
 import { refreshToken, tokenDaysLeft, needsAlert } from './token.js';
@@ -236,13 +237,26 @@ rearm=${rearm}
     }
   },
 
+  // Mostra as ideias de conteúdo que a IA propõe (pilar, público, nota) sem gerar nem publicar nada.
+  async ideas() {
+    requireEnv(['GEMINI_KEY']);
+    const d = await baseDeps();
+    let signals = [];
+    try { signals = await d.collect(); } catch { /* sem notícias hoje */ }
+    const { recent } = recentContent(await loadState('history'), await loadState('queue'), new Date());
+    const topics = await scoreTopics(signals, d.llm, { recent });
+    const text = topics.slice(0, 10).map((t, i) => `${i + 1}. [${t.pillar || '?'} · ${t.niche || 'geral'}] ${t.topic}${String.fromCharCode(10)}   ${t.angle || ''} (nota ${t.score})`).join(String.fromCharCode(10, 10));
+    console.log(text);
+    await d.alert(`Ideias de conteúdo (nada foi gerado nem publicado)${String.fromCharCode(10, 10)}${text}`.slice(0, 3900));
+  },
+
   async checkpoint() { await checkpoint(); },
 };
 
 const sanitizeObj = (o) => JSON.parse(sanitize(JSON.stringify(o)));
 
 if (!commands[cmd]) {
-  console.error('Uso: node src/cli.js generate|poll|swap|analytics|refresh|funnel|check|testmedia|listen|tgdebug|checkpoint [--dry]');
+  console.error('Uso: node src/cli.js generate|poll|swap|analytics|refresh|funnel|check|testmedia|listen|tgdebug|ideas|checkpoint [--dry]');
   process.exit(2);
 }
 commands[cmd]().catch(async (e) => {
