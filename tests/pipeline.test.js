@@ -247,3 +247,16 @@ test('redo: the same topic is generated again (new text and video); a plain swap
   assert.equal(after.find((i) => i.id === 'i1').status, 'swapped');
   assert.equal(after.find((i) => i.id === 'i2').topic, 'IA no atendimento');
 });
+
+test('fresh: a swap can ask for brand-new ideas (pillars) instead of the old alternatives', async () => {
+  let calls = 0;
+  const d = deps({ llm: async (o) => { if (o.prompt.includes('PILARES:')) { calls++; return { topics: [{ topic: calls === 1 ? 'Ideia do primeiro dia' : 'Ideia nova dos pilares', score: 9, angle: 'a', pillar: 'mitos', niche: 'estética' }] }; } return GOOD; } });
+  await generate(d);
+  const q = await loadState('queue');
+  q[0].status = 'swap'; q[0].fresh = true;
+  await saveState('queue', q);
+  let n = 1;
+  await processSwaps({ ...d, newId: () => `i${++n}`, now: new Date('2026-11-04T12:01:00Z') });
+  assert.equal(calls, 2);
+  assert.equal((await loadState('queue')).find((i) => i.id === 'i2').topic, 'Ideia nova dos pilares');
+});
