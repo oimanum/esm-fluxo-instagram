@@ -1944,7 +1944,7 @@
       "out/9315a9f7/slide-05.jpg",
       "out/9315a9f7/slide-06.jpg"
     ],
-    "status": "swap",
+    "status": "swapped",
     "createdAt": "2026-11-24T20:47:48.916Z",
     "alternatives": [
       {
@@ -1998,5 +1998,168 @@
     },
     "messageId": 161,
     "fresh": true
+  },
+  {
+    "id": "dbb4d384",
+    "topic": "Como responder avaliações negativas no Google sem violar o sigilo médico nem afastar novos pacientes",
+    "angle": "Passo a passo com modelo prático para responder reviews de 1 estrela protegendo os dados do paciente e demonstrando profissionalismo para potenciais clientes.",
+    "pillar": "tutorial",
+    "niche": "clínicas e consultórios",
+    "format": "carousel",
+    "post": {
+      "label": "REPUTAÇÃO MÉDICA",
+      "hook": "Como responder avaliações ruins no Google **sem perder novos pacientes**",
+      "sub": "Proteja o sigilo da clínica e mostre profissionalismo a quem pesquisa",
+      "script": "Como responder avaliações ruins no Google sem perder novos pacientes | O erro comum na resposta | Regra 1: Acolha sem confirmar a consulta | Regra 2: Mude o canal de atendimento | Modelo pronto para você copiar | Salve este post para guardar o modelo",
+      "caption": "Uma avaliação de 1 estrela no Google da sua clínica não é apenas um desabafo: é a primeira coisa que um futuro paciente lê antes de agendar uma consulta.\n\nO erro mais comum dos médicos é responder no calor do momento, confirmando que a pessoa foi atendida, citando horários ou rebatendo detalhes do tratamento. Isso pode violar o sigilo médico e transmitir falta de empatia para quem está pesquisando sua clínica.\n\nQuem lê suas respostas no Google não quer saber quem está certo na discussão. O potencial paciente quer ver se a sua equipe é madura, ética e resolutiva.\n\nSiga estas 3 regras simples ao responder:\n\n1. Nunca confirme a consulta: Por questões éticas e de privacidade, trate qualquer comentário de forma genérica.\n2. Não debate publicamente: Leve a solução imediatamente para o WhatsApp ou e-mail da clínica.\n3. Mantenha a tom profissional: Responda rápido, acolha a insatisfação e demonstre compromisso com a qualidade.\n\nLembre-se de alinhar as diretrizes de comunicação com as normas do seu conselho regional.\n\nGuarde este modelo para usar sempre que precisar proteger a imagem do seu consultório.",
+      "hashtags": [
+        "#gestaodeclinicas",
+        "#medicina",
+        "#googlemeunegocio",
+        "#consultoriomedico",
+        "#marketingmedico"
+      ],
+      "cta": "Fale com nossa equipe pelo **link da bio**",
+      "slides": [
+        {
+          "kind": "versus",
+          "title": "O erro comum na resposta",
+          "bad": {
+            "label": "ERRO GRAVE",
+            "text": "Você faltou à consulta das 14h e por isso não emitimos a receita."
+          },
+          "good": {
+            "label": "JEITO CERTO",
+            "text": "Prezamos pelo atendimento e queremos ouvir você no nosso canal privado."
+          },
+          "why": "Expor dados ou confirmar o atendimento viola o sigilo e afasta novos clientes."
+        },
+        {
+          "kind": "numbered",
+          "n": 1,
+          "title": "Acolha sem confirmar",
+          "body": "Agradeça a mensagem de forma neutra. **Jamais confirme que a pessoa é sua paciente** ou qual procedimento ela realizou.",
+          "card": {
+            "label": "O QUE DIZER",
+            "text": "Agradecemos por compartilhar sua experiência com nossa equipe."
+          }
+        },
+        {
+          "kind": "numbered",
+          "n": 2,
+          "title": "Mude o canal de atendimento",
+          "body": "Ofereça um contato direto fora do ambiente público para **resolver a questão com agilidade**.",
+          "card": {
+            "label": "CANAL DIRETO",
+            "text": "Pedimos que entre em contato no WhatsApp (XX) XXXXX-XXXX para convers…"
+          }
+        },
+        {
+          "kind": "statement",
+          "kicker": "MODELO PRONTO",
+          "title": "**Copie e adapte** para o seu consultório",
+          "body": "\"Olá! Prezamos pela qualidade do atendimento. Por normas de privacidade, não tratamos casos individualmente por aqui. Por favor, contate nosso WhatsApp para ajudarmos você.\""
+        }
+      ]
+    },
+    "media": [
+      "out/dbb4d384/slide-01.jpg",
+      "out/dbb4d384/slide-02.jpg",
+      "out/dbb4d384/slide-03.jpg",
+      "out/dbb4d384/slide-04.jpg",
+      "out/dbb4d384/slide-05.jpg",
+      "out/dbb4d384/slide-06.jpg"
+    ],
+    "status": "pending",
+    "createdAt": "2026-11-24T21:16:05.319Z",
+    "alternatives": [
+      {
+        "topic": "Pare de publicar artigos jurídicos acadêmicos no seu site se você quer atrair clientes reais e não outros advogados",
+        "pillar": "opiniao",
+        "niche": "advocacia",
+        "angle": "Defende a troca de termos jurídicos complexos por respostas diretas às dúvidas do dia a dia do cliente, convertendo autoridade em consultas agendadas.",
+        "score": 9.5
+      },
+      {
+        "topic": "O que a OAB realmente proíbe no seu anúncio do Google (e o detalhe que quase todo advogado erra sem saber)",
+        "pillar": "regras",
+        "niche": "advocacia",
+        "angle": "Explica as regras éticas do Provimento 205/2021 sobre anúncios patrocinados (ostentação vs caráter informativo) para evitar sanções disciplinares mantendo a captação ética.",
+        "score": 9.4
+      },
+      {
+        "topic": "O caminho invisível que o paciente faz antes de marcar a consulta de maior valor do seu consultório",
+        "pillar": "bastidor",
+        "niche": "clínicas e consultórios",
+        "angle": "Revela os bastidores da jornada de decisão do paciente (do sintoma à validação da credibilidade da equipe e facilidade de contato) para estruturar seus pontos de contato.",
+        "score": 9.3
+      },
+      {
+        "topic": "Simulador de economia no site vs Enviar proposta por PDF no WhatsApp: qual converte mais projetos de energia solar?",
+        "pillar": "comparacao",
+        "niche": "energia solar",
+        "angle": "Compara a experiência do cliente que quer estimativa rápida no site com quem recebe um arquivo pesado no chat, mostrando em qual momento usar a calculadora como isca de lead.",
+        "score": 9.2
+      },
+      {
+        "topic": "Mito ou Verdade: Preciso investir fortunas em anúncios pagos para aparecer nas primeiras posições da minha cidade?",
+        "pillar": "mitos",
+        "niche": "negócio local em geral",
+        "angle": "Desmistifica a ideia de que o topo exige grandes orçamentos digitais, mostrando como o posicionamento local orgânico e o SEO geolocalizado trazem contatos qualificados.",
+        "score": 9.2
+      },
+      {
+        "topic": "O erro no tempo e tom de resposta do WhatsApp que faz sua clínica parecer desorganizada antes da consulta",
+        "pillar": "erros",
+        "niche": "estética",
+        "angle": "Mostra como mensagens genéricas ou demoras na triagem destroem a percepção de alto valor de procedimentos estéticos e ensina a alinhar o primeiro atendimento.",
+        "score": 9.1
+      },
+      {
+        "topic": "Checklist de 5 minutos: o perfil do seu Google Meu Negócio está pronto para o cliente do final de semana?",
+        "pillar": "checklist",
+        "niche": "negócio local em geral",
+        "angle": "Lista rápida de verificação contendo fotos atualizadas, horários especiais, link de agendamento e categorias para garantir atração sem gastar nada.",
+        "score": 9
+      },
+      {
+        "topic": "Imagine que uma cliente decide fazer harmonização hoje: o que ela encontra quando digita o seu nome na internet?",
+        "pillar": "cenario",
+        "niche": "estética",
+        "angle": "Apresenta o cenário hipotético de uma cliente com intenção de compra buscando provas de segurança para evidenciar os pontos de vazamento de credibilidade na presença digital.",
+        "score": 9
+      },
+      {
+        "topic": "Grandes empresas fecham parcerias de energia renovável: o que o integrador solar local pode aprender sobre retenção",
+        "pillar": "noticia",
+        "niche": "energia solar",
+        "angle": "Traduz as notícias de grandes parcerias de desconto em energia para a realidade do integrador local, mostrando a importância de focar em benefícios contínuos além do investimento inicial.",
+        "score": 8.8
+      }
+    ],
+    "release": {
+      "tag": "post-dbb4d384",
+      "files": [
+        "slide-01.jpg",
+        "slide-02.jpg",
+        "slide-03.jpg",
+        "slide-04.jpg",
+        "slide-05.jpg",
+        "slide-06.jpg",
+        "story-01.jpg",
+        "story-02.jpg",
+        "story-03.jpg",
+        "story-04.jpg"
+      ]
+    },
+    "story": {
+      "media": [
+        "out/dbb4d384/story-01.jpg",
+        "out/dbb4d384/story-02.jpg",
+        "out/dbb4d384/story-03.jpg",
+        "out/dbb4d384/story-04.jpg"
+      ]
+    },
+    "messageId": 173
   }
 ]
