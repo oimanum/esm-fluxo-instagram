@@ -1944,7 +1944,7 @@
       "out/9315a9f7/slide-05.jpg",
       "out/9315a9f7/slide-06.jpg"
     ],
-    "status": "pending",
+    "status": "swap",
     "createdAt": "2026-11-24T20:47:48.916Z",
     "alternatives": [
       {
@@ -1996,6 +1996,7 @@
         "out/9315a9f7/story-04.jpg"
       ]
     },
-    "messageId": 161
+    "messageId": 161,
+    "fresh": true
   }
 ]
