@@ -2332,5 +2332,118 @@
     "igMediaId": "18109829474361729",
     "postedAt": "2026-11-24T21:29:18.224Z",
     "storiesPosted": 5
+  },
+  {
+    "id": "abecd4ea",
+    "topic": "Checklist de 3 minutos: o atendimento da sua recepção está retendo ou perdendo os contatos que chegam da internet?",
+    "angle": "Lista salvável com 5 pontos críticos para o dono auditar a resposta da sua equipe (tempo de retorno, linguagem utilizada, facilidade de reagendamento e confirmação de presença).",
+    "pillar": "checklist",
+    "niche": "clínicas e consultórios",
+    "format": "post",
+    "post": {
+      "label": "AUDITORIA RÁPIDA",
+      "hook": "Sua recepção está **perdendo os pacientes** que chegam da internet?",
+      "script": "Um sistema sob medida com agendamento online integrado ao WhatsApp responde o paciente na hora e evita faltas na agenda.",
+      "caption": "Quanto tempo a sua recepção demora para responder uma pessoa que manda mensagem pedindo consulta?\n\nSe a resposta demorar, esse paciente não espera: ele fecha a conversa e chama a clínica vizinha.\n\nSalve este post e faça esta auditoria de 3 minutos no atendimento da sua equipe hoje mesmo:\n\n1. Tempo de resposta: a mensagem inicial recebe retorno em menos de 5 minutos?\n2. Tom de voz: a resposta acolhe e tira dúvidas ou parece uma mensagem fria e robótica?\n3. Condução do agendamento: a secretária sugere horários específicos ou espera o paciente decidir sozinho?\n4. Facilidade de reagendamento: remarcar uma consulta é simples ou exige muitas trocas de mensagens?\n5. Lembrete de presença: a equipe envia confirmação um dia antes para evitar buracos na agenda?\n\nSe a sua recepção falhar em dois ou mais pontos, você está perdendo agendamentos que já tinham interesse na sua clínica.\n\nQuando a sua clínica conta com um site sob medida integrado ao agendamento online e automação de WhatsApp, o próprio paciente escolhe o horário disponível e confirma a presença sem depender do tempo livre da secretária.\n\nToque no link da bio para conversar com a nossa equipe no WhatsApp e ver como organizar o fluxo de agendamentos da sua clínica.",
+      "hashtags": [
+        "#gestaodeclinica",
+        "#atendimentomedico",
+        "#clinicasmedicas",
+        "#agendamentoonline",
+        "#esmweb"
+      ],
+      "cta": "Toque no link da bio e **fale conosco** no WhatsApp"
+    },
+    "media": [
+      "out/abecd4ea/post-01.jpg"
+    ],
+    "status": "pending",
+    "createdAt": "2026-11-25T19:11:26.824Z",
+    "alternatives": [
+      {
+        "topic": "Petição e recurso gerados por IA sem revisão humana: o risco de ter seu processo rejeitado nos tribunais",
+        "pillar": "regras",
+        "niche": "advocacia",
+        "angle": "Explica os recentes posicionamentos dos tribunais (como o STJ) e conselhos de classe sobre o uso irresponsável de IA em peças jurídicas e artigos de escritórios, entregando um protocolo simples de 3 etapas de validação humana antes de publicar qualquer tese.",
+        "score": 9.4
+      },
+      {
+        "topic": "Proposta Comercial em PDF por mensagem vs. Calculadora de Economia interativa na Web: qual fecha mais projetos?",
+        "pillar": "comparacao",
+        "niche": "energia solar",
+        "angle": "Compara o comportamento do cliente final ao receber um documento estático de 15 páginas versus uma página simples onde ele simula a própria economia, detalhando o momento ideal de usar cada formato no ciclo de vendas.",
+        "score": 9.4
+      },
+      {
+        "topic": "Funcionários usando IAs gratuitas para atender clientes: o risco silencioso de vazamento de dados na sua empresa",
+        "pillar": "noticia",
+        "niche": "negócio local em geral",
+        "angle": "Traduz as novas discussões sobre governança de dados e LGPD quando múltiplos setores da empresa usam ferramentas de IA sem controle, oferecendo uma diretriz interna simples de segurança para o dono alinhar com a equipe.",
+        "score": 9.3
+      },
+      {
+        "topic": "Como configurar a mensagem de saudação do WhatsApp Business para filtrar emergências sem afastar agendamentos",
+        "pillar": "tutorial",
+        "niche": "clínicas e consultórios",
+        "angle": "Passo a passo prático para estruturar o menu de atendimento inicial gratuito no próprio aplicativo, organizando horários de retorno, dúvidas frequentes e urgências sem precisar contratar sistemas caros de cara.",
+        "score": 9.2
+      },
+      {
+        "topic": "Pare de produzir posts citando números de artigos de lei achando que o cliente final vai te contratar por isso",
+        "pillar": "opiniao",
+        "niche": "advocacia",
+        "angle": "Defende que a produção de conteúdo técnico demais atrai apenas outros advogados ou estudantes, e mostra como traduzir a dor real do cliente em linguagem acessível sem perder a autoridade.",
+        "score": 9.2
+      },
+      {
+        "topic": "Como o algoritmo do Google realmente confirma se a sua clínica existe na cidade (para além do endereço cadastrado)",
+        "pillar": "bastidor",
+        "niche": "negócio local em geral",
+        "angle": "Explica em linguagem acessível o conceito de coerência de dados locais (NAP) e cruzamento de menções na web, mostrando como inconsistências de telefone ou nome pela internet fazem o negócio cair nas pesquisas locais.",
+        "score": 9.1
+      },
+      {
+        "topic": "Mito ou verdade: dar desconto agressivo logo na primeira proposta é o melhor caminho para fechar contrato de solar?",
+        "pillar": "mitos",
+        "niche": "energia solar",
+        "angle": "Derruba a crença de que a venda de energia solar se decide apenas pelo menor preço e explica como garantias operacionais, clareza técnica e apresentação do projeto pesam mais na decisão de quem compra.",
+        "score": 9.1
+      },
+      {
+        "topic": "O erro de esconder o valor estimado da avaliação inicial até o cliente quase desistir no WhatsApp",
+        "pillar": "erros",
+        "niche": "estética",
+        "angle": "Mostra como a retenção excessiva de informações na conversa inicial gera abandono de contato em clínicas de estética, e ensina como comunicar faixas de investimento e valor percebido sem ferir normas éticas.",
+        "score": 9
+      },
+      {
+        "topic": "Imagine que um potencial cliente pesquisa um procedimento na sua cidade e encontra duas clínicas parecidas...",
+        "pillar": "cenario",
+        "niche": "estética",
+        "angle": "Desenvolve um cenário hipotético em que duas clínicas têm boa reputação, mas a experiência de agendamento e clareza das informações de uma faz o cliente decidir em minutos, evidenciando pontos céticos da jornada do paciente.",
+        "score": 9
+      }
+    ],
+    "release": {
+      "tag": "post-abecd4ea",
+      "files": [
+        "post-01.jpg",
+        "story-01.jpg",
+        "story-02.jpg",
+        "story-03.jpg",
+        "story-04.jpg",
+        "story-05.jpg"
+      ]
+    },
+    "story": {
+      "media": [
+        "out/abecd4ea/story-01.jpg",
+        "out/abecd4ea/story-02.jpg",
+        "out/abecd4ea/story-03.jpg",
+        "out/abecd4ea/story-04.jpg",
+        "out/abecd4ea/story-05.jpg"
+      ]
+    },
+    "messageId": 194
   }
 ]
