@@ -2357,7 +2357,7 @@
     "media": [
       "out/abecd4ea/post-01.jpg"
     ],
-    "status": "publishing",
+    "status": "posted",
     "createdAt": "2026-11-25T19:11:26.824Z",
     "alternatives": [
       {
@@ -2444,6 +2444,8 @@
         "out/abecd4ea/story-05.jpg"
       ]
     },
-    "messageId": 194
+    "messageId": 194,
+    "igMediaId": "17921569938532467",
+    "postedAt": "2026-11-25T19:15:05.545Z"
   }
 ]
