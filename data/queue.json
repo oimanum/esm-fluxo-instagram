@@ -2448,5 +2448,168 @@
     "igMediaId": "17921569938532467",
     "postedAt": "2026-11-25T19:15:05.545Z",
     "storiesPosted": 5
+  },
+  {
+    "id": "3f6338f2",
+    "topic": "Novas regras da OAB sobre publicidade digital: o que mudou na prática para vídeos e anúncios",
+    "angle": "Tradução das diretrizes recentes dos provimentos da OAB para a linguagem do dia a dia, indicando o que pode e o que veta patrocínio direto.",
+    "pillar": "regras",
+    "niche": "advocacia",
+    "format": "carousel",
+    "post": {
+      "label": "PUBLICIDADE DA OAB",
+      "hook": "OAB liberou anúncios? O que **muda de verdade** para o seu escritório",
+      "script": "OAB liberou anúncios? O que muda de verdade | O limite entre o informativo e o comercial | O perigo do patrocínio direto | O que seu escritório deve fazer no lugar",
+      "caption": "Muitos advogados acham que as novas regras da OAB abriram espaço para impulsionar qualquer vídeo no Instagram como se faz no comércio. Na prática, a publicidade na advocacia continua tendo limites rígidos para preservar a sobriedade da profissão. O foco deve ser sempre a **informação jurídica de qualidade**, e nunca a oferta direta de serviços com tom mercantil.\n\nSe você quer atrair novos clientes para o seu escritório, precisa entender o que pode e o que veta o patrocínio de publicações, evitando infrações éticas que geram dor de cabeça com o Tribunal de Ética.\n\nConfirme sempre as diretrizes atuais direto com a sua seccional da OAB ou com um profissional especializado antes de colocar dinheiro em anúncios.\n\nUm site próprio bem estruturado e com artigos informativos resolve essa busca por visibilidade sem depender das regras voláteis das redes sociais. Um site profissional com páginas que convertem e botão de WhatsApp integrado permite que quem busca por orientação jurídica no Google chegue direto ao seu atendimento, de forma segura e dentro da ética.",
+      "hashtags": [
+        "#marketingjuridico",
+        "#advocacia",
+        "#eticaoab",
+        "#publicidadelegal",
+        "#gestaojuridica"
+      ],
+      "cta": "Chame no WhatsApp para saber mais",
+      "slides": [
+        {
+          "kind": "statement",
+          "kicker": "REGRA DA OAB",
+          "title": "O que **pode e o que veta** nos anúncios do seu escritório",
+          "body": "A OAB permite a publicidade informativa, mas proíbe posturas comerciais agressivas."
+        },
+        {
+          "kind": "numbered",
+          "n": 1,
+          "title": "O limite do patrocínio",
+          "body": "Você pode impulsionar conteúdos educativos, mas **nunca pagar** para patrocinar posts com chamadas diretas para contratação.",
+          "card": {
+            "label": "ATENÇÃO",
+            "text": "Evite tom comercial"
+          }
+        },
+        {
+          "kind": "versus",
+          "title": "Como divulgar seu trabalho",
+          "bad": {
+            "label": "PROIBIDO",
+            "text": "Anúncio chamando para fechar contrato"
+          },
+          "good": {
+            "label": "PERMITIDO",
+            "text": "Artigo tirando dúvidas sobre uma nova lei"
+          },
+          "tip": {
+            "label": "REGRA DE OURO",
+            "text": "Foque em educar o cliente"
+          },
+          "why": "A advocacia é função essencial à justiça e exige sobriedade."
+        }
+      ],
+      "sub": "Entenda as normas da OAB para evitar problemas éticos no Instagram.",
+      "bridge": {
+        "title": "Sua vitrine fora das redes sociais",
+        "text": "Um site profissional com WhatsApp integrado atrai quem busca por você no Google, sem depender das restrições de anúncios do Instagram."
+      }
+    },
+    "media": [
+      "out/3f6338f2/slide-01.jpg",
+      "out/3f6338f2/slide-02.jpg",
+      "out/3f6338f2/slide-03.jpg",
+      "out/3f6338f2/slide-04.jpg",
+      "out/3f6338f2/slide-05.jpg",
+      "out/3f6338f2/slide-06.jpg"
+    ],
+    "status": "pending",
+    "createdAt": "2026-11-26T18:57:56.364Z",
+    "alternatives": [
+      {
+        "topic": "Checklist de 5 minutos: sua clínica está pronta para receber o tráfego de quem busca no Google?",
+        "pillar": "checklist",
+        "niche": "clínicas e consultórios",
+        "angle": "Lista curta de autoavaliação focada em clareza de serviços, facilidade de contato mobile e rapidez de carregamento da página.",
+        "score": 9.6
+      },
+      {
+        "topic": "Como configurar o horário de funcionamento de feriado no Google Meu Negócio antes de perder clientes",
+        "pillar": "tutorial",
+        "niche": "negócio local em geral",
+        "angle": "Passo a passo rápido para atualizar horários especiais no painel do Google, evitando que o cliente vá até a clínica ou escritório e encontre fechado.",
+        "score": 9.4
+      },
+      {
+        "topic": "Como o Google lê as fotos da sua clínica: o detalhe técnico que melhora seu posicionamento local",
+        "pillar": "tutorial",
+        "niche": "clínicas e consultórios",
+        "angle": "Mostra como renomear arquivos de imagem e usar geotags simples antes de subir para o perfil do Google Meu Negócio.",
+        "score": 9.4
+      },
+      {
+        "topic": "O que acontece nos bastidores quando um cliente digita 'melhor advogado trabalhista perto de mim' no celular",
+        "pillar": "bastidor",
+        "niche": "advocacia",
+        "angle": "Explica de forma simples como o algoritmo cruza a geolocalização, as avaliações e a existência de um site estruturado para decidir quem aparece primeiro.",
+        "score": 9.3
+      },
+      {
+        "topic": "Mito ou Verdade: postar todo dia no feed do Instagram atrai mais clientes que ter uma página otimizada no Google",
+        "pillar": "mitos",
+        "niche": "clínicas e consultórios",
+        "angle": "Derruba a crença de que volume de conteúdo no Instagram substitui a presença de busca ativa no Google, mostrando onde cada canal realmente converte.",
+        "score": 9.2
+      },
+      {
+        "topic": "Imagine este cenário: o cliente entra no seu site pelo celular, quer tirar uma dúvida urgente, mas o botão do WhatsApp não abre",
+        "pillar": "cenario",
+        "niche": "negócio local em geral",
+        "angle": "Hipótese do cotidiano que ilustra a fricção invisível no mobile que faz o potencial cliente desistir e ir para o concorrente.",
+        "score": 9.2
+      },
+      {
+        "topic": "Link na bio do Instagram ou Landing Page própria: qual escolher para receber orçamentos?",
+        "pillar": "comparacao",
+        "niche": "estética",
+        "angle": "Compara as limitações de direcionar cliques para uma árvore de links genérica versus uma página de conversão focada em um único procedimento.",
+        "score": 9.1
+      },
+      {
+        "topic": "O erro de design na sua Landing Page que faz o cliente fechar a aba em 3 segundos",
+        "pillar": "erros",
+        "niche": "energia solar",
+        "angle": "Aponta o uso de textos longos e sem destaque para o botão de orçamento no topo da página, mostrando o impacto na conversão e como corrigir.",
+        "score": 9
+      },
+      {
+        "topic": "Pare de gastar com impulsionamento de posts no Instagram se você não tem para onde mandar o lead",
+        "pillar": "opiniao",
+        "niche": "energia solar",
+        "angle": "Defende com argumentos práticos que impulsionar sem uma página de destino profissional é desperdiçar orçamento de mídia em curtidas vazias.",
+        "score": 9
+      }
+    ],
+    "release": {
+      "tag": "post-3f6338f2",
+      "files": [
+        "slide-01.jpg",
+        "slide-02.jpg",
+        "slide-03.jpg",
+        "slide-04.jpg",
+        "slide-05.jpg",
+        "slide-06.jpg",
+        "story-01.jpg",
+        "story-02.jpg",
+        "story-03.jpg",
+        "story-04.jpg",
+        "story-05.jpg"
+      ]
+    },
+    "story": {
+      "media": [
+        "out/3f6338f2/story-01.jpg",
+        "out/3f6338f2/story-02.jpg",
+        "out/3f6338f2/story-03.jpg",
+        "out/3f6338f2/story-04.jpg",
+        "out/3f6338f2/story-05.jpg"
+      ]
+    },
+    "messageId": 208
   }
 ]
