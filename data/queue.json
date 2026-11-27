@@ -2611,5 +2611,160 @@
       ]
     },
     "messageId": 208
+  },
+  {
+    "id": "54c3fe3d",
+    "topic": "O 'Golpe do Falso Advogado' usando dados de processos públicos disparou: como proteger a imagem do seu escritório e alertar seus clientes sem gerar pânico?",
+    "angle": "Explica como os golpistas clonam fotos de advogados e usam consultas públicas do PJe/TJ para pedir Pix de alvará aos clientes do escritório. Ensina o advogado a criar um protocolo de comunicação seguro (ex: mensagem fixa no WhatsApp, aviso no contrato e canal oficial de confirmação) para blindar a reputação do escritório.",
+    "pillar": "noticia",
+    "niche": "advocacia",
+    "format": "reel",
+    "post": {
+      "label": "ALERTA PARA ADVOGADOS",
+      "hook": "**Golpistas usam processos** públicos para extorquir seus clientes.",
+      "script": "Golpistas usam dados de processos públicos para extorquir seus clientes. Eles clonam sua foto e cobram taxas falsas para liberar alvarás. Proteja o escritório fixando o contato oficial no WhatsApp e orientando no contrato. Ter um site oficial centraliza a validação de dados e passa total credibilidade. A ESM Web desenvolve páginas seguras que organizam seu atendimento e protegem sua marca.",
+      "hashtags": [
+        "#advocacia",
+        "#direito",
+        "#escritoriodeadvocacia",
+        "#marketingjuridico",
+        "#esmweb"
+      ],
+      "cta": "Chame no WhatsApp para criar seu site oficial",
+      "caption": "O golpe do falso advogado cresceu e atinge diretamente a reputação do seu escritório.\n\nCriminosos monitoram as consultas públicas do PJe e de Tribunais de Justiça. Com os dados da ação em mãos, eles clonam a foto do advogado no WhatsApp e entram em contato com o cliente prometendo a liberação de alvarás mediante um Pix de taxa falsa.\n\nComo proteger seus clientes sem gerar pânico?\n\n1. Crie uma cláusula no contrato alertando que o escritório nunca solicita pagamentos via chave Pix de terceiros.\n2. Fixe uma mensagem padrão no topo do WhatsApp do escritório informando os únicos canais oficiais de cobrança.\n3. Oriente o cliente a sempre confirmar qualquer pedido de valor por um canal centralizado.\n\nPara garantir que seu cliente saiba exatamente onde encontrar as informações verdadeiras, ter um endereço oficial na internet faz toda a diferença.\n\nA ESM Web desenvolve sites e sistemas sob medida para escritórios de advocacia, centralizando seus canais de atendimento e protegendo a credibilidade do seu negócio.",
+      "visuals": [
+        {
+          "type": "notification",
+          "items": [
+            "Mensagem suspeita recebida",
+            "Alerta de segurança"
+          ]
+        },
+        {
+          "type": "chat",
+          "msgs": [
+            {
+              "who": "cliente",
+              "text": "Preciso pagar taxa para o alvará?"
+            },
+            {
+              "who": "voce",
+              "text": "Não pague! É golpe de falso perfil."
+            }
+          ]
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "Aviso no contrato",
+            "Mensagem fixa no Zap",
+            "Canal de confirmação"
+          ]
+        },
+        {
+          "type": "site",
+          "niche": 1
+        },
+        {
+          "type": "steps",
+          "steps": [
+            "Consulta no site",
+            "Contato oficial",
+            "Atendimento seguro"
+          ]
+        }
+      ]
+    },
+    "media": [
+      "out/54c3fe3d/reel.mp4"
+    ],
+    "status": "pending",
+    "createdAt": "2026-11-27T18:53:22.486Z",
+    "alternatives": [
+      {
+        "topic": "'Antes e Depois' na estética e odontologia: o que a Vigilância e os Conselhos profissionais realmente proíbem e como mostrar resultados sem risco de punição",
+        "pillar": "regras",
+        "niche": "estética",
+        "angle": "Esclarece a linha ética entre promessa implícita de resultado (proibida) e registro de evolução de paciente (permitido sob condições). Entrega a estrutura do termo de consentimento de imagem necessário e como formatar legendas e fotos sem violar CFO/CFM/Vigilância.",
+        "score": 9.3
+      },
+      {
+        "topic": "Checklist da Secretária Digital: 5 testes simples para saber se a sua primeira resposta no WhatsApp está expulsando o paciente da clínica",
+        "pillar": "checklist",
+        "niche": "clínicas e consultórios",
+        "angle": "Disponibiliza uma lista de checagem rápida (tempo de resposta, blocos de texto vs. áudios longos, envio de preço isolado, ausência de chamada para agendamento e tom impessoal). O gestor aplica enviando uma mensagem-teste ou auditando os últimos 10 atendimentos da equipe.",
+        "score": 9.3
+      },
+      {
+        "topic": "Passo a passo para rastrear no WhatsApp exatamente quais agendamentos da sua clínica vieram do perfil do Google Maps (sem pagar softwares)",
+        "pillar": "tutorial",
+        "niche": "clínicas e consultórios",
+        "angle": "Ensina a criar links com parâmetros UTM e mensagens pré-definidas personalizadas no Google Meu Negócio. O dono aprende a configurar em 10 minutos para saber exatamente quantos pacientes o perfil gratuito do Google traz direto para o WhatsApp.",
+        "score": 9.2
+      },
+      {
+        "topic": "Como o algoritmo do Google Local decide quem aparece no 'Top 3 do Mapa' quando alguém pesquisa por uma especialidade no seu bairro",
+        "pillar": "bastidor",
+        "niche": "negócio local em geral",
+        "angle": "Desmistifica os 3 pilares reais do ranking geolocalizado: Proximidade, Relevância e Destaque (reviews + consistência de dados NAP). O gestor entende por que a consistência das informações em toda a web vale mais do que postar diariamente no feed social.",
+        "score": 9.2
+      },
+      {
+        "topic": "Anúncios no Google Search vs. Meta Ads (Instagram): qual canal traz o cliente de honorário mais alto para cada área do Direito?",
+        "pillar": "comparacao",
+        "niche": "advocacia",
+        "angle": "Compara a intenção imediata de busca (necessidade urgente no Google para causas trabalhistas ou de família) com a construção de autoridade/geração de demanda (Meta Ads para direito empresarial ou tributário). O advogado aprende onde focar a verba com base no seu nicho de atuação.",
+        "score": 9.2
+      },
+      {
+        "topic": "O erro no formulário de contato que faz sua empresa de Energia Solar gastar comercial com quem só quer 'curioso de baixa renda' ou sem telhado",
+        "pillar": "erros",
+        "niche": "energia solar",
+        "angle": "Identifica a falha de usar formulários genéricos de captura ('Deixe seu telefone'). Mostra como a introdução de 3 perguntas de pré-qualificação no ponto de contato (faixa da conta, tipo de imóvel e propriedade) reduz o custo de pré-vendas e aumenta o fechamento dos integradores.",
+        "score": 9.1
+      },
+      {
+        "topic": "Pare de dar descontos agressivos em tratamentos estéticos corporais ou faciais no seu espaço",
+        "pillar": "opiniao",
+        "niche": "estética",
+        "angle": "Defende que dar descontos de preço espreme margens de lucro, destrói a percepção de autoridade técnica e atrai clientes de baixa fidelidade. Mostra como substituir ofertas de preço por pacotes de valor agregado e programas de retenção.",
+        "score": 9.1
+      },
+      {
+        "topic": "Imagine que um cliente corporativo pesquise o nome da sua empresa de Energia Solar após receber uma proposta de R$ 150 mil. O que ele encontra?",
+        "pillar": "cenario",
+        "niche": "energia solar",
+        "angle": "Apresenta o cenário hipotético de um diretor financeiro validando a reputação de uma integradora no Google antes de assinar o contrato. Revela como a ausência de casos de estudo documentados e certidões institucionais faz propostas de alto ticket travarem na etapa final de decisão.",
+        "score": 9.1
+      },
+      {
+        "topic": "'Se eu cadastrar o endereço de casa ou ocultar o local no Google Meu Negócio, meu serviço aparece no mapa do mesmo jeito': Mito ou Verdade?",
+        "pillar": "mitos",
+        "niche": "negócio local em geral",
+        "angle": "Derruba a crença de que perfis marcados apenas como 'Área de Cobertura' possuem o mesmo alcance visual que perfis com endereço físico confirmado nas buscas locais. Explica as diretrizes de diretórios do Google e o impacto real na visibilidade geográfica.",
+        "score": 9.1
+      }
+    ],
+    "release": {
+      "tag": "post-54c3fe3d",
+      "files": [
+        "reel.mp4",
+        "story-01.jpg",
+        "story-02.jpg",
+        "story-03.jpg",
+        "story-04.jpg",
+        "story-05.jpg"
+      ]
+    },
+    "story": {
+      "media": [
+        "out/54c3fe3d/story-01.jpg",
+        "out/54c3fe3d/story-02.jpg",
+        "out/54c3fe3d/story-03.jpg",
+        "out/54c3fe3d/story-04.jpg",
+        "out/54c3fe3d/story-05.jpg"
+      ]
+    },
+    "messageId": 216
   }
 ]
