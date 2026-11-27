@@ -2678,7 +2678,7 @@
     "media": [
       "out/54c3fe3d/reel.mp4"
     ],
-    "status": "publishing",
+    "status": "posted",
     "createdAt": "2026-11-27T18:53:22.486Z",
     "alternatives": [
       {
@@ -2765,6 +2765,8 @@
         "out/54c3fe3d/story-05.jpg"
       ]
     },
-    "messageId": 216
+    "messageId": 216,
+    "igMediaId": "18143433238726637",
+    "postedAt": "2026-11-27T18:56:36.974Z"
   }
 ]
